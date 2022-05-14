@@ -1,4 +1,5 @@
 from gtts import gTTS
 
-tts = gTTS("Testing TTS Functionality", lang="en")
-tts.save("test.mp3")
+text = open('assu.txt','r').read()
+tts = gTTS(text, lang="pt")
+tts.save("assu.mp3")
