@@ -8,49 +8,178 @@ namespace imgfetch
 {
     internal class Program
     {
-        public static string[] APICalls = new string[] { "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)", "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo"};
-
+        public static string[] APICalls = new string[] { "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a", "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo"};
+        public static string RightsAddonGoogleCSE = "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
         enum Services
         {
-            GoogleCSE,
-            Pixabay
+            googlecse,
+            pixabay
+        }
+
+        enum licenses
+        {
+            any,cc
         }
 
         static void Main(string[] args)
         {
             //Teste de API de busca de imagens.
+            Services service = Services.googlecse;
+
+            if (args.Length == 0)
+            {
+                CLI_Guide();
+            }
+            else if (args.Length == 1)
+            {
+                MakeHTTPRequest(APICalls[(int)service],args[0],service);
+            }
+            // else if (args.Contains("--help"))
+            // {
+            //     Console.WriteLine("imgfetch Image API testing program for EXPOTEC 2022\nUsage: imgfetch [-s {service} [-l {any:cc}] {query}]\n\n(no args)   Launch program in Guide mode\n-s          Service to use for the search (check guide mode for available services)\n-l          Filter images by license (available on select services like googlecse)\n            Types:\n                any - Any image type\n                cc - Creative commons licenses for commercial use\nquery       The search term\n");
+            //     /*
+            //     imgfetch Image API testing program for EXPOTEC 2022
+            //     Usage: imgfetch [-s {service} [-l {any:cc}] {query}]
+
+            //     (no args)   Launch program in Guide mode
+            //     -s          Service to use for the search (check guide mode for available services)
+            //     -l          Filter images by license (available on select services like googlecse)
+            //                 Types:
+            //                     any - Any image type
+            //                     cc - Creative commons licenses for commercial use
+            //     query       The search term
+                
+            //     */
+            // }
+            // else if (args.Length == 1 || args.Length > 3)
+            // {
+            //     Console.Error.WriteLine("Invalid arguments. Please check --help");
+            //     return;
+            // }
+            // else
+            // {
+            //     if (args[0].StartsWith("-s "))
+            //     {
+            //         string i1 = args[0].Substring(3);
+            //         if (i1 == "googlecse")
+            //         {
+            //             service = Services.googlecse;
+            //         }
+            //         else if (i1 == "pixabay")
+            //         {
+            //             service = Services.pixabay;
+            //         }
+            //         else
+            //         {
+            //             Console.Error.WriteLine("Invalid service. Please check --help or imgfetch (without args)");
+            //             return;
+            //         }
+            //         //Path 1: -l and 3 args
+            //         //Path 2: query and 2 args
+
+            //         if (args.Length == 3 && args[1].StartsWith("-l "))
+            //         {
+            //             string i2 = args[1].Substring(3);
+            //             if (i2 == "any")
+            //             {
+            //                 license = licenses.any;
+            //             }
+            //             else if (i2 == "cc" && service == Services.googlecse)
+            //             {
+            //                 license = licenses.cc;
+            //             }
+            //             else
+            //             {
+            //                 Console.Error.WriteLine("License type unknown or unsupported by the selected service. Please check --help");
+            //                 return;
+            //             }
+            //             query = args[2];
+            //         }
+            //         else if (args.Length == 2)
+            //         {
+            //             query = args[1];
+            //         }
+            //         else
+            //         {
+            //             Console.Error.WriteLine("Invalid arguments. Please check --help");
+            //             return;
+            //         }
+
+            //         //All OK at this point
+            //         string api = APICalls[(int)service];
+            //         if (service == Services.googlecse)
+            //         {
+            //             if (license == licenses.cc)
+            //             {
+            //                 api += RightsAddonGoogleCSE;
+            //             }
+            //         }
+            //         MakeHTTPRequest(api,query,service);
+            //     }
+            //     else
+            //     {
+            //         Console.Error.WriteLine("Invalid service. Please check --help");
+            //         return;
+            //     }
+            // }
+        }
+
+        static void CLI_Guide()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Title = "Imgfetch Image API testing";
             Console.WriteLine("Welcome to Imgfetch!");
             Console.WriteLine("======================\n");
-
+            Console.ForegroundColor = ConsoleColor.White;
+            
             services:
             Console.WriteLine("Services available:");
-            Console.WriteLine("(1) Google Custom Search");
-            Console.WriteLine("(2) Pixabay Search API");
-            Console.Write("Which service? [ ]");
+            Console.Write(" (A) ");Console.ForegroundColor = ConsoleColor.Blue;Console.WriteLine("Google Custom Search (googlecse)");Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" (B) ");Console.ForegroundColor = ConsoleColor.Green;Console.WriteLine("Pixabay Search API (pixabay)");Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Which service? ");
             
-            Console.SetCursorPosition(16,6);
-            char input = (char)Console.Read();
-            Console.ReadKey();
+            
+            ConsoleKey input = Console.ReadKey().Key;
             Console.WriteLine("\n");
-            Services selectedService = Services.GoogleCSE;
-            string api = "";
-            if (input == '1')
+            Services selectedService = Services.googlecse;
+            string api = "",addon = "";
+            if (input == ConsoleKey.A)
             {
-                selectedService = Services.GoogleCSE;
+                selectedService = Services.googlecse;
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                license:
+                Console.WriteLine("Select Image License type:");
+                Console.WriteLine(" (A) Any image");
+                Console.WriteLine(" (B) Creative Commons licenses for commercial use");
+                Console.Write("Which type? ");
+                ConsoleKeyInfo input2 = Console.ReadKey();
+                if (input2.Key == ConsoleKey.A)
+                {
+                    addon = "";
+                }
+                else if (input2.Key == ConsoleKey.B)
+                {
+                    addon = RightsAddonGoogleCSE;
+                }
+                else
+                {
+                    goto license;
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\n");
             }
-            else if (input == '2')
+            else if (input == ConsoleKey.B)
             {
-                selectedService = Services.Pixabay;
+                selectedService = Services.pixabay;
             }
             else 
             {
                 goto services;
             }
-            api = APICalls[(int)selectedService];
+            api = APICalls[(int)selectedService] + addon;
             Console.WriteLine("Selected service: " + selectedService.ToString());
-            //Console.ReadKey();
 
             search:
             
@@ -59,34 +188,44 @@ namespace imgfetch
             if (q != null && q != "")
             {
                 //make http request
-                HttpClient client = new HttpClient();
-                HttpRequestMessage m = new HttpRequestMessage();
-                
-                Console.Write("Defining parameters...");
-                m.Method = HttpMethod.Get;
-                m.RequestUri = new Uri(string.Format(api,q));
-                Console.WriteLine("OK");
-                
-                Console.Write("Sending request to " + m.RequestUri.ToString() + "...");
-                HttpResponseMessage result = client.Send(m);
-                Console.WriteLine("OK");
-                
-                //parse contents
-                if (result.Content != null)
-                {
-                    if (selectedService == Services.GoogleCSE)
-                    {
-                        Parse_GoogleCSE(result);
-                    }
-                    else if (selectedService == Services.Pixabay)
-                    {
-                        Parse_Pixabay(result);
-                    }
-                }
+                MakeHTTPRequest(api,q,selectedService);
             }
             else
             {
                 goto search;
+            }
+        }
+
+        static void MakeHTTPRequest(string api, string q, Services selectedService)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage m = new HttpRequestMessage();
+            
+            Console.Write("Defining parameters...");
+            m.Method = HttpMethod.Get;
+            m.RequestUri = new Uri(string.Format(api,q));
+            Console.WriteLine("OK");
+            
+            Console.Write("Sending request to <");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(m.RequestUri.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(">...");
+
+            HttpResponseMessage result = client.Send(m);
+            Console.WriteLine("OK");
+            
+            //parse contents
+            if (result.Content != null)
+            {
+                if (selectedService == Services.googlecse)
+                {
+                    Parse_GoogleCSE(result);
+                }
+                else if (selectedService == Services.pixabay)
+                {
+                    Parse_Pixabay(result);
+                }
             }
         }
 
