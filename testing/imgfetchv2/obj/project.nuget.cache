@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "zdSCVuIgudgqewMMU9Cbro2gvXuoXv7nFDp4GrzD8njkwT3dePoy7FzNf1oYuKDAkz8xLcP0vqF73Z+wAPwB3A==",
+  "success": true,
+  "projectFilePath": "/home/gabp/Projects/expovgen/testing/imgfetchv2/imgfetchv2.csproj",
+  "expectedPackageFiles": [
+    "/home/gabp/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "/home/gabp/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
