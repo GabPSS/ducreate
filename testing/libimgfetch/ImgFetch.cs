@@ -7,20 +7,62 @@ namespace libimgfetch
 {
     public enum Services {
             google,
-            googlecc,
             pixabay,
+            pexels
         }
+
+    public interface IServicePreferences
+    {
+        
+    }
+
+    public class GooglePreferences : IServicePreferences
+    {
+        public bool UseCCLicense {get;set;}
+        public GooglePreferences()
+        {
+
+        }
+    }
+
     public class ImgFetch
     {
         private static string[] Endpoints = { 
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
-            "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)",
-            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo"
+            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
+            ""
         };
+        
+        /// <summary>
+        /// Sends an HTTP request to the selected service and returns the file streams returned by the request.
+        /// </summary>
         public static List<Stream> GetImageStreams(Services service, string query)
         {
             string api = string.Format(Endpoints[(int)service],query);
-            List<string> QueryURLs = MakeHTTPImageRequest(api,service);
+            return GetImageStreams(api,service);
+        }
+
+        public static List<Stream> GetImageStreams(Services service, string query, IServicePreferences preferences)
+        {
+            if (service == Services.google && preferences.GetType() == typeof(GooglePreferences))
+            {
+                GooglePreferences gpref = preferences as GooglePreferences;
+                string api = string.Format(Endpoints[(int)service],query);
+                if (gpref.UseCCLicense)
+                {
+                    api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
+                }
+                return GetImageStreams(api,service);
+            }
+            else
+            {
+                return new List<Stream>();
+            }
+        }
+
+        public static List<Stream> GetImageStreams(string queryurl, Services service)
+        {
+            List<string> QueryURLs = MakeHTTPImageRequest(queryurl,service);
             int i = 0;
             List<Stream> FileStreams = new List<Stream>();
             foreach (string url in QueryURLs)
@@ -52,13 +94,17 @@ namespace libimgfetch
             HttpResponseMessage result = client.Send(m);
             if (result.Content != null)
             {
-                if (service == Services.google || service == Services.googlecc)
+                if (service == Services.google)
                 {
                     return Parse_GoogleCSE(result);
                 }
                 else if (service == Services.pixabay)
                 {
                     return Parse_Pixabay(result);
+                }
+                else if (service == Services.pexels)
+                {
+                    return Parse_Pexels(result);
                 }
                 else
                 {
@@ -70,6 +116,7 @@ namespace libimgfetch
                 return new List<string>();
             }
         }
+
 
         static List<string> Parse_GoogleCSE(HttpResponseMessage result)
         {
@@ -129,6 +176,13 @@ namespace libimgfetch
             }
             return returning;
         }
+
+        static List<string> Parse_Pexels(HttpResponseMessage result)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+
 }
     
