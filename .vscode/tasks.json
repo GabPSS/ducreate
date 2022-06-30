@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/testing/imgfetchv2/imgfetchv2.csproj",
+                "${workspaceFolder}/testing/imgfetch/imgfetch.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/testing/imgfetchv2/imgfetchv2.csproj",
+                "${workspaceFolder}/testing/imgfetch/imgfetch.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/testing/imgfetchv2/imgfetchv2.csproj"
+                "${workspaceFolder}/testing/imgfetch/imgfetch.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "imgfimptest/1.0.0": {
+        "dependencies": {
+          "libimgfetch": "1.0.0"
+        },
+        "runtime": {
+          "imgfimptest.dll": {}
+        }
+      },
+      "libimgfetch/1.0.0": {
+        "runtime": {
+          "libimgfetch.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "imgfimptest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "libimgfetch/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

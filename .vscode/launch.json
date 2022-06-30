@@ -10,11 +10,11 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/testing/imgfetchv2/bin/Debug/net6.0/imgfetchv2.dll",
-            "args": ["pixabay","programming"],
-            "cwd": "${workspaceFolder}/testing/imgfetchv2",
+            "program": "${workspaceFolder}/testing/imgfetch/bin/Debug/net6.0/imgfetch.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/testing/imgfetch",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-            "console": "integratedTerminal",
+            "console": "internalConsole",
             "stopAtEntry": false
         },
         {
