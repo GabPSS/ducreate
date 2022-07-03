@@ -13,3 +13,5 @@ C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\o
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\ref\GuiIfTestDotnet.dll
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.pdb
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.genruntimeconfig.cache
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.Form1.resources
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.csproj.GenerateResource.cache
