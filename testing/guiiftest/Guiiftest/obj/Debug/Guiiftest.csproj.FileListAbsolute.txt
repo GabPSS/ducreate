@@ -1,0 +1,6 @@
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.csproj.AssemblyReference.cache
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.csproj.SuggestedBindingRedirects.cache
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.Form1.resources
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.Properties.Resources.resources
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.csproj.GenerateResource.cache
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\Guiiftest\obj\Debug\Guiiftest.csproj.CoreCompileInputs.cache
