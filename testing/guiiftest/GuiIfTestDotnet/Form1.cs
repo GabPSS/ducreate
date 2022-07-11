@@ -24,7 +24,8 @@ namespace GuiIfTestDotnet
             Thread imgfetch = new Thread(() => { 
                 WriteLine("Obtendo imagens através da internet...");
                 SetProgress(20,ProgressBarStyle.Marquee);
-                fileStreams = ImgFetch.RequestImageStreams(service,query);
+                ImgFetch fetcher = new ImgFetch();
+                fileStreams = fetcher.RequestImageStreams(service,query);
                 
                 int i = 0;
                 foreach (Stream file in fileStreams)

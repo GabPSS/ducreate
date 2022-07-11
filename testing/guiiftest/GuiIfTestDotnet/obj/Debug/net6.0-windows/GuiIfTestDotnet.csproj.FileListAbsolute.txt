@@ -15,3 +15,6 @@ C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\o
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.genruntimeconfig.cache
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.Form1.resources
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.csproj.GenerateResource.cache
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\libimgfetch.dll
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\libimgfetch.pdb
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.csproj.CopyComplete
