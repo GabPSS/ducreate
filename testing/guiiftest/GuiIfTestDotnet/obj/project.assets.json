@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows7.0": {}
+    "net6.0-windows7.0": {
+      "libimgfetch/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/libimgfetch.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/libimgfetch.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "libimgfetch/1.0.0": {
+      "type": "project",
+      "path": "../libimgfetch/libimgfetch.csproj",
+      "msbuildProject": "../libimgfetch/libimgfetch.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0-windows7.0": []
+    "net6.0-windows7.0": [
+      "libimgfetch >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\testing\\guiiftest\\libimgfetch\\libimgfetch.csproj": {
+              "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\testing\\guiiftest\\libimgfetch\\libimgfetch.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -63,7 +86,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }
