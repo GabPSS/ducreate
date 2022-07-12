@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Text;
 using System.Text.Json.Nodes;
 
 namespace libimgfetch
@@ -13,24 +14,63 @@ namespace libimgfetch
         public GooglePreferences() { }
     }
 
-    public class ImgFetch
+    public class ImgFetchLogs
     {
-        public ImgFetch()
-        {
+        public List<string> Log = new List<string>();
 
+        public class TextWrittenEventArgs : EventArgs
+        {
+            public string WrittenText { get; set; } = "";
         }
 
+        public delegate void TextWrittenEventHandler(object source, TextWrittenEventArgs e);
+        public event TextWrittenEventHandler TextWritten;
 
-        private static string[] Endpoints = {
+        protected virtual void OnTextWritten(string text)
+        {
+            if (TextWritten != null)
+            {
+                TextWritten(this, new TextWrittenEventArgs() { WrittenText = text });
+            }
+        }
+
+        public void WriteLine(string text)
+        {
+            Log.Add(text);
+            OnTextWritten(text);
+        }
+    }
+
+    public class ImgFetch
+    {
+        /// <summary>
+        /// API endpoints list
+        /// </summary>
+        private static readonly string[] Endpoints = {
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
             "https://api.pexels.com/v1/search?query={0}"
         };
 
-        private static string PexelsAuth = ""; //TODO: Get and add Pexels API authorization token
+        /// <summary>
+        /// Auth token -- specific to Pexels
+        /// </summary>
+        private static readonly string PexelsAuth = ""; //TODO: Get and add Pexels API authorization token
 
-        private string GetURLString(Services service, string query)
+        public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
+
+        public ImgFetch() { }
+
+
+        /// <summary>
+        /// Formats a request url given a query and specified service
+        /// </summary>
+        /// <param name="service">The image search service</param>
+        /// <param name="query">The search query</param>
+        /// <returns>A formatted API request URL</returns>
+        private static string GetURLString(Services service, string query)
         {
+            
             string api = Endpoints[(int)service];
             if (service == Services.google || service == Services.pixabay || service == Services.pexels)
             {
@@ -39,18 +79,36 @@ namespace libimgfetch
             return api;
         }
 
+        /// <summary>
+        /// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
+        /// </summary>
+        /// <param name="service">The image search service</param>
+        /// <param name="query">The search query</param>
+        /// <returns>Returns an image list containing the returned bitmaps</returns>
         public List<Image> RequestImageBitmaps(Services service, string query)
         {
             List<Stream> fileStreams = RequestImageStreams(service, query);
             return CheckImageBitmaps(fileStreams);
         }
 
+        /// <summary>
+        /// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
+        /// </summary>
+        /// <param name="service">The image search service</param>
+        /// <param name="query">The search query</param>
+        /// <param name="preferences">An <see cref="IServicePreferences"/> object representing preferences for the specified service</param>
+        /// <returns>Returns an image list containing the returned bitmaps</returns>
         public List<Image> RequestImageBitmaps(Services service, string query, IServicePreferences preferences)
         {
             List<Stream> fileStreams = RequestImageStreams(service, query, preferences);
             return CheckImageBitmaps(fileStreams);
         }
 
+        /// <summary>
+        /// Checks if streams provided are actually bitmaps, then returns a list of valid bitmaps (available on Windows only)
+        /// </summary>
+        /// <param name="fileStreams">The stream of files</param>
+        /// <returns>An image list containing valid bitmaps</returns>
         private List<Image> CheckImageBitmaps(List<Stream> fileStreams)
         {
             List<Image> bitmaps = new List<Image>();
@@ -63,10 +121,44 @@ namespace libimgfetch
                 }
                 catch (Exception x)
                 {
-                    Console.Error.WriteLine("Warning while creating image from streams: " + x.Message);
+                    Logs.WriteLine("Warning while creating image from streams: " + x.Message);
                 }
             }
             return bitmaps;
+        }
+
+        public List<Stream> RequestAllImageStreams(string query)
+        {
+            List<Stream> ImageStreams = new List<Stream>();
+            int srv = 0;
+            try
+            {
+                while (true)
+                {
+                    Services service = (Services)srv;
+                    try
+                    {
+                        ImageStreams.AddRange(RequestImageStreams(service, query));
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        break;
+                    }
+                    catch (Exception) { }
+                    srv++;
+                }
+            }
+            catch { }
+            return ImageStreams;
+        }
+
+        public List<Stream> RequestImageStreams(ImgFetchRequest request)
+        {
+            string query = request.SearchQuery;
+            Services service = request.RequestingService;
+            IServicePreferences? preferences = request.ServicePreferences;
+
+            return RequestImageStreams(service, query, preferences);
         }
 
         /// <summary>
@@ -89,35 +181,40 @@ namespace libimgfetch
         /// <param name="query">The search query</param>
         /// <param name="preferences">An <see cref="IServicePreferences"/> object containing preferences for making the request</param>
         /// <returns>A List<Stream> containing all returned streams.</returns>
-        public List<Stream> RequestImageStreams(Services service, string query, IServicePreferences preferences)
+        public List<Stream> RequestImageStreams(Services service, string query, IServicePreferences? preferences)
         {
-            if (service == Services.google && preferences.GetType() == typeof(GooglePreferences))
+            if (preferences is not null)
             {
-                Console.WriteLine("Setting request preferences...");
-                GooglePreferences gpref = preferences as GooglePreferences;
-                string api = GetURLString(service, query);
-                if (gpref.UseCCLicense)
+                if (service == Services.google && preferences.GetType() == typeof(GooglePreferences))
                 {
-                    api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
+                    Logs.WriteLine("Setting request preferences...");
+                    GooglePreferences? gpref = preferences as GooglePreferences;
+                    if (gpref is not null) //It's always going to be...
+                    {
+                        string api = GetURLString(service, query);
+                        if (gpref.UseCCLicense)
+                        {
+                            api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
+                        }
+                        return RequestImageStreams(api, service);
+                    }
                 }
-                return RequestImageStreams(api, service);
+                //NOTE: Add any other service preferences here
+                
             }
-            else
-            {
-                return new List<Stream>();
-            }
+            return RequestImageStreams(service, query);
         }
 
         private List<Stream> RequestImageStreams(string requestUrl, Services service)
         {
             List<string> QueryURLs = RequestImageURLs(requestUrl, service);
-            Console.WriteLine("Begining file stream downloads..."); //TODO: I stopped here!
+            Logs.WriteLine("Begining file stream downloads..."); //TODO: I stopped here!
             List<Stream> FileStreams = new List<Stream>();
             foreach (string url in QueryURLs)
             {
                 try
                 {
-                    Console.WriteLine(url);
+                    Logs.WriteLine("Downloading stream from " + url);
                     HttpClient downloader = new HttpClient();
                     HttpRequestMessage request = new HttpRequestMessage();
                     request.RequestUri = new Uri(url);
@@ -127,9 +224,10 @@ namespace libimgfetch
                 }
                 catch (Exception x)
                 {
-                    Console.Error.Write("[Warning] while downloading: " + x.Message);
+                    Logs.WriteLine("[Warning] while downloading: " + x.Message);
                 }
             }
+            Logs.WriteLine("Stream download successful!");
             return FileStreams;
         }
 
@@ -149,9 +247,9 @@ namespace libimgfetch
             {
                 m.Headers.Add("Authorization", PexelsAuth);
             }
-            Console.WriteLine("Sending request...");
+            Logs.WriteLine("Sending request...");
             HttpResponseMessage result = client.Send(m);
-            Console.WriteLine("Parsing response...");
+            Logs.WriteLine("Parsing response...");
             //wait for it...
             if (result.Content != null)
             {
@@ -159,7 +257,7 @@ namespace libimgfetch
             }
             else
             {
-                Console.Error.WriteLine("WARNING: No output! Returning empty url list");
+                Logs.WriteLine("WARNING: No output! Returning empty url list");
                 return new List<string>();
             }
         }
@@ -193,6 +291,9 @@ namespace libimgfetch
             return returning;
         }
 
+        /// <summary>
+        /// Method for JSON-parsing Google CSE response
+        /// </summary>
         private void Parse_GoogleCSE(List<string> returning, JsonNode obj)
         {
             if (obj is not null)
@@ -204,11 +305,11 @@ namespace libimgfetch
                     {
                         try
                         {
-                            Console.WriteLine("Parsing URL "+i+"...");
+                            Logs.WriteLine("Parsing URL "+i+"...");
                             string url;
                             url = (string)obj["items"][i]["link"];
                             returning.Add(url);
-                            Console.WriteLine(url);
+                            Logs.WriteLine(url);
                         }
                         catch
                         {
@@ -223,6 +324,9 @@ namespace libimgfetch
             }
         }
 
+        /// <summary>
+        /// Method for JSON-parsing Google CSE response
+        /// </summary>
         private void Parse_Pixabay(List<string> returning, JsonNode obj)
         {
             try
@@ -230,11 +334,11 @@ namespace libimgfetch
                 int i = 0;
                 while (true)
                 {
-                    Console.WriteLine("Parsing URL " + i + "...");
+                    Logs.WriteLine("Parsing URL " + i + "...");
                     string url;
                     url = (string)obj["hits"][i]["largeImageURL"];
                     returning.Add(url);
-                    Console.WriteLine(url);
+                    Logs.WriteLine(url);
                     i++;
                 }
             }
@@ -244,6 +348,9 @@ namespace libimgfetch
             }
         }
 
+        /// <summary>
+        /// Method for JSON-parsing Google CSE response
+        /// </summary>
         private void Parse_Pexels(List<string> returning, JsonNode obj)
         {
             try
@@ -251,11 +358,11 @@ namespace libimgfetch
                 int i = 0;
                 while (true)
                 {
-                    Console.WriteLine("Parsing URL " + i + "...");
+                    Logs.WriteLine("Parsing URL " + i + "...");
                     string url;
                     url = (string)obj["photos"][i]["src"]["original"];
                     returning.Add(url);
-                    Console.WriteLine(url);
+                    Logs.WriteLine(url);
                     i++;
                 }
             }
@@ -264,5 +371,14 @@ namespace libimgfetch
 
             }
         }
+    }
+
+    public class ImgFetchRequest
+    {
+        public Services RequestingService { get; set; } = Services.pixabay;
+        public IServicePreferences? ServicePreferences { get; set; }
+        public string SearchQuery { get; set; } = "";
+
+        public ImgFetchRequest() { }
     }
 }
