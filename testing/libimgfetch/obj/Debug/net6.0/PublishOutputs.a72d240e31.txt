@@ -1,3 +1,0 @@
-/home/gabp/Projects/expovgen/testing/libimgfetch/bin/Debug/net6.0/publish/libimgfetch.dll
-/home/gabp/Projects/expovgen/testing/libimgfetch/bin/Debug/net6.0/publish/libimgfetch.deps.json
-/home/gabp/Projects/expovgen/testing/libimgfetch/bin/Debug/net6.0/publish/libimgfetch.pdb
