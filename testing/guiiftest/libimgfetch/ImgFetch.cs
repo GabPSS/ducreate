@@ -55,7 +55,7 @@ namespace libimgfetch
         /// <summary>
         /// Auth token -- specific to Pexels
         /// </summary>
-        private static readonly string PexelsAuth = ""; //TODO: Get and add Pexels API authorization token
+        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735"; 
 
         public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
 
