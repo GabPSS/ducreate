@@ -1,7 +1,7 @@
 ASSU
 12:54 06/05/2022
 Prof. Alessandro
-===================
+
 Resumo da aula passada ------------------------------------------------------------------
 - Semana passada falamos sobre o auditor e o auditado. Eles tem uma relação contratual que protege o auditor e o auditado igualmente
 - Proposta formalisada, mas previamente avaliada antes de contratar alguém
@@ -56,7 +56,7 @@ VÍDEO: História do Silas
 
 Muitas das vezes baixar recursos piratas pode danificar seus dispositivos.
 Vamos lá: Esse diagrama representa uma PSI (Fig. 13)
-[
+
 Ameaçaas ficam ao derredor tentando acessar as estruturas.
 Seg. Física: Cadeado, fechadura, Leitor de retina, ID, catraca...
 Segurança humana: Maycon, Nereide...
@@ -66,6 +66,4 @@ Aí tem as vulnerabilidades: Porta sem cadeado, janela sem tranca, servidor sem 
 Dentro temos negócios, processos.
 E toda a informação fica protegida pela iso 17799:1
 
-]
-
-================ PRÓXIMA AULA: Como realizar a análise de riscos? ================
+Na PRÓXIMA AULA: Como realizar a análise de riscos? 
