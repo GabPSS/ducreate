@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 
 namespace libimgfetch
 {
-    public enum Services { google, pixabay, pexels }
+    public enum Services { google, pixabay, pexels, rapidapi }
 
     public interface IServicePreferences { }
 
@@ -49,13 +49,16 @@ namespace libimgfetch
         private static readonly string[] Endpoints = {
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
-            "https://api.pexels.com/v1/search?query={0}"
+            "https://api.pexels.com/v1/search?query={0}",
+            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI"
         };
 
         /// <summary>
         /// Auth token -- specific to Pexels
         /// </summary>
-        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735"; 
+        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735";
+        private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
+        private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
 
         public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
 
@@ -262,6 +265,8 @@ namespace libimgfetch
             }
         }
 
+        private delegate void ParseObjectWithService(List<string> returning, JsonNode obj);
+
         List<string> ParseResponse(HttpResponseMessage result, Services service)
         {
             List<string> returning = new List<string>();
@@ -275,18 +280,34 @@ namespace libimgfetch
                 return returning;
             }
 
-            if (service == Services.google)
+            switch (service)
             {
-                Parse_GoogleCSE(returning,obj);
+                case Services.google:
+                    Parse_GoogleCSE(returning,obj);
+                case Services.pixabay:
+                    Parse_Pixabay(returning,obj);
+                case Services.pexels:
+                    Parse_Pexels(returning,obj);
+                case Services.rapidapi:
+                    Parse_RapidAPI(returning,obj);
             }
-            else if (service == Services.pixabay)
-            {
-                Parse_Pixabay(returning,obj);
-            }
-            else if (service == Services.pexels)
-            {
-                Parse_Pexels(returning,obj);
-            }
+
+            // if (service == Services.google)
+            // {
+            //     Parse_GoogleCSE(returning,obj);
+            // }
+            // else if (service == Services.pixabay)
+            // {
+            //     Parse_Pixabay(returning,obj);
+            // }
+            // else if (service == Services.pexels)
+            // {
+            //     Parse_Pexels(returning,obj);
+            // }
+            // else if (service == Services.rapidapi)
+            // {
+            //     Parse_RapidAPI(returning,obj);
+            // }
             
             return returning;
         }
@@ -361,6 +382,27 @@ namespace libimgfetch
                     Logs.WriteLine("Parsing URL " + i + "...");
                     string url;
                     url = (string)obj["photos"][i]["src"]["original"];
+                    returning.Add(url);
+                    Logs.WriteLine(url);
+                    i++;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void Parse_RapidAPI(List<string> returning, JsonNode obj)
+        {
+            try
+            {
+                int i = 0;
+                while (true)
+                {
+                    Logs.WriteLine("Parsing URL " + i + "...");
+                    string url;
+                    url = (string)obj["value"][i]["url"];
                     returning.Add(url);
                     Logs.WriteLine(url);
                     i++;
