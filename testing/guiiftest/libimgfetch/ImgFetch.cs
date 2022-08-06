@@ -50,7 +50,7 @@ namespace libimgfetch
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
             "https://api.pexels.com/v1/search?query={0}",
-            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI"
+            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI" //TODO: Update URL here
         };
 
         /// <summary>
@@ -250,6 +250,10 @@ namespace libimgfetch
             {
                 m.Headers.Add("Authorization", PexelsAuth);
             }
+            if (service == Services.rapidapi)
+            {
+                m.Headers.
+            }
             Logs.WriteLine("Sending request...");
             HttpResponseMessage result = client.Send(m);
             Logs.WriteLine("Parsing response...");
@@ -284,12 +288,16 @@ namespace libimgfetch
             {
                 case Services.google:
                     Parse_GoogleCSE(returning,obj);
+                    break;
                 case Services.pixabay:
                     Parse_Pixabay(returning,obj);
+                    break;
                 case Services.pexels:
                     Parse_Pexels(returning,obj);
+                    break;
                 case Services.rapidapi:
                     Parse_RapidAPI(returning,obj);
+                    break;
             }
 
             // if (service == Services.google)
