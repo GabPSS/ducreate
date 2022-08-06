@@ -50,7 +50,7 @@ namespace libimgfetch
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
             "https://api.pexels.com/v1/search?query={0}",
-            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI" //TODO: Update URL here
+            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q={0}&pageNumber=1&pageSize=10&autoCorrect=false"
         };
 
         /// <summary>
