@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/libimgfetch.csproj": {}
+    "/home/gabp/Projects/expovgen/testing/langprocessing/bypass-test/bypass-test.csproj": {}
   },
   "projects": {
-    "/home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/libimgfetch.csproj": {
+    "/home/gabp/Projects/expovgen/testing/langprocessing/bypass-test/bypass-test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/libimgfetch.csproj",
-        "projectName": "libimgfetch",
-        "projectPath": "/home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/libimgfetch.csproj",
+        "projectUniqueName": "/home/gabp/Projects/expovgen/testing/langprocessing/bypass-test/bypass-test.csproj",
+        "projectName": "bypass-test",
+        "projectPath": "/home/gabp/Projects/expovgen/testing/langprocessing/bypass-test/bypass-test.csproj",
         "packagesPath": "/home/gabp/.nuget/packages/",
-        "outputPath": "/home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/obj/",
+        "outputPath": "/home/gabp/Projects/expovgen/testing/langprocessing/bypass-test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/gabp/.nuget/NuGet/NuGet.Config"
@@ -37,12 +37,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
