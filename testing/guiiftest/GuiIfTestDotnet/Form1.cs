@@ -4,6 +4,7 @@ namespace GuiIfTestDotnet
 {
     public partial class Form1 : Form
     {
+        public List<string> Logs = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -41,41 +42,6 @@ namespace GuiIfTestDotnet
             WriteLine(i + " imagens adicionadas.");
             Cursor = Cursors.Default;
             SetProgress(100, ProgressBarStyle.Continuous);
-
-            //Thread imgfetch = new Thread(() => { 
-            //    WriteLine("Obtendo imagens através da internet...");
-            //    SetProgress(20, ProgressBarStyle.Marquee);
-            //    ImgFetch fetcher = new ImgFetch();
-            //    fetcher.Logs.TextWritten += Logs_TextWritten;
-            //    fileStreams = fetcher.RequestAllImageStreams(query);
-                
-            //    int i = 0;
-            //    foreach (Stream file in fileStreams)
-            //    {
-            //        this.Invoke(new Action(() =>
-            //        {
-            //            try
-            //            {
-            //                Image img = Bitmap.FromStream(file);
-                            
-            //                i++;
-            //            }
-            //            catch (Exception x)
-            //            {
-            //                WriteLine("Error while creating image from streams: " + x.Message);
-            //            }
-            //        }));
-            //    }
-            //    fetcher.Logs.TextWritten -= Logs_TextWritten;
-            //    WriteLine(i + " imagens adicionadas.");
-            //    this.Invoke(new Action(() =>
-            //    {
-            //        Cursor = Cursors.Default;
-            //    }));
-            //    SetProgress(100, ProgressBarStyle.Continuous);
-            //});
-            //imgfetch.Name = "ImgFetch";
-            //imgfetch.Start();
         }
 
         private void Logs_TextWritten(object source, ImgFetchLogs.TextWrittenEventArgs e)
@@ -84,6 +50,14 @@ namespace GuiIfTestDotnet
             {
                 statusStrip1.Items[0].Text = e.WrittenText;
             }));
+            try
+            {
+                File.AppendAllText("output.txt", e.WrittenText + "\n");
+            }  
+            catch
+            {
+                
+            }
         }
 
         void WriteLine(string text)
