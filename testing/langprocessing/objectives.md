@@ -23,3 +23,8 @@
 ## Using a third-party pre-trained API
 **Method**: Use an api from [APILayer.com](apilayer.com) in order to perform this function
 **Drawbacks**: Extremely restricted quota, only 10 requests a day
+
+### Testing results
+- Complete success! The API interface worked and it returned important keywords
+- Analysis shows some keywords, despite relevant, wouldn't really make that great a search term for an image. Nevertheless, it is much better than previous approaches and doesn't require training, AI models and any sort of work in the frontend.
+- Relatively quick response time. Had a bit of hold in there, but it analysed the text and returned the keywords very quickly.
