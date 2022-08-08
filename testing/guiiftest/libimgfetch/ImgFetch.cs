@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 
 namespace libimgfetch
 {
-    public enum Services { google, pixabay, pexels }
+    public enum Services { google, pixabay, pexels, rapidapi }
 
     public interface IServicePreferences { }
 
@@ -49,18 +49,18 @@ namespace libimgfetch
         private static readonly string[] Endpoints = {
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
-            "https://api.pexels.com/v1/search?query={0}"
+            "https://api.pexels.com/v1/search?query={0}",
+            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q={0}&pageNumber=1&pageSize=10&autoCorrect=false"
         };
 
         /// <summary>
         /// Auth token -- specific to Pexels
         /// </summary>
-        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735"; 
+        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735";
+        private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
+        private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
 
         public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
-
-        public ImgFetch() { }
-
 
         /// <summary>
         /// Formats a request url given a query and specified service
@@ -72,7 +72,7 @@ namespace libimgfetch
         {
             
             string api = Endpoints[(int)service];
-            if (service == Services.google || service == Services.pixabay || service == Services.pexels)
+            if (service == Services.google || service == Services.pixabay || service == Services.pexels || service == Services.rapidapi)
             {
                 api = string.Format(api, query);
             }
@@ -127,6 +127,11 @@ namespace libimgfetch
             return bitmaps;
         }
 
+        /// <summary>
+        /// Repeats the same query using all available services and using default configuration values
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public List<Stream> RequestAllImageStreams(string query)
         {
             List<Stream> ImageStreams = new List<Stream>();
@@ -152,6 +157,11 @@ namespace libimgfetch
             return ImageStreams;
         }
 
+        /// <summary>
+        /// Makes an ImgFetch web request using an ImgFetchRequest object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public List<Stream> RequestImageStreams(ImgFetchRequest request)
         {
             string query = request.SearchQuery;
@@ -205,31 +215,60 @@ namespace libimgfetch
             return RequestImageStreams(service, query);
         }
 
+        /// <summary>
+        /// Makes an image request using a request URL, then downloads all streams it finds
+        /// </summary>
+        /// <param name="requestUrl"></param>
+        /// <param name="service"></param>
+        /// <returns></returns>
         private List<Stream> RequestImageStreams(string requestUrl, Services service)
         {
-            List<string> QueryURLs = RequestImageURLs(requestUrl, service);
-            Logs.WriteLine("Begining file stream downloads..."); //TODO: I stopped here!
             List<Stream> FileStreams = new List<Stream>();
+            HttpClient downloader = new HttpClient();
+            List<Thread> threads = new List<Thread>();
+            List<string> QueryURLs = MakeRequest(requestUrl, service);
+            Logs.WriteLine("Begining file stream downloads...");
             foreach (string url in QueryURLs)
+            {
+
+                Thread thread = new Thread(() =>
+                {
+                    try
+                    {
+                        Logs.WriteLine("Starting download for " + (string)url);
+                        HttpRequestMessage request = new HttpRequestMessage();
+                        request.RequestUri = new Uri((string)url);
+                        request.Method = HttpMethod.Get;
+                        HttpResponseMessage returned = downloader.Send(request);
+                        //return returned.Content.ReadAsStream();
+                        FileStreams.Add(returned.Content.ReadAsStream());
+                        Logs.WriteLine("Download of url " + url + " complete");
+                    }
+                    catch (Exception x)
+                    {
+                        Logs.WriteLine("[Warning] while downloading: " + x.Message);
+                    }
+                });
+
+                thread.Start();
+                threads.Add(thread);
+            }
+            Logs.WriteLine("Downloading");
+            for (int i = 0; i < threads.Count; i++)
             {
                 try
                 {
-                    Logs.WriteLine("Downloading stream from " + url);
-                    HttpClient downloader = new HttpClient();
-                    HttpRequestMessage request = new HttpRequestMessage();
-                    request.RequestUri = new Uri(url);
-                    request.Method = HttpMethod.Get;
-                    HttpResponseMessage returned = downloader.Send(request);
-                    FileStreams.Add(returned.Content.ReadAsStream());
+                    if (threads[i].IsAlive)
+                    {
+                        threads[i].Join();
+                    }
                 }
-                catch (Exception x)
-                {
-                    Logs.WriteLine("[Warning] while downloading: " + x.Message);
-                }
+                catch { }
             }
             Logs.WriteLine("Stream download successful!");
             return FileStreams;
         }
+        
 
         /// <summary>
         /// Interfaces with image APIs in order to get image URLs
@@ -237,7 +276,7 @@ namespace libimgfetch
         /// <param name="requestUrl">The API endpoint</param>
         /// <param name="service">The API's endpoint</param>
         /// <returns>A string list containing the image URLs</returns>
-        private List<string> RequestImageURLs(string requestUrl, Services service)
+        private List<string> MakeRequest(string requestUrl, Services service)
         {
             HttpClient client = new HttpClient();
             HttpRequestMessage m = new HttpRequestMessage();
@@ -247,20 +286,34 @@ namespace libimgfetch
             {
                 m.Headers.Add("Authorization", PexelsAuth);
             }
+            if (service == Services.rapidapi)
+            {
+                m.Headers.Add("X-RapidAPI-Key", RapidAPIAuth);
+                m.Headers.Add("X-RapidAPI-Host", RapidAPISearchService1);
+            }
             Logs.WriteLine("Sending request...");
             HttpResponseMessage result = client.Send(m);
-            Logs.WriteLine("Parsing response...");
-            //wait for it...
-            if (result.Content != null)
+            if (result.IsSuccessStatusCode)
             {
-                return ParseResponse(result, service);
+                Logs.WriteLine("Parsing response...");
+                //wait for it...
+                if (result.Content != null)
+                {
+                    return ParseResponse(result, service);
+                }
+                else
+                {
+                    Logs.WriteLine("WARNING: No output! Returning empty url list");
+                }
             }
-            else
+            else if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
             {
-                Logs.WriteLine("WARNING: No output! Returning empty url list");
-                return new List<string>();
+                Logs.WriteLine("Service returned Too Many Requests error: Quota is full");
             }
+            return new List<string>();
         }
+
+        private delegate void ParseObjectWithService(List<string> returning, JsonNode obj);
 
         List<string> ParseResponse(HttpResponseMessage result, Services service)
         {
@@ -275,18 +328,38 @@ namespace libimgfetch
                 return returning;
             }
 
-            if (service == Services.google)
+            switch (service)
             {
-                Parse_GoogleCSE(returning,obj);
+                case Services.google:
+                    Parse_GoogleCSE(returning,obj);
+                    break;
+                case Services.pixabay:
+                    Parse_Pixabay(returning,obj);
+                    break;
+                case Services.pexels:
+                    Parse_Pexels(returning,obj);
+                    break;
+                case Services.rapidapi:
+                    Parse_RapidAPI(returning,obj);
+                    break;
             }
-            else if (service == Services.pixabay)
-            {
-                Parse_Pixabay(returning,obj);
-            }
-            else if (service == Services.pexels)
-            {
-                Parse_Pexels(returning,obj);
-            }
+
+            // if (service == Services.google)
+            // {
+            //     Parse_GoogleCSE(returning,obj);
+            // }
+            // else if (service == Services.pixabay)
+            // {
+            //     Parse_Pixabay(returning,obj);
+            // }
+            // else if (service == Services.pexels)
+            // {
+            //     Parse_Pexels(returning,obj);
+            // }
+            // else if (service == Services.rapidapi)
+            // {
+            //     Parse_RapidAPI(returning,obj);
+            // }
             
             return returning;
         }
@@ -361,6 +434,27 @@ namespace libimgfetch
                     Logs.WriteLine("Parsing URL " + i + "...");
                     string url;
                     url = (string)obj["photos"][i]["src"]["original"];
+                    returning.Add(url);
+                    Logs.WriteLine(url);
+                    i++;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void Parse_RapidAPI(List<string> returning, JsonNode obj)
+        {
+            try
+            {
+                int i = 0;
+                while (true)
+                {
+                    Logs.WriteLine("Parsing URL " + i + "...");
+                    string url;
+                    url = (string)obj["value"][i]["url"];
                     returning.Add(url);
                     Logs.WriteLine(url);
                     i++;

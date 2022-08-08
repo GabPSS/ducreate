@@ -2,7 +2,6 @@ C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\b
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\GuiIfTestDotnet.deps.json
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\GuiIfTestDotnet.runtimeconfig.json
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\GuiIfTestDotnet.dll
-C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\ref\GuiIfTestDotnet.dll
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\GuiIfTestDotnet.pdb
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.csproj.AssemblyReference.cache
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.GeneratedMSBuildEditorConfig.editorconfig
@@ -18,3 +17,4 @@ C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\o
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\libimgfetch.dll
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\bin\Debug\net6.0-windows\libimgfetch.pdb
 C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\GuiIfTestDotnet.csproj.CopyComplete
+C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\GuiIfTestDotnet\obj\Debug\net6.0-windows\refint\GuiIfTestDotnet.dll

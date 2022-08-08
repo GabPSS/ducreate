@@ -74,7 +74,8 @@
             this.comboBox1.Items.AddRange(new object[] {
             "google",
             "pixabay",
-            "pexels"});
+            "pexels",
+            "rapidapi"});
             this.comboBox1.Location = new System.Drawing.Point(579, 14);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBox1.Name = "comboBox1";
@@ -113,7 +114,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
