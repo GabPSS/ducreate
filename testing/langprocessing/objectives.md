@@ -23,6 +23,9 @@
 ## Using a third-party pre-trained API
 **Method**: Use an api from [APILayer.com](apilayer.com) in order to perform this function
 **Drawbacks**: Extremely restricted quota, only 10 requests a day
+**Services used**:
+- (   OK   ) APILayer
+- (  NONE  ) TextRazor
 
 ### Testing results
 - Complete success! The API interface worked and it returned important keywords
