@@ -19,3 +19,7 @@
 - There are several words that, once disconnected and splited from their context, don't convey the original meaning. This is why NLP **has** to be implemented. Otherwise we will end up with a bunch of images that don't mean anything.
 - This tecnique, even if successful, would create a video with extremely rapidly changing images, which is not something very pleasant for the end user who is watching the video.
 **In essence:** Splitting words one by one and searching them didn't work as expected and wouldn't result in a nice video anyway.
+
+## Using a third-party pre-trained API
+**Method**: Use an api from [APILayer.com](apilayer.com) in order to perform this function
+**Drawbacks**: Extremely restricted quota, only 10 requests a day
