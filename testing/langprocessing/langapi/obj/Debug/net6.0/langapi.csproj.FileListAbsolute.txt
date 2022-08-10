@@ -1,0 +1,15 @@
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/bin/Debug/net6.0/langapi
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/bin/Debug/net6.0/langapi.deps.json
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/bin/Debug/net6.0/langapi.runtimeconfig.json
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/bin/Debug/net6.0/langapi.dll
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/bin/Debug/net6.0/langapi.pdb
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.csproj.AssemblyReference.cache
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.GeneratedMSBuildEditorConfig.editorconfig
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.AssemblyInfoInputs.cache
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.AssemblyInfo.cs
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.csproj.CoreCompileInputs.cache
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.dll
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/refint/langapi.dll
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.pdb
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/langapi.genruntimeconfig.cache
+/home/gabp/Projects/expovgen/testing/langprocessing/langapi/obj/Debug/net6.0/ref/langapi.dll

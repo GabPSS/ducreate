@@ -7,4 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = libimgfetch
-build_property.ProjectDir = C:\Users\katia_amogmah\source\repos\expovgen\testing\guiiftest\libimgfetch\
+build_property.ProjectDir = /home/gabp/Projects/expovgen/testing/guiiftest/libimgfetch/
