@@ -1,0 +1,69 @@
+ASSU
+12:54 06/05/2022
+Prof. Alessandro
+
+Resumo da aula passada ------------------------------------------------------------------
+- Semana passada falamos sobre o auditor e o auditado. Eles tem uma relação contratual que protege o auditor e o auditado igualmente
+- Proposta formalisada, mas previamente avaliada antes de contratar alguém
+- Quebra de contrato pode ocorrer também
+- Necessidade do planejamento (Pessoas, Recursos e Tempo)
+- Na conclusão há um relatório entre as partes
+- O símbolo do PDI (Plano diretor de Info.) Consittuido e guardado pelo comite de segurança que segue as normas da abnt 17799 (Aula que vem desenvolveremos um PDI!!!!)
+
+Dentro de um PDI:
+- Quem pode acessar a instituição? Quem pode acessar os PCS? Pode Pendrive? Pode computador de casa? 
+- Compreende a PSI (Política de segurança de Info.)
+<Lei é o que norteia, a partir de quanto é ultrapassada>
+
+
+AULA DE HOJE: Política de Segurança das Informações
+-------------------------------------------------------
+
+Política de segurança das informações --------------------------
+- Dentro do PDI (Plano Diretor de Informática)
+- Objetivo da PSI: Assegurar, previnir, garantir a proteção aos dados e equipamentos.
+- Possui procedimentos e normas para os técnicos e pessoas dentro da instituição (não apenas os técnicos e DBAs, mas também muitas vezes os trabalhadores).
+Ex. Um caixa de supermercado é um computador, essencialmente. Você pode colocar um pendrive lá? Imagina você colocando um Pendrive seu e o PC pega um virus...
+A PSI diz que as pessoas estas devem ser punidas caso controverterem a PSI interna. Por isso também que existem os gerenciadores! Quando tenho um servidor bem configurado, ele vai sempre demonstrar o que o usuário tem feito!
+
+FOTO: Fig 12
+Objetivo - Deve explicar de forma rápida e sucinta a finalidade da política de segurança
+Alvo - A quem é aplicado
+Propriedades dos recursos - Pessoa pode acessar tal recurso (uma máquina?)
+Responsabilidades - Proteção e administração dos ativos da empresa. Quem é responsável pelos bens?
+(retomando: Ativos e processos de gerar ativos: Capital contrata mão de obra que executa um processo que gera capital e ativos: Bens (Se uma empresa monta PCs, bem é o PC montado), Informação, Produtos)
+Requisitos de acesso - Login, senha, crachá - Usuários podem ser configurados através de um servidor, configurando um AD (Active Directory, diretório ativo), que administra os usuários dentro de uma empresa, como também os grupos destes (Grupo financeiro, grupo x.. Acessos serão iguais para todos no grupo).
+Responsabilização - Quais são as medidas tomadas se algo der errado? Quebrar um equipamento precisa pagar, o funcionário pode ser demitido..
+Generalidades - Aspectos gerais
+
+Como se implementa uma PSI?? -----------------------------------------------------
+Primeiro, o planejamento: (Pessoas recursos e tempo) 
+Quando implantada deve ser revisada regularmente pelo comitê. 
+Ana, você não pode trazer um pendrive. Reunião: Aqui está o coordenador, ele vai ensinar o que pode ou não fazer na empresa (Inspetar um pendrive, trazer um notebook de fora...)
+Nutrir a cultura é um trabalho constante.
+
+Planejamento ---------------------------
+Leva em consideração a situação atual da empresa
+IMPORTANTE: Imagina que você começopu a pouco tempo. No brasil é muito simples de crescer, pois você vai pegar empresas que não possuem uma PSI. Não ter uma PSI gera vulnerabilidades para a empresa. 
+
+"Não ter uma PSI é o mesmo que não ter uma vulnerabilidade"
+
+(Tudo você pode conhecer, mas vai lembrar de conferir tudo? Então por quê existem as leis? São formas de precavir que as normas seriam colocadas de lado.) 
+
+No planejamento, é necessário considerar níveis de acesso (AD), classificar a confidencialidade de cada grupo, estabelecer recursos de segurança necessários.
+
+VÍDEO: História do Silas
+
+Muitas das vezes baixar recursos piratas pode danificar seus dispositivos.
+Vamos lá: Esse diagrama representa uma PSI (Fig. 13)
+
+Ameaçaas ficam ao derredor tentando acessar as estruturas.
+Seg. Física: Cadeado, fechadura, Leitor de retina, ID, catraca...
+Segurança humana: Maycon, Nereide...
+Cibersegurança: Firewall, AV, Proxy, VPN...
+
+Aí tem as vulnerabilidades: Porta sem cadeado, janela sem tranca, servidor sem proxy, rede sem firewall, engenharia social
+Dentro temos negócios, processos.
+E toda a informação fica protegida pela iso 17799:1
+
+Na PRÓXIMA AULA: Como realizar a análise de riscos? 
