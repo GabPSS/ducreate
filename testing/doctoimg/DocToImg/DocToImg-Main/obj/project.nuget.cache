@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "UkqEKXT3NNDzPPjyYMGxEG7YU2tb8jEzuo8VG214tr6LMHA9A5ssp1Iek2MO7j0bkSGfcqmeiSdLl2NBt8d9PQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\testing\\doctoimg\\DocToImg\\DocToImg-Main\\DocToImg-Main.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
