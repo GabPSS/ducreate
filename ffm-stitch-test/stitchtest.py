@@ -2,6 +2,8 @@ import ffmpeg
 
 in_file = ffmpeg.input("input.mp4")
 
+fps = 60
+
 in_mus = ffmpeg.input("aud.mp3")
 a1 = in_mus.audio
 
