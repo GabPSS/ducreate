@@ -25,6 +25,8 @@
     <Compile Include="stitchtest.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aud.mp3" />
+    <Content Include="input.mp4" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
