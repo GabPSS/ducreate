@@ -1,9 +1,10 @@
-import ffmpeg from ffmpeg-python
+import ffmpeg
 import os
 
 print(os.getcwd())
 
-in_file = ffmpeg.input("input.mp4")
+in_file = ffmpeg.input("exstack/*.jpg", pattern_type='glob',framerate=1)
+#in_file = ffmpeg.input("input.mp4")
 
 fps = 60
 

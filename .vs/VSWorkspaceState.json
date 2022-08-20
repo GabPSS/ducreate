@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Expovgen",
-    "\\ffm-stitch-test"
+    "\\ffm-stitch-test",
+    "\\TestingProjects",
+    "\\TestingProjects\\ffmstitchtest"
   ],
-  "SelectedNode": "\\ffm-stitch-test",
+  "SelectedNode": "\\TestingProjects\\TestingProjects.sln",
   "PreviewInSolutionExplorer": false
 }

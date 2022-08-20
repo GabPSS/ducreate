@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="aud.mp3" />
+    <Compile Include="ffmpeg.exe" />
     <Content Include="input.mp4" />
     <Content Include="requirements.txt" />
   </ItemGroup>
@@ -39,6 +40,9 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="exstack\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
