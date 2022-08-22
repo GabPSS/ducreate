@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Expovgen",
+    "\\ffm-stitch-test",
+    "\\TestingProjects",
+    "\\TestingProjects\\ffmstitchtest"
   ],
-  "SelectedNode": "\\C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen",
+  "SelectedNode": "\\TestingProjects\\TestingProjects.sln",
   "PreviewInSolutionExplorer": false
 }
