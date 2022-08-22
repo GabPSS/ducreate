@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libimgfetch", "libimgfetch\
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Audioworks", "Audioworks\Audioworks.pyproj", "{4256C467-BF16-4BED-8749-CFDF9CD7D588}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "moviestitch", "moviestitch\moviestitch.pyproj", "{6026571F-044A-473B-B9B4-3BF49588BCA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,8 @@ Global
 		{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4256C467-BF16-4BED-8749-CFDF9CD7D588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4256C467-BF16-4BED-8749-CFDF9CD7D588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6026571F-044A-473B-B9B4-3BF49588BCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6026571F-044A-473B-B9B4-3BF49588BCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
