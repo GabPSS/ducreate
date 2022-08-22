@@ -9,8 +9,8 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>ffmstitchtest</Name>
-    <RootNamespace>ffmstitchtest</RootNamespace>
+    <Name>moviestitch</Name>
+    <RootNamespace>moviestitch</RootNamespace>
     <InterpreterId>MSBuild|movieenv|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
