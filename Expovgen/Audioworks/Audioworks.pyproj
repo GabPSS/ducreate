@@ -4,14 +4,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4256c467-bf16-4bed-8749-cfdf9cd7d588</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Audioworks.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Audioworks</Name>
     <RootNamespace>Audioworks</RootNamespace>
-    <InterpreterId>MSBuild|speechenv|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|audioenv|$(MSBuildProjectFullPath)</InterpreterId>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,15 +24,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Audioworks.py" />
-    <Compile Include="perform_align.py" />
-    <Compile Include="perform_tts.py" />
+    <None Include="article.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="speechenv\">
-      <Id>speechenv</Id>
+    <Interpreter Include="..\expovgen_cli\audworks\audioenv\">
+      <Id>audioenv</Id>
       <Version>3.10</Version>
-      <Description>speechenv (Python 3.10 (64-bit))</Description>
+      <Description>audioenv (Python 3.10 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
@@ -38,7 +38,9 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="article.txt" />
+    <Compile Include="Audioworks.py" />
+    <Compile Include="perform_align.py" />
+    <Compile Include="perform_tts.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

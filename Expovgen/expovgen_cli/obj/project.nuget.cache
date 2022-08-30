@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "iVWF9kg7Jch0oMODuIHPqiQp9S3VuqWUIO0RFOmXLYLqmHw16G1ric0VEoC137Am9SzwiXKxnDksVfuGDgtkxw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
