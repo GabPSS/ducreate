@@ -54,13 +54,20 @@ namespace libimgfetch
         };
 
         /// <summary>
-        /// Auth token -- specific to Pexels
+        /// Auth tokens and services
+        /// TODO: Remove them from GH and make them local
         /// </summary>
         private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735";
         private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
         private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
 
+        //API properties
         public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
+        /// <summary>
+        /// Defines the list of maximum donwloads permitted. To get as many as possible, set to -1
+        /// </summary>
+        public const int MaxDownloads = 1;
+
 
         /// <summary>
         /// Formats a request url given a query and specified service
@@ -79,62 +86,99 @@ namespace libimgfetch
             return api;
         }
 
-        /// <summary>
-        /// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
-        /// </summary>
-        /// <param name="service">The image search service</param>
-        /// <param name="query">The search query</param>
-        /// <returns>Returns an image list containing the returned bitmaps</returns>
-        public List<Image> RequestImageBitmaps(Services service, string query)
+        #region Bitmap methods
+
+        public List<Image> RequestImageBitmaps(ImgFetchRequest request)
         {
-            List<Stream> fileStreams = RequestImageStreams(service, query);
-            return CheckImageBitmaps(fileStreams);
+            (List<Stream> Files, List<List<string>> URLs) fileStreams = RequestImageStreams(request);
+            return CheckImageBitmaps(fileStreams.Files, fileStreams.URLs);
         }
 
-        /// <summary>
-        /// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
-        /// </summary>
-        /// <param name="service">The image search service</param>
-        /// <param name="query">The search query</param>
-        /// <param name="preferences">An <see cref="IServicePreferences"/> object representing preferences for the specified service</param>
-        /// <returns>Returns an image list containing the returned bitmaps</returns>
-        public List<Image> RequestImageBitmaps(Services service, string query, IServicePreferences preferences)
-        {
-            List<Stream> fileStreams = RequestImageStreams(service, query, preferences);
-            return CheckImageBitmaps(fileStreams);
-        }
+        ///// <summary>
+        ///// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
+        ///// </summary>
+        ///// <param name="service">The image search service</param>
+        ///// <param name="query">The search query</param>
+        ///// <returns>Returns an image list containing the returned bitmaps</returns>
+        //private List<Image> RequestImageBitmaps(Services service, string query)
+        //{
+        //    (List<Stream> Files, List<string> URLs) fileStreams = RequestImageStreams(service, query);
+        //    return CheckImageBitmaps(fileStreams.Files,fileStreams.URLs);
+        //}
+
+        ///// <summary>
+        ///// Obtains image bitmaps from <see cref="RequestImageStreams(Services, string)"/>, then returns image streams as bitmaps (available on Windows only)
+        ///// </summary>
+        ///// <param name="service">The image search service</param>
+        ///// <param name="query">The search query</param>
+        ///// <param name="preferences">An <see cref="IServicePreferences"/> object representing preferences for the specified service</param>
+        ///// <returns>Returns an image list containing the returned bitmaps</returns>
+        //private List<Image> RequestImageBitmaps(Services service, string query, IServicePreferences preferences)
+        //{
+        //    (List<Stream> Files, List<string> URLs) fileStreams = RequestImageStreams(service, query, preferences);
+        //    return CheckImageBitmaps(fileStreams.Files,fileStreams.URLs);
+        //}
 
         /// <summary>
         /// Checks if streams provided are actually bitmaps, then returns a list of valid bitmaps (available on Windows only)
         /// </summary>
         /// <param name="fileStreams">The stream of files</param>
         /// <returns>An image list containing valid bitmaps</returns>
-        private List<Image> CheckImageBitmaps(List<Stream> fileStreams)
+        private List<Image> CheckImageBitmaps(List<Stream> fileStreams, List<List<string>> URLs)
         {
             List<Image> bitmaps = new List<Image>();
+            int extra_counter;
+            int i = 0;
             foreach (Stream file in fileStreams)
             {
+                extra_counter = 1;
                 try
                 {
-                    Image img = Bitmap.FromStream(file);
+                    Image img = Image.FromStream(file);
                     bitmaps.Add(img);
                 }
                 catch (Exception x)
                 {
                     Logs.WriteLine("Warning while creating image from streams: " + x.Message);
+                    Logs.WriteLine("Attempting to download extra image(s)...");
+                    HttpClient emergency_downloader = new();
+                    while (extra_counter < URLs.Count)
+                    {
+                        Stream? emImg = DownloadImage(emergency_downloader, URLs[i][extra_counter]);
+                        extra_counter++;
+                        if (emImg != null)
+                        {
+                            try
+                            {
+                                Image img = Image.FromStream(emImg);
+                                bitmaps.Add(img);
+                                break;
+                            }
+                            catch (Exception x2)
+                            {
+                                Logs.WriteLine("Warning while creating image from streams: " + x2.Message);
+                            }
+                        }
+                    }
                 }
+                i++;
             }
             return bitmaps;
         }
+
+        #endregion
+
+        #region Stream requesting methods
 
         /// <summary>
         /// Repeats the same query using all available services and using default configuration values
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public List<Stream> RequestAllImageStreams(string query)
+        [Obsolete]
+        private List<(List<Stream> Files, List<string> URLs)> RequestAllImageStreams(string query)
         {
-            List<Stream> ImageStreams = new List<Stream>();
+            List<(List<Stream> Files,List<string> URLs)> ImageStreams = new();
             int srv = 0;
             try
             {
@@ -143,7 +187,7 @@ namespace libimgfetch
                     Services service = (Services)srv;
                     try
                     {
-                        ImageStreams.AddRange(RequestImageStreams(service, query));
+                        //ImageStreams.Add(RequestImageStreams(service, query));
                     }
                     catch (IndexOutOfRangeException)
                     {
@@ -162,13 +206,14 @@ namespace libimgfetch
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public List<Stream> RequestImageStreams(ImgFetchRequest request)
+        public (List<Stream> Files, List<List<string>> URLs) RequestImageStreams(ImgFetchRequest request)
         {
-            string query = request.SearchQuery;
+            List<string> queries = request.SearchQueries;
+            bool pooledDownloads = request.EnablePoolDownloads;
             Services service = request.RequestingService;
             IServicePreferences? preferences = request.ServicePreferences;
 
-            return RequestImageStreams(service, query, preferences);
+            return RequestImageStreams(service, queries, preferences);
         }
 
         /// <summary>
@@ -178,10 +223,15 @@ namespace libimgfetch
         /// <param name="service">The service to request images from</param>
         /// <param name="query">The search query</param>
         /// <returns>A List<Stream> containing all returned streams.</returns>
-        public List<Stream> RequestImageStreams(Services service, string query)
+        private (List<Stream> Files, List<List<string>> URLs) RequestImageStreams(Services service, List<string> queries)
         {
-            string api = GetURLString(service, query);
-            return RequestImageStreams(api, service);
+            List<string> APIs = new();
+            foreach (string query in queries)
+            {
+                string api = GetURLString(service, query);
+                APIs.Add(api);
+            }
+            return RequestImageStreams(APIs, service); 
         }
 
         /// <summary>
@@ -191,7 +241,7 @@ namespace libimgfetch
         /// <param name="query">The search query</param>
         /// <param name="preferences">An <see cref="IServicePreferences"/> object containing preferences for making the request</param>
         /// <returns>A List<Stream> containing all returned streams.</returns>
-        public List<Stream> RequestImageStreams(Services service, string query, IServicePreferences? preferences)
+        private (List<Stream> Files, List<List<string>> URLs) RequestImageStreams(Services service, List<string> queries, IServicePreferences? preferences)
         {
             if (preferences is not null)
             {
@@ -201,18 +251,23 @@ namespace libimgfetch
                     GooglePreferences? gpref = preferences as GooglePreferences;
                     if (gpref is not null) //It's always going to be...
                     {
-                        string api = GetURLString(service, query);
-                        if (gpref.UseCCLicense)
+                        List<string> APIs = new();
+                        foreach (string query in queries)
                         {
-                            api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
+                            string api = GetURLString(service, query);
+                            if (gpref.UseCCLicense)
+                            {
+                                api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
+                            }
+                            APIs.Add(api);
                         }
-                        return RequestImageStreams(api, service);
+                        return RequestImageStreams(APIs, service);
                     }
                 }
                 //NOTE: Add any other service preferences here
                 
             }
-            return RequestImageStreams(service, query);
+            return RequestImageStreams(service, queries);
         }
 
         /// <summary>
@@ -221,54 +276,125 @@ namespace libimgfetch
         /// <param name="requestUrl"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        private List<Stream> RequestImageStreams(string requestUrl, Services service)
+        private (List<Stream> Files, List<List<string>> URLs) RequestImageStreams(List<string> requestUrl, Services service)
         {
             List<Stream> FileStreams = new List<Stream>();
             HttpClient downloader = new HttpClient();
-            List<Thread> threads = new List<Thread>();
-            List<string> QueryURLs = MakeRequest(requestUrl, service);
+
+            List<Thread> seach_threads = new();
+            List<Thread> dl_threads = new List<Thread>();
+            
+            List<List<string>> ResultURLs = new();
+            
+            foreach (string query in requestUrl)
+            {
+                //try
+                //{
+                    Thread thread = new(() =>
+                    {
+                        ResultURLs.Add(MakeRequest(query, service));
+                        Logs.WriteLine("Results for query '" + query + "'received");
+                    });
+                    thread.Start();
+                    seach_threads.Add(thread);
+                //} catch { }
+            }
+            for (int b = 0; b < seach_threads.Count; b++)
+            {
+                //try
+                //{
+                    if (seach_threads[b].IsAlive)
+                    {
+                        seach_threads[b].Join();
+                    }
+                //} catch { }
+            }
+
             Logs.WriteLine("Begining file stream downloads...");
-            foreach (string url in QueryURLs)
+            while (ResultURLs.Count != requestUrl.Count)
             {
 
-                Thread thread = new Thread(() =>
-                {
-                    try
-                    {
-                        Logs.WriteLine("Starting download for " + (string)url);
-                        HttpRequestMessage request = new HttpRequestMessage();
-                        request.RequestUri = new Uri((string)url);
-                        request.Method = HttpMethod.Get;
-                        HttpResponseMessage returned = downloader.Send(request);
-                        //return returned.Content.ReadAsStream();
-                        FileStreams.Add(returned.Content.ReadAsStream());
-                        Logs.WriteLine("Download of url " + url + " complete");
-                    }
-                    catch (Exception x)
-                    {
-                        Logs.WriteLine("[Warning] while downloading: " + x.Message);
-                    }
-                });
-
-                thread.Start();
-                threads.Add(thread);
             }
-            Logs.WriteLine("Downloading");
-            for (int i = 0; i < threads.Count; i++)
+            for (int x = 0; x < ResultURLs.Count; x++)
             {
-                try
+                Stream? Download = DownloadImage(downloader, ResultURLs[x][0]);
+                if (Download is not null)
                 {
-                    if (threads[i].IsAlive)
-                    {
-                        threads[i].Join();
-                    }
+                    FileStreams.Add(Download);
                 }
-                catch { }
             }
+
+
+            //for (int x = 0; x < ResultURLs.Count; x++)
+            //{
+            //    for (int i = 0; i != MaxDownloads; i++)
+            //    {
+            //        try
+            //        {
+            //            Thread thread = new Thread(() =>
+            //            {
+            //                int x_ = x;
+            //                int i_ = i;
+            //                Stream? download = DownloadImage(downloader, ResultURLs[x_][i_]);
+            //                if (download is not null)
+            //                {
+            //                    FileStreams.Add(download);
+            //                }
+            //            });
+
+            //            thread.Start();
+            //            dl_threads.Add(thread);
+            //        }
+            //        catch
+            //        {
+            //            break;
+            //        }
+            //    }
+            //}
+
+            //Logs.WriteLine("All downloads started");
+            //for (int i = 0; i < dl_threads.Count; i++)
+            //{
+            //    try
+            //    {
+            //        if (dl_threads[i].IsAlive)
+            //        {
+            //            dl_threads[i].Join();
+            //        }
+            //    }
+            //    catch { }
+            //}
             Logs.WriteLine("Stream download successful!");
-            return FileStreams;
+            return (FileStreams,ResultURLs);
         }
-        
+
+        #endregion
+
+        /// <summary>
+        /// Uses the provided HttpClient to download an image from url
+        /// </summary>
+        /// <param name="downloader"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private Stream? DownloadImage(HttpClient downloader, object url)
+        {
+            try
+            {
+                Logs.WriteLine("Starting download for " + (string)url);
+                HttpRequestMessage request = new HttpRequestMessage();
+                request.RequestUri = new Uri((string)url);
+                request.Method = HttpMethod.Get;
+                HttpResponseMessage returned = downloader.Send(request);
+                //return returned.Content.ReadAsStream();
+                Logs.WriteLine("Download of url " + url + " complete");
+                return returned.Content.ReadAsStream();
+            }
+            catch (Exception x)
+            {
+                Logs.WriteLine("[Warning] while downloading: " + x.Message);
+                return null;
+            }
+        }
 
         /// <summary>
         /// Interfaces with image APIs in order to get image URLs
@@ -299,7 +425,7 @@ namespace libimgfetch
                 //wait for it...
                 if (result.Content != null)
                 {
-                    return ParseResponse(result, service);
+                    return ParseJSONResponse(result, service);
                 }
                 else
                 {
@@ -313,9 +439,7 @@ namespace libimgfetch
             return new List<string>();
         }
 
-        private delegate void ParseObjectWithService(List<string> returning, JsonNode obj);
-
-        List<string> ParseResponse(HttpResponseMessage result, Services service)
+        List<string> ParseJSONResponse(HttpResponseMessage result, Services service)
         {
             List<string> returning = new List<string>();
             JsonNode obj = null;
@@ -343,24 +467,6 @@ namespace libimgfetch
                     Parse_RapidAPI(returning,obj);
                     break;
             }
-
-            // if (service == Services.google)
-            // {
-            //     Parse_GoogleCSE(returning,obj);
-            // }
-            // else if (service == Services.pixabay)
-            // {
-            //     Parse_Pixabay(returning,obj);
-            // }
-            // else if (service == Services.pexels)
-            // {
-            //     Parse_Pexels(returning,obj);
-            // }
-            // else if (service == Services.rapidapi)
-            // {
-            //     Parse_RapidAPI(returning,obj);
-            // }
-            
             return returning;
         }
 
@@ -472,7 +578,7 @@ namespace libimgfetch
         public Services RequestingService { get; set; } = Services.pixabay;
         public IServicePreferences? ServicePreferences { get; set; }
         public string SearchQuery { get; set; } = "";
-
-        public ImgFetchRequest() { }
+        public bool EnablePoolDownloads { get; set; } = false;
+        public List<string> SearchQueries { get; set; } = new List<string>();
     }
 }

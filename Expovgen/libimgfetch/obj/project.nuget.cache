@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LeugpMHV/R7w7W8E9FlEyKcIpo1CnHVEZhgmoz4lwv1p7DuOzJdF0/4pS8919+66x42nZRcWlrK7500WXv5zvw==",
+  "dgSpecHash": "+5rtoLkLhDriSRly0rnGbI2b+OOuTIHwl/WFl1ROmUfph3uDYYZIiLoYFkMiT3pJVKSSaTiJ73IyXfu8lNgCoQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
+  "projectFilePath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"

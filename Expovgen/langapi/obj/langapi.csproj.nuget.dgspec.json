@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {}
+    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
+    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+        "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
         "projectName": "langapi",
-        "projectPath": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+        "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
         "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\obj\\",
         "projectStyle": "PackageReference",
