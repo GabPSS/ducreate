@@ -128,28 +128,25 @@ namespace Expovgen
             imgs.Logs.TextWritten += Logs_TextWritten;
             Random r = new Random();
             Directory.CreateDirectory(@"res\imgs");
-            //string workPath = tempDir.FullName;
 
-            for (int i = 0; i < keywords.Length; i++)
+            Console.WriteLine("--- RECURSO: Pesquisa de imagens ---");
+            
+            List<Image> images = imgs.RequestImageBitmaps(new ImgFetchRequest()
             {
-                string keyword = keywords[i];
-                Console.WriteLine("Buscando imagens para palavra-chave '" + keyword + "' (imgfetch)...");
-                List<Image> images = imgs.RequestImageBitmaps(new ImgFetchRequest()
+                RequestingService = Services.google,
+                SearchQueries = keywords.ToList(),
+                EnablePoolDownloads = true
+            });
+
+            if (images.Count > 0)
+            {
+                KeywordImages.AddRange(images);
+                for (int x = 0; x < images.Count; x++)
                 {
-                    RequestingService = Services.google,
-                    SearchQueries = new List<string>() { "Apple", "Banana", "Orange" },
-                    EnablePoolDownloads = true
-                });
-                    //imgs.RequestImageBitmaps(Services.google, keyword);
-                if (images.Count > 0)
-                {
-                    KeywordImages.AddRange(images);
-                    for (int x = 0; x < images.Count; x++)
-                    {
-                        images[x].Save(@"res\imgs\img" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                    }
+                    images[x].Save(@"res\imgs\img" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
             }
+            
 
             Console.WriteLine(KeywordImages.Count + " imagens baixadas da internet.");
             Console.WriteLine("Pressione qualquer tecla...");
