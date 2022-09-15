@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj": {}
+    "E:\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj": {}
   },
   "projects": {
-    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj": {
+    "E:\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj",
+        "projectUniqueName": "E:\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj",
         "projectName": "expovgen_cli",
-        "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj",
+        "projectPath": "E:\\expovgen\\Expovgen\\expovgen_cli\\expovgen_cli.csproj",
         "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\expovgen_cli\\obj\\",
+        "outputPath": "E:\\expovgen\\Expovgen\\expovgen_cli\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\katia_amogmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
-                "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj"
+              "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
+                "projectPath": "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj"
               },
-              "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj": {
-                "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj"
+              "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj": {
+                "projectPath": "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj"
               }
             }
           }
@@ -61,18 +61,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
+    "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+        "projectUniqueName": "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj",
         "projectName": "langapi",
-        "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+        "projectPath": "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj",
         "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\katia_amogmah\\Source\\Repos\\expovgen\\Expovgen\\langapi\\obj\\",
+        "outputPath": "E:\\expovgen\\Expovgen\\langapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\katia_amogmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -115,18 +115,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj": {
+    "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
+        "projectUniqueName": "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
         "projectName": "libimgfetch",
-        "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
+        "projectPath": "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
         "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\obj\\",
+        "outputPath": "E:\\expovgen\\Expovgen\\libimgfetch\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\katia_amogmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -175,7 +175,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

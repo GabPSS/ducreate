@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+      "projectUniqueName": "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj",
       "projectName": "langapi",
-      "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\langapi.csproj",
+      "projectPath": "E:\\expovgen\\Expovgen\\langapi\\langapi.csproj",
       "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\langapi\\obj\\",
+      "outputPath": "E:\\expovgen\\Expovgen\\langapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\katia_amogmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }

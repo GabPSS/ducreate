@@ -128,11 +128,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
+      "projectUniqueName": "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
       "projectName": "libimgfetch",
-      "projectPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
+      "projectPath": "E:\\expovgen\\Expovgen\\libimgfetch\\libimgfetch.csproj",
       "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\katia_amogmah\\source\\repos\\expovgen\\Expovgen\\libimgfetch\\obj\\",
+      "outputPath": "E:\\expovgen\\Expovgen\\libimgfetch\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\katia_amogmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -181,7 +181,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }
