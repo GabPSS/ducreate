@@ -43,6 +43,7 @@ namespace libimgfetch
 
     public class ImgFetch
     {
+        #region Static API strings
         /// <summary>
         /// API endpoints list
         /// </summary>
@@ -60,6 +61,7 @@ namespace libimgfetch
         private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735";
         private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
         private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
+        #endregion
 
         //API properties
         public ImgFetchLogs Logs { get; set; } = new ImgFetchLogs();
@@ -67,7 +69,7 @@ namespace libimgfetch
         /// Defines the list of maximum donwloads permitted. To get as many as possible, set to -1
         /// </summary>
         public const int MaxDownloads = 1;
-
+        private string[]? RequestURLs { get; set; }
 
         /// <summary>
         /// Formats a request url given a query and specified service
@@ -170,36 +172,36 @@ namespace libimgfetch
 
         #region Stream requesting methods
 
-        /// <summary>
-        /// Repeats the same query using all available services and using default configuration values
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [Obsolete]
-        private List<(List<Stream> Files, List<string> URLs)> RequestAllImageStreams(string query)
-        {
-            List<(List<Stream> Files,List<string> URLs)> ImageStreams = new();
-            int srv = 0;
-            try
-            {
-                while (true)
-                {
-                    Services service = (Services)srv;
-                    try
-                    {
-                        //ImageStreams.Add(RequestImageStreams(service, query));
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        break;
-                    }
-                    catch (Exception) { }
-                    srv++;
-                }
-            }
-            catch { }
-            return ImageStreams;
-        }
+        ///// <summary>
+        ///// Repeats the same query using all available services and using default configuration values
+        ///// </summary>
+        ///// <param name="query"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //private List<(List<Stream> Files, List<string> URLs)> RequestAllImageStreams(string query)
+        //{
+        //    List<(List<Stream> Files,List<string> URLs)> ImageStreams = new();
+        //    int srv = 0;
+        //    try
+        //    {
+        //        while (true)
+        //        {
+        //            Services service = (Services)srv;
+        //            try
+        //            {
+        //                //ImageStreams.Add(RequestImageStreams(service, query));
+        //            }
+        //            catch (IndexOutOfRangeException)
+        //            {
+        //                break;
+        //            }
+        //            catch (Exception) { }
+        //            srv++;
+        //        }
+        //    }
+        //    catch { }
+        //    return ImageStreams;
+        //}
 
         /// <summary>
         /// Makes an ImgFetch web request using an ImgFetchRequest object
@@ -209,7 +211,7 @@ namespace libimgfetch
         public (List<Stream> Files, List<List<string>> URLs) RequestImageStreams(ImgFetchRequest request)
         {
             List<string> queries = request.SearchQueries;
-            bool pooledDownloads = request.EnablePoolDownloads;
+            //bool pooledDownloads = request.EnablePoolDownloads;
             Services service = request.RequestingService;
             IServicePreferences? preferences = request.ServicePreferences;
 
@@ -397,7 +399,7 @@ namespace libimgfetch
         }
 
         /// <summary>
-        /// Interfaces with image APIs in order to get image URLs
+        /// Interfaces with image APIs in order to get image download URLs
         /// </summary>
         /// <param name="requestUrl">The API endpoint</param>
         /// <param name="service">The API's endpoint</param>
@@ -425,7 +427,9 @@ namespace libimgfetch
                 //wait for it...
                 if (result.Content != null)
                 {
-                    return ParseJSONResponse(result, service);
+                    List<string> response = ParseJSONResponse(result, service);
+                    RequestURLs = response.ToArray();
+                    return response;
                 }
                 else
                 {
@@ -436,6 +440,7 @@ namespace libimgfetch
             {
                 Logs.WriteLine("Service returned Too Many Requests error: Quota is full");
             }
+            RequestURLs = null;
             return new List<string>();
         }
 
@@ -550,7 +555,11 @@ namespace libimgfetch
 
             }
         }
-
+        /// <summary>
+        /// Method for JSON-parsing RapidAPI response
+        /// </summary>
+        /// <param name="returning"></param>
+        /// <param name="obj"></param>
         private void Parse_RapidAPI(List<string> returning, JsonNode obj)
         {
             try

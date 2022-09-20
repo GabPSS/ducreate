@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a17378a1-07fb-4646-8846-963f081cdb9a": {
+      "ProjectGuid": "a17378a1-07fb-4646-8846-963f081cdb9a",
+      "DisplayName": "expovgen_cli",
+      "ColorIndex": 0
+    },
+    "0d3a9e35-5ed5-473d-8d53-99e34155d4bf": {
+      "ProjectGuid": "0d3a9e35-5ed5-473d-8d53-99e34155d4bf",
+      "DisplayName": "libimgfetch",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

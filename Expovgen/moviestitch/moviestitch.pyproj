@@ -11,7 +11,8 @@
     <OutputPath>.</OutputPath>
     <Name>moviestitch</Name>
     <RootNamespace>moviestitch</RootNamespace>
-    <InterpreterId>MSBuild|movieenv|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,17 +30,6 @@
     <Compile Include="ffmpeg.exe" />
     <Content Include="input.mp4" />
     <Content Include="requirements.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Interpreter Include="movieenv\">
-      <Id>movieenv</Id>
-      <Version>3.10</Version>
-      <Description>movieenv (Python 3.10 (64-bit))</Description>
-      <InterpreterPath>Scripts\python.exe</InterpreterPath>
-      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
-      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X64</Architecture>
-    </Interpreter>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="exstack\" />

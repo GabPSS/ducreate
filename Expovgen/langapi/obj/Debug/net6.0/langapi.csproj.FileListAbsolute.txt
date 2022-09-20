@@ -40,3 +40,15 @@ C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\langapi\obj\Debug\net6.0\l
 C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\langapi\obj\Debug\net6.0\refint\langapi.dll
 C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.pdb
 C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\langapi\obj\Debug\net6.0\ref\langapi.dll
+E:\expovgen\Expovgen\langapi\bin\Debug\net6.0\langapi.deps.json
+E:\expovgen\Expovgen\langapi\bin\Debug\net6.0\langapi.dll
+E:\expovgen\Expovgen\langapi\bin\Debug\net6.0\ref\langapi.dll
+E:\expovgen\Expovgen\langapi\bin\Debug\net6.0\langapi.pdb
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.csproj.AssemblyReference.cache
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.GeneratedMSBuildEditorConfig.editorconfig
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.AssemblyInfoInputs.cache
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.AssemblyInfo.cs
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.csproj.CoreCompileInputs.cache
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.dll
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\ref\langapi.dll
+E:\expovgen\Expovgen\langapi\obj\Debug\net6.0\langapi.pdb
