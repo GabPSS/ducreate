@@ -41,6 +41,7 @@ namespace libimgfetch
         }
     }
 
+    [Obsolete]
     public class ImgFetch
     {
         #region Static API strings
@@ -327,7 +328,7 @@ namespace libimgfetch
             }
 
 
-            //for (int x = 0; x < ResultURLs.Count; x++)
+            //for (int x = 0; x < Results.Count; x++)
             //{
             //    for (int i = 0; i != MaxDownloads; i++)
             //    {
@@ -337,7 +338,7 @@ namespace libimgfetch
             //            {
             //                int x_ = x;
             //                int i_ = i;
-            //                Stream? download = DownloadImage(downloader, ResultURLs[x_][i_]);
+            //                Stream? download = DownloadImage(downloader, Results[x_][i_]);
             //                if (download is not null)
             //                {
             //                    FileStreams.Add(download);

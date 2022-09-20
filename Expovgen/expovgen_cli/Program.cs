@@ -122,33 +122,30 @@ namespace Expovgen
         public static void Etapa2(string[] keywords)
         {
             //Etapa 2: Busca de imagens para cada palavra-chave
-            List<Image> KeywordImages = new List<Image>();
-            ImgFetch imgs = new ImgFetch();
-            //imgs.MaxDownloads = 1;
+            Console.WriteLine("--- RECURSO: Pesquisa de imagens ---");
+                       
+            ImgFetch2 imgs = new ImgFetch2();
             imgs.Logs.TextWritten += Logs_TextWritten;
-            Random r = new Random();
+
+            imgs.Service = Services.google;
+            imgs.RequestQueries = keywords;
+
             Directory.CreateDirectory(@"res\imgs");
 
-            Console.WriteLine("--- RECURSO: Pesquisa de imagens ---");
-            
-            List<Image> images = imgs.RequestImageBitmaps(new ImgFetchRequest()
-            {
-                RequestingService = Services.google,
-                SearchQueries = keywords.ToList(),
-                EnablePoolDownloads = true
-            });
+            List<Image> images = imgs.RequestImages().ToList();
 
             if (images.Count > 0)
             {
-                KeywordImages.AddRange(images);
                 for (int x = 0; x < images.Count; x++)
                 {
-                    images[x].Save(@"res\imgs\img" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    try
+                    {
+                        images[x].Save(@"res\imgs\img" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    } catch { }
                 }
             }
             
-
-            Console.WriteLine(KeywordImages.Count + " imagens baixadas da internet.");
+            Console.WriteLine(images.Count + " imagens baixadas da internet.");
             Console.WriteLine("Pressione qualquer tecla...");
             Console.ReadKey();
         }

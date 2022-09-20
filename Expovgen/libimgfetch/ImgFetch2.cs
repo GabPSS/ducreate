@@ -40,7 +40,7 @@ namespace libimgfetch
         public IServicePreferences ServicePreferences { get; set; }
         
         // Private properties for use only within the API
-        private List<(string query,string[] urls)>? ResultURLs { get; set; }
+        private List<(string query,string[] urls)>? Results { get; set; }
         private HttpClient webClient { get; set; } = new HttpClient();
 
         #endregion
@@ -70,26 +70,15 @@ namespace libimgfetch
             return api;
         }
 
-
-        //TODO: Remove this later when it's not used
-        [System.AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
-        sealed class WorkInProgressAttribute : Attribute
-        {
-            // See the attribute guidelines at 
-            //  http://go.microsoft.com/fwlink/?LinkId=85236
-
-            // This is a positional argument
-            public WorkInProgressAttribute()
-            {
-                throw new NotImplementedException("The method used is currently being developed.");
-            }
-        }
-
-        [WorkInProgress]
-        public List<Image> RequestImageStreams()
+        /// <summary>
+        /// Requests images from the selected service and returns a collection of downloaded image results
+        /// 
+        /// Requires first assigning Services, RequestQueries, and (if applicable) ServicePreferences
+        /// </summary>
+        public Image?[] RequestImages()
         {
             //Variable definitions & attributions
-            ResultURLs = new(); //Reset resultURLs
+            Results = new(); //Reset resultURLs
             List<string> requestURLs = new(); //URLs to feed into the Service's API.
             List<(string query, Stream downloadedImage)>? imageFiles = new(); //Corresponds to downloaded image file streams
 
@@ -130,21 +119,68 @@ namespace libimgfetch
             }
 
             //Attempt to download returned images
-            //x1 represents the query index.
-            //x2 represents the indexes of the image URLs found for that query
-            Stream? DownloadFirstImage;
-            for (int x1 = 0; x1 < ResultURLs.Count; x1++)
+            //x1 represents the query's index.
+            Stream?[] PossibleImageFiles = new Stream?[Results.Count];
+            for (int x1 = 0; x1 < Results.Count; x1++)
             {
-                DownloadFirstImage = DownloadImage(ResultURLs[x1].urls[0]);
+                try
+                {
+                    PossibleImageFiles[x1] = DownloadImage(Results[x1].urls[0]);
+                } catch (ArgumentOutOfRangeException) { return Array.Empty<Image>(); }
             }
 
-            //Next step: Check images for corrupted downloads and redownload any one of them that might have been missing.
+            //Convert each stream to a bitmap and redownload if missing.
+            Image?[] Images = new Image?[Results.Count];
+            for (int i = 0; i < Results.Count; i++)
+            {
+                // i represents the current image and query
+
+                //Attempt to convert stream to image
+                Image? convertedImage = null;
+                if (PossibleImageFiles[i] != null)
+                {
+                    try
+                    {
+                        convertedImage = Image.FromStream(PossibleImageFiles[i]);
+                        goto loopend;
+                    } 
+                    catch 
+                    {
+                        Logs.WriteLine("Error while converting downloaded stream to image!");
+                    }
+                }
+
+                //Download replacement image, as it couldn't get it previously
+                if (Results[i].urls.Length > 1)
+                {
+                    for (int redownload = 1; redownload < Results[i].urls.Length; redownload++)
+                    {
+                        Logs.WriteLine("Attempting to download replacement image...");
+                        Stream? possibleReplacementImage = DownloadImage(Results[i].urls[redownload]);
+                        try
+                        {
+                            convertedImage = Image.FromStream(possibleReplacementImage);
+                            break;
+                        }
+                        catch 
+                        {
+                            Logs.WriteLine("Replacement image did not work");
+                        }
+                    }
+                }
+
+            loopend:
+                Images[i] = convertedImage;                
+            }
+
+            //Return the downloaded images
+            return Images;
+
             //IDEA: Make it so the program is able to return the non-downloaded image URLs, so new downloads can be requested
-            return null;
         }
 
         /// <summary>
-        /// Interfaces with image APIs in order to get image download URLs, and populate them into ResultURLs
+        /// Interfaces with image APIs in order to get image download URLs, and populate them into Results
         /// </summary>
         private void GetSearchResultsRequest(string requestUrl, string query, Services service)
         {
@@ -174,7 +210,7 @@ namespace libimgfetch
                 {
                     URLParser parser = new(Logs);
                     List<string> response = parser.ParseJSONResponse(result, service);
-                    ResultURLs.Add((query, response.ToArray()));
+                    Results.Add((query, response.ToArray()));
                     return;
                 }
                 else

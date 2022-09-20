@@ -24,7 +24,6 @@ C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\libimgfetch\obj\Debug\net6
 C:\Users\katia_amogmah\Source\Repos\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\ref\libimgfetch.dll
 E:\expovgen\Expovgen\libimgfetch\bin\Debug\net6.0\libimgfetch.deps.json
 E:\expovgen\Expovgen\libimgfetch\bin\Debug\net6.0\libimgfetch.dll
-E:\expovgen\Expovgen\libimgfetch\bin\Debug\net6.0\ref\libimgfetch.dll
 E:\expovgen\Expovgen\libimgfetch\bin\Debug\net6.0\libimgfetch.pdb
 E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\libimgfetch.csproj.AssemblyReference.cache
 E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\libimgfetch.GeneratedMSBuildEditorConfig.editorconfig
@@ -34,3 +33,4 @@ E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\libimgfetch.csproj.CoreCompile
 E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\libimgfetch.dll
 E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\ref\libimgfetch.dll
 E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\libimgfetch.pdb
+E:\expovgen\Expovgen\libimgfetch\obj\Debug\net6.0\refint\libimgfetch.dll

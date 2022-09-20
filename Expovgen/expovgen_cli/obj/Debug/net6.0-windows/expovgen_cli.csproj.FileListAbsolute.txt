@@ -261,7 +261,6 @@ E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\_uuid.pyd
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\expovgen_cli.deps.json
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\expovgen_cli.runtimeconfig.json
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\expovgen_cli.dll
-E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\ref\expovgen_cli.dll
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\expovgen_cli.pdb
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\Microsoft.Win32.SystemEvents.dll
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\System.Drawing.Common.dll
@@ -282,3 +281,4 @@ E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.dll
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\ref\expovgen_cli.dll
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.pdb
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.genruntimeconfig.cache
+E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\refint\expovgen_cli.dll
