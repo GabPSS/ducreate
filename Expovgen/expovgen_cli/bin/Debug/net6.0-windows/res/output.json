@@ -1,0 +1,84 @@
+{
+ "fragments": [
+  {
+   "begin": "0.000",
+   "children": [],
+   "end": "92.920",
+   "id": "f000001",
+   "language": "por",
+   "lines": [
+    "JavaScript (frequentemente abreviado como JS) \u00e9 uma linguagem de programa\u00e7\u00e3o interpretada estruturada, de script em alto n\u00edvel com tipagem din\u00e2mica fraca e multiparadigma (prot\u00f3tipos, orientado a objeto, imperativo e funcional). Juntamente com HTML e CSS, o JavaScript \u00e9 uma das tr\u00eas principais tecnologias da World Wide Web. JavaScript permite p\u00e1ginas da Web interativas e, portanto, \u00e9 uma parte essencial dos aplicativos da web. A grande maioria dos sites usa, e todos os principais navegadores t\u00eam um mecanismo JavaScript dedicado para execut\u00e1-lo."
+   ]
+  },
+  {
+   "begin": "92.920",
+   "children": [],
+   "end": "119.120",
+   "id": "f000002",
+   "language": "por",
+   "lines": [
+    "\u00c9 atualmente a principal linguagem para programa\u00e7\u00e3o client-side em navegadores web. \u00c9 tamb\u00e9m bastante utilizada do lado do servidor atrav\u00e9s de ambientes como o node.js."
+   ]
+  },
+  {
+   "begin": "119.120",
+   "children": [],
+   "end": "208.400",
+   "id": "f000003",
+   "language": "por",
+   "lines": [
+    "Como uma linguagem multiparadigma, o JavaScript suporta estilos de programa\u00e7\u00e3o orientados a eventos, funcionais e imperativos (incluindo orientado a objetos e prototype-based), apresentando recursos como fechamentos (closures) e fun\u00e7\u00f5es de alta ordem comumente indispon\u00edveis em linguagens populares como Java e C++. Possui APIs para trabalhar com texto, matrizes, datas, express\u00f5es regulares e o DOM, mas a linguagem em si n\u00e3o inclui nenhuma E/S, como instala\u00e7\u00f5es de rede, armazenamento ou gr\u00e1ficos, contando com isso no ambiente host em que est\u00e1 embutido."
+   ]
+  },
+  {
+   "begin": "208.400",
+   "children": [],
+   "end": "302.320",
+   "id": "f000004",
+   "language": "por",
+   "lines": [
+    "Foi originalmente implementada como parte dos navegadores web para que scripts pudessem ser executados do lado do cliente e interagissem com o usu\u00e1rio sem a necessidade deste script passar pelo servidor, controlando o navegador, realizando comunica\u00e7\u00e3o ass\u00edncrona e alterando o conte\u00fado do documento exibido, por\u00e9m os mecanismos JavaScript agora est\u00e3o incorporados em muitos outros tipos de software host, incluindo em servidores e bancos de dados da Web e em programas que n\u00e3o s\u00e3o da Web, como processadores de texto e PDF, e em tempo de execu\u00e7\u00e3o ambientes que disponibilizam JavaScript para escrever aplicativos m\u00f3veis e de desktop, incluindo widgets de \u00e1rea de trabalho."
+   ]
+  },
+  {
+   "begin": "302.320",
+   "children": [],
+   "end": "302.320",
+   "id": "f000005",
+   "language": "por",
+   "lines": [
+    "Os termos Vanilla JavaScript e Vanilla JS se referem ao JavaScript n\u00e3o estendido por qualquer estrutura ou biblioteca adicional. Scripts escritos em Vanilla JS s\u00e3o c\u00f3digos JavaScript simples."
+   ]
+  },
+  {
+   "begin": "302.320",
+   "children": [],
+   "end": "302.320",
+   "id": "f000006",
+   "language": "por",
+   "lines": [
+    "Embora existam semelhan\u00e7as entre JavaScript e Java, incluindo o nome da linguagem, a sintaxe e as respectivas bibliotecas padr\u00e3o, as duas linguagens s\u00e3o distintas e diferem muito no design; JavaScript foi influenciado por linguagens de programa\u00e7\u00e3o como Self e Scheme."
+   ]
+  },
+  {
+   "begin": "302.320",
+   "children": [],
+   "end": "302.320",
+   "id": "f000007",
+   "language": "por",
+   "lines": [
+    "\u00c9 baseada em ECMAScript, padronizada pela Ecma international nas especifica\u00e7\u00f5es ECMA-262 e ISO/IEC 16262."
+   ]
+  },
+  {
+   "begin": "302.320",
+   "children": [],
+   "end": "302.360",
+   "id": "f000008",
+   "language": "por",
+   "lines": [
+    "Origem: Wikip\u00e9dia, a enciclop\u00e9dia livre."
+   ]
+  }
+ ]
+}
