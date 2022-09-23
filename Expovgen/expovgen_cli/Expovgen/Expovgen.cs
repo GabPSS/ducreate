@@ -20,31 +20,35 @@ namespace Expovgen
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
-            Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
-            langapi.GetKeywords();
-            Logger.WriteLine("Concluído.");
-            string[]? keywords = langapi.Keywords;
+            langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" };
+            //Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
+            //langapi.GetKeywords();
+            //Logger.WriteLine("Concluído.");
+            //string[]? keywords = langapi.Keywords;
 
-            //Opcional: Imprimir palavras-chave
-            string toPrint = "Palavras-chave: ";
-            for (int kw = 0; kw < keywords.Length; kw++)
-            {
-                string keyword = keywords[kw];
-                toPrint += "'" + keyword + "'";
-                if (kw != keywords.Length - 1)
-                {
-                    toPrint += ", ";
-                }
-                else
-                {
-                    Logger.WriteLine(toPrint);
-                }
-            }
+                ////Opcional: Imprimir palavras-chave
+                //string toPrint = "Palavras-chave: ";
+                //for (int kw = 0; kw < keywords.Length; kw++)
+                //{
+                //    string keyword = keywords[kw];
+                //    toPrint += "'" + keyword + "'";
+                //    if (kw != keywords.Length - 1)
+                //    {
+                //        toPrint += ", ";
+                //    }
+                //    else
+                //    {
+                //        Logger.WriteLine(toPrint);
+                //    }
+                //}
+
+                //Separar frases para alinhamento
+            langapi.SplitPhrases();
 
             //Console.WriteLine("Pressione qualquer tecla para continuar...");
             //Console.ReadKey();
-
-            return keywords;
+            return langapi.Keywords;
+            //return keywords;
         }
 
         public void Etapa2(string[] keywords)
@@ -131,10 +135,10 @@ namespace Expovgen
             {
                 UseShellExecute = false,
                 FileName = PyEnvs_Paths[(int)pyenv],
-                Arguments = PyTasks_Paths[(int)pytask] + " " + args
+                Arguments = PyTasks_Paths[(int)pytask] + " " + args,
             };
             //processst.EnvironmentVariables["PATH"] = "audworks\\audioenv\\Scripts\\;audworks\\audioenv\\Lib\\site-packages\\numpy\\core\\include\\numpy;audworks\\audioenv\\Lib\\;audworks\\audioenv\\Lib\\site-packages\\";
-            //processst.EnvironmentVariables.Add("PYTHON_HOME", "");
+            processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
             Process process = Process.Start(processst);
             process.WaitForExit();
             Logger.WriteLine("Process completed");

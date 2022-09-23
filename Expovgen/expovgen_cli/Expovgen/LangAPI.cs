@@ -69,6 +69,88 @@ namespace Expovgen.LangAPI
             }
         }
 
+        public void SplitPhrases()
+        {
+            if (Keywords is not null)
+            {
+                string splitDocument = "";
+
+                for (int i = 0; i < Document.Length; i++)
+                {
+                    string toAdd = Document[i].TrimStart();
+                    if (!toAdd.TrimEnd().EndsWith(".") && !(toAdd.TrimEnd().EndsWith('!') || toAdd.TrimEnd().EndsWith('?') || toAdd.TrimEnd().EndsWith(':') || toAdd.TrimEnd().EndsWith(';')))
+                    {
+                        toAdd += ". ";
+                    }
+                    splitDocument += toAdd;
+                }
+
+                List<int> lookupIndexes = new();
+
+                foreach (string keyword in Keywords)
+                {
+                    List<int> singleKeywordIndexes = new();
+
+                    int x = 0;
+                    do
+                    {
+                        x = splitDocument.IndexOf(keyword, x);
+                        if (x != -1)
+                        {
+                            singleKeywordIndexes.Add(x);
+                            x++;
+                        }
+                    } while (x != -1);
+
+                    lookupIndexes.AddRange(singleKeywordIndexes);
+                }
+                
+                lookupIndexes.Sort();
+
+                int counter = 0;
+                foreach (int match in lookupIndexes)
+                {
+                    splitDocument = splitDocument.Insert(match + counter, "§");
+                    counter++;
+                }
+
+                List<string> brokenDocument = splitDocument.Split("§").ToList();
+
+                for (int i = 0; i < brokenDocument.Count; i++)
+                {
+                    bool contains = false;
+                    foreach (string keyword in Keywords)
+                    {
+                        bool doesContain = brokenDocument[i].Contains(keyword);
+                        if (doesContain)
+                        {
+                            contains = doesContain;
+                            break;
+                        }
+                    }
+
+                    if (!contains && i != brokenDocument.Count - 1)
+                    {
+                        brokenDocument[i + 1] = (brokenDocument[i].TrimEnd() + " " + brokenDocument[i + 1].TrimStart()).Trim();
+                        brokenDocument[i] = "";
+                    }
+                }
+
+                for (int i = 0; i < brokenDocument.Count; i++)
+                {
+                    if (brokenDocument[i].Trim() == "")
+                    {
+                        brokenDocument.RemoveAt(i);
+                        i--;
+                        continue;
+                    }
+
+                    brokenDocument[i] = brokenDocument[i].Trim();
+                }
+
+                System.IO.File.WriteAllLines(@"res\align.txt",brokenDocument);
+            }
+        }
         public class QuotaExceededException : Exception
         {
             public override string Message => "The request couldn't be completed because the API's quota limit has been reached.";
