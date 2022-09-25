@@ -8,7 +8,7 @@ namespace Expovgen.LangAPI
         private readonly string secret = "7o8TTpNqESndMC6f4DzFTYgJCJ4GT6qG";
         private readonly string URL = "https://api.apilayer.com/keyword";
         private HttpClient client = new HttpClient();
-        private string[] Document {get;set;}
+        private string[] Document { get; set; }
 
         public string[]? Keywords {get;set;}
         public LangAPI1(string[] document)
@@ -148,9 +148,76 @@ namespace Expovgen.LangAPI
                     brokenDocument[i] = brokenDocument[i].Trim();
                 }
 
-                System.IO.File.WriteAllLines(@"res\align.txt",brokenDocument);
+                Document = brokenDocument.ToArray();
+                File.WriteAllLines(@"res\split.txt",brokenDocument);
             }
+
         }
+        public void MakeCaptions()
+        {
+            List<string> phrases = new();
+            foreach (string line in Document)
+            {
+                char[] splitters = { '.',',',';',':','?','!' };
+                
+                List<int> Founds = new();
+                foreach (char splitter in splitters)
+                {
+                    //Lopp through line in order to find splitter occurences and add their indexes to Founds
+                    int x = 0;
+                    do
+                    {
+                        x = line.IndexOf(splitter, x);
+                        if (x != -1)
+                        {
+                            Founds.Add(x);
+                            x++;
+                        }
+                    } while (x != -1);
+                }
+                Founds.Sort();
+
+                List<string> splitUsingFounds = new();
+                int start = 0;
+                for (int i = 0; i <= Founds.Count; i++)
+                {
+                    int end = i != Founds.Count ? Founds[i] : (line.Length - 1);
+                    int length = ((end - start) + 1);
+                    splitUsingFounds.Add(line.Substring(start, length).Trim());
+                    start += length;
+                }
+
+                for (int i = 0; i < splitUsingFounds.Count; i++)
+                {
+                    foreach (char splitter in splitters)
+                    {
+                        if (splitUsingFounds[i] == splitter.ToString())
+                        {
+                            splitUsingFounds[i - 1] += splitUsingFounds[i];
+                            splitUsingFounds.RemoveAt(i);
+                            i--;
+                            break;
+                        }
+                    }
+                }
+
+                phrases.AddRange(splitUsingFounds);
+            }
+
+            for (int i = 0; i < phrases.Count; i++)
+            {
+                if (phrases[i].Trim() == "")
+                {
+                    phrases.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            Document = phrases.ToArray();
+            File.WriteAllLines(@"res\cc.txt", phrases);
+        }
+
+
         public class QuotaExceededException : Exception
         {
             public override string Message => "The request couldn't be completed because the API's quota limit has been reached.";

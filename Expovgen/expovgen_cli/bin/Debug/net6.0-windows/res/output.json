@@ -3,7 +3,7 @@
   {
    "begin": "0.000",
    "children": [],
-   "end": "5.080",
+   "end": "6.160",
    "id": "f000001",
    "language": "por",
    "lines": [
@@ -11,283 +11,743 @@
    ]
   },
   {
-   "begin": "5.080",
+   "begin": "6.160",
    "children": [],
-   "end": "10.640",
+   "end": "11.720",
    "id": "f000002",
    "language": "por",
    "lines": [
-    "linguagem de programa\u00e7\u00e3o interpretada estruturada, de script em"
+    "linguagem de programa\u00e7\u00e3o interpretada estruturada,"
    ]
   },
   {
-   "begin": "10.640",
+   "begin": "11.720",
    "children": [],
-   "end": "24.720",
+   "end": "13.000",
    "id": "f000003",
    "language": "por",
    "lines": [
-    "alto n\u00edvel com tipagem din\u00e2mica fraca e multiparadigma (prot\u00f3tipos, orientado a objeto, imperativo e funcional). Juntamente com HTML e CSS, o"
+    "de script em"
    ]
   },
   {
-   "begin": "24.720",
+   "begin": "13.000",
    "children": [],
-   "end": "30.400",
+   "end": "20.080",
    "id": "f000004",
+   "language": "por",
+   "lines": [
+    "alto n\u00edvel com tipagem din\u00e2mica fraca e multiparadigma (prot\u00f3tipos,"
+   ]
+  },
+  {
+   "begin": "20.080",
+   "children": [],
+   "end": "22.400",
+   "id": "f000005",
+   "language": "por",
+   "lines": [
+    "orientado a objeto,"
+   ]
+  },
+  {
+   "begin": "22.400",
+   "children": [],
+   "end": "24.160",
+   "id": "f000006",
+   "language": "por",
+   "lines": [
+    "imperativo e funcional)."
+   ]
+  },
+  {
+   "begin": "24.160",
+   "children": [],
+   "end": "29.120",
+   "id": "f000007",
+   "language": "por",
+   "lines": [
+    "Juntamente com HTML e CSS,"
+   ]
+  },
+  {
+   "begin": "29.120",
+   "children": [],
+   "end": "30.200",
+   "id": "f000008",
+   "language": "por",
+   "lines": [
+    "o"
+   ]
+  },
+  {
+   "begin": "30.200",
+   "children": [],
+   "end": "35.840",
+   "id": "f000009",
    "language": "por",
    "lines": [
     "JavaScript \u00e9 uma das tr\u00eas principais tecnologias da World Wide Web."
    ]
   },
   {
-   "begin": "30.400",
+   "begin": "35.840",
    "children": [],
-   "end": "32.200",
-   "id": "f000005",
+   "end": "35.840",
+   "id": "f000010",
+   "language": "por",
+   "lines": [
+    ""
+   ]
+  },
+  {
+   "begin": "35.840",
+   "children": [],
+   "end": "37.600",
+   "id": "f000011",
    "language": "por",
    "lines": [
     "JavaScript permite"
    ]
   },
   {
-   "begin": "32.200",
+   "begin": "37.600",
    "children": [],
-   "end": "40.160",
-   "id": "f000006",
+   "end": "40.680",
+   "id": "f000012",
    "language": "por",
    "lines": [
-    "p\u00e1ginas da Web interativas e, portanto, \u00e9 uma parte essencial dos aplicativos da web. A"
+    "p\u00e1ginas da Web interativas e,"
    ]
   },
   {
-   "begin": "40.160",
+   "begin": "40.680",
    "children": [],
-   "end": "43.600",
-   "id": "f000007",
+   "end": "41.560",
+   "id": "f000013",
    "language": "por",
    "lines": [
-    "grande maioria dos sites usa, e todos os"
+    "portanto,"
    ]
   },
   {
-   "begin": "43.600",
+   "begin": "41.560",
    "children": [],
-   "end": "46.320",
-   "id": "f000008",
+   "end": "46.200",
+   "id": "f000014",
+   "language": "por",
+   "lines": [
+    "\u00e9 uma parte essencial dos aplicativos da web."
+   ]
+  },
+  {
+   "begin": "46.200",
+   "children": [],
+   "end": "46.480",
+   "id": "f000015",
+   "language": "por",
+   "lines": [
+    "A"
+   ]
+  },
+  {
+   "begin": "46.480",
+   "children": [],
+   "end": "49.760",
+   "id": "f000016",
+   "language": "por",
+   "lines": [
+    "grande maioria dos sites usa,"
+   ]
+  },
+  {
+   "begin": "49.760",
+   "children": [],
+   "end": "51.680",
+   "id": "f000017",
+   "language": "por",
+   "lines": [
+    "e todos os"
+   ]
+  },
+  {
+   "begin": "51.680",
+   "children": [],
+   "end": "56.160",
+   "id": "f000018",
    "language": "por",
    "lines": [
     "principais navegadores t\u00eam um"
    ]
   },
   {
-   "begin": "46.320",
+   "begin": "56.160",
    "children": [],
-   "end": "51.760",
-   "id": "f000009",
+   "end": "60.040",
+   "id": "f000019",
    "language": "por",
    "lines": [
-    "mecanismo JavaScript dedicado para execut\u00e1-lo.\u00c9 atualmente a"
+    "mecanismo JavaScript dedicado para execut\u00e1-lo."
    ]
   },
   {
-   "begin": "51.760",
+   "begin": "60.040",
    "children": [],
-   "end": "56.800",
-   "id": "f000010",
+   "end": "62.080",
+   "id": "f000020",
+   "language": "por",
+   "lines": [
+    "\u00c9 atualmente a"
+   ]
+  },
+  {
+   "begin": "62.080",
+   "children": [],
+   "end": "68.000",
+   "id": "f000021",
    "language": "por",
    "lines": [
     "principal linguagem para programa\u00e7\u00e3o client-side em"
    ]
   },
   {
-   "begin": "56.800",
+   "begin": "68.000",
    "children": [],
-   "end": "61.800",
-   "id": "f000011",
+   "end": "71.960",
+   "id": "f000022",
    "language": "por",
    "lines": [
-    "navegadores web. \u00c9 tamb\u00e9m bastante utilizada do"
+    "navegadores web."
    ]
   },
   {
-   "begin": "61.800",
+   "begin": "71.960",
    "children": [],
-   "end": "68.080",
-   "id": "f000012",
+   "end": "76.040",
+   "id": "f000023",
    "language": "por",
    "lines": [
-    "lado do servidor atrav\u00e9s de ambientes como o node.js.Como uma"
+    "\u00c9 tamb\u00e9m bastante utilizada do"
    ]
   },
   {
-   "begin": "68.080",
+   "begin": "76.040",
    "children": [],
-   "end": "71.200",
-   "id": "f000013",
+   "end": "82.160",
+   "id": "f000024",
    "language": "por",
    "lines": [
-    "linguagem multiparadigma, o"
+    "lado do servidor atrav\u00e9s de ambientes como o node."
    ]
   },
   {
-   "begin": "71.200",
+   "begin": "82.160",
    "children": [],
-   "end": "88.600",
-   "id": "f000014",
+   "end": "84.120",
+   "id": "f000025",
    "language": "por",
    "lines": [
-    "JavaScript suporta estilos de programa\u00e7\u00e3o orientados a eventos, funcionais e imperativos (incluindo orientado a objetos e prototype-based), apresentando recursos como fechamentos (closures) e"
+    "js."
    ]
   },
   {
-   "begin": "88.600",
+   "begin": "84.120",
    "children": [],
-   "end": "119.280",
-   "id": "f000015",
+   "end": "85.120",
+   "id": "f000026",
    "language": "por",
    "lines": [
-    "fun\u00e7\u00f5es de alta ordem comumente indispon\u00edveis em linguagens populares como Java e C++. Possui APIs para trabalhar com texto, matrizes, datas, express\u00f5es regulares e o DOM, mas a linguagem em si n\u00e3o inclui nenhuma E/S, como instala\u00e7\u00f5es de rede, armazenamento ou gr\u00e1ficos, contando com isso no ambiente host em que est\u00e1 embutido.Foi originalmente implementada como"
+    "Como uma"
    ]
   },
   {
-   "begin": "119.280",
+   "begin": "85.120",
    "children": [],
-   "end": "135.200",
-   "id": "f000016",
+   "end": "88.560",
+   "id": "f000027",
    "language": "por",
    "lines": [
-    "parte dos navegadores web para que scripts pudessem ser executados do lado do cliente e interagissem com o usu\u00e1rio sem a necessidade deste script passar pelo servidor, controlando o navegador, realizando"
+    "linguagem multiparadigma,"
    ]
   },
   {
-   "begin": "135.200",
+   "begin": "88.560",
    "children": [],
-   "end": "141.480",
-   "id": "f000017",
+   "end": "89.360",
+   "id": "f000028",
    "language": "por",
    "lines": [
-    "comunica\u00e7\u00e3o ass\u00edncrona e alterando o conte\u00fado do documento exibido, por\u00e9m os"
+    "o"
    ]
   },
   {
-   "begin": "141.480",
+   "begin": "89.360",
    "children": [],
-   "end": "151.280",
-   "id": "f000018",
+   "end": "97.680",
+   "id": "f000029",
    "language": "por",
    "lines": [
-    "mecanismos JavaScript agora est\u00e3o incorporados em muitos outros tipos de software host, incluindo em servidores e"
+    "JavaScript suporta estilos de programa\u00e7\u00e3o orientados a eventos,"
    ]
   },
   {
-   "begin": "151.280",
+   "begin": "97.680",
    "children": [],
-   "end": "160.160",
-   "id": "f000019",
+   "end": "107.560",
+   "id": "f000030",
    "language": "por",
    "lines": [
-    "bancos de dados da Web e em programas que n\u00e3o s\u00e3o da Web, como processadores de texto e PDF, e em"
+    "funcionais e imperativos (incluindo orientado a objetos e prototype-based),"
    ]
   },
   {
-   "begin": "160.160",
+   "begin": "107.560",
    "children": [],
-   "end": "164.440",
-   "id": "f000020",
+   "end": "114.360",
+   "id": "f000031",
+   "language": "por",
+   "lines": [
+    "apresentando recursos como fechamentos (closures) e"
+   ]
+  },
+  {
+   "begin": "114.360",
+   "children": [],
+   "end": "125.520",
+   "id": "f000032",
+   "language": "por",
+   "lines": [
+    "fun\u00e7\u00f5es de alta ordem comumente indispon\u00edveis em linguagens populares como Java e C++."
+   ]
+  },
+  {
+   "begin": "125.520",
+   "children": [],
+   "end": "129.280",
+   "id": "f000033",
+   "language": "por",
+   "lines": [
+    "Possui APIs para trabalhar com texto,"
+   ]
+  },
+  {
+   "begin": "129.280",
+   "children": [],
+   "end": "130.400",
+   "id": "f000034",
+   "language": "por",
+   "lines": [
+    "matrizes,"
+   ]
+  },
+  {
+   "begin": "130.400",
+   "children": [],
+   "end": "130.880",
+   "id": "f000035",
+   "language": "por",
+   "lines": [
+    "datas,"
+   ]
+  },
+  {
+   "begin": "130.880",
+   "children": [],
+   "end": "136.240",
+   "id": "f000036",
+   "language": "por",
+   "lines": [
+    "express\u00f5es regulares e o DOM,"
+   ]
+  },
+  {
+   "begin": "136.240",
+   "children": [],
+   "end": "140.080",
+   "id": "f000037",
+   "language": "por",
+   "lines": [
+    "mas a linguagem em si n\u00e3o inclui nenhuma E/S,"
+   ]
+  },
+  {
+   "begin": "140.080",
+   "children": [],
+   "end": "143.040",
+   "id": "f000038",
+   "language": "por",
+   "lines": [
+    "como instala\u00e7\u00f5es de rede,"
+   ]
+  },
+  {
+   "begin": "143.040",
+   "children": [],
+   "end": "146.880",
+   "id": "f000039",
+   "language": "por",
+   "lines": [
+    "armazenamento ou gr\u00e1ficos,"
+   ]
+  },
+  {
+   "begin": "146.880",
+   "children": [],
+   "end": "152.120",
+   "id": "f000040",
+   "language": "por",
+   "lines": [
+    "contando com isso no ambiente host em que est\u00e1 embutido."
+   ]
+  },
+  {
+   "begin": "152.120",
+   "children": [],
+   "end": "155.320",
+   "id": "f000041",
+   "language": "por",
+   "lines": [
+    "Foi originalmente implementada como"
+   ]
+  },
+  {
+   "begin": "155.320",
+   "children": [],
+   "end": "174.160",
+   "id": "f000042",
+   "language": "por",
+   "lines": [
+    "parte dos navegadores web para que scripts pudessem ser executados do lado do cliente e interagissem com o usu\u00e1rio sem a necessidade deste script passar pelo servidor,"
+   ]
+  },
+  {
+   "begin": "174.160",
+   "children": [],
+   "end": "176.800",
+   "id": "f000043",
+   "language": "por",
+   "lines": [
+    "controlando o navegador,"
+   ]
+  },
+  {
+   "begin": "176.800",
+   "children": [],
+   "end": "177.880",
+   "id": "f000044",
+   "language": "por",
+   "lines": [
+    "realizando"
+   ]
+  },
+  {
+   "begin": "177.880",
+   "children": [],
+   "end": "184.560",
+   "id": "f000045",
+   "language": "por",
+   "lines": [
+    "comunica\u00e7\u00e3o ass\u00edncrona e alterando o conte\u00fado do documento exibido,"
+   ]
+  },
+  {
+   "begin": "184.560",
+   "children": [],
+   "end": "186.120",
+   "id": "f000046",
+   "language": "por",
+   "lines": [
+    "por\u00e9m os"
+   ]
+  },
+  {
+   "begin": "186.120",
+   "children": [],
+   "end": "194.880",
+   "id": "f000047",
+   "language": "por",
+   "lines": [
+    "mecanismos JavaScript agora est\u00e3o incorporados em muitos outros tipos de software host,"
+   ]
+  },
+  {
+   "begin": "194.880",
+   "children": [],
+   "end": "198.400",
+   "id": "f000048",
+   "language": "por",
+   "lines": [
+    "incluindo em servidores e"
+   ]
+  },
+  {
+   "begin": "198.400",
+   "children": [],
+   "end": "204.720",
+   "id": "f000049",
+   "language": "por",
+   "lines": [
+    "bancos de dados da Web e em programas que n\u00e3o s\u00e3o da Web,"
+   ]
+  },
+  {
+   "begin": "204.720",
+   "children": [],
+   "end": "210.040",
+   "id": "f000050",
+   "language": "por",
+   "lines": [
+    "como processadores de texto e PDF,"
+   ]
+  },
+  {
+   "begin": "210.040",
+   "children": [],
+   "end": "210.520",
+   "id": "f000051",
+   "language": "por",
+   "lines": [
+    "e em"
+   ]
+  },
+  {
+   "begin": "210.520",
+   "children": [],
+   "end": "214.600",
+   "id": "f000052",
    "language": "por",
    "lines": [
     "tempo de execu\u00e7\u00e3o ambientes que disponibilizam"
    ]
   },
   {
-   "begin": "164.440",
+   "begin": "214.600",
    "children": [],
-   "end": "168.840",
-   "id": "f000021",
+   "end": "223.240",
+   "id": "f000053",
    "language": "por",
    "lines": [
-    "JavaScript para escrever aplicativos m\u00f3veis e de desktop, incluindo widgets de \u00e1rea de trabalho.Os"
+    "JavaScript para escrever aplicativos m\u00f3veis e de desktop,"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000022",
+   "end": "223.240",
+   "id": "f000054",
+   "language": "por",
+   "lines": [
+    "incluindo widgets de \u00e1rea de trabalho."
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000055",
+   "language": "por",
+   "lines": [
+    "Os"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000056",
    "language": "por",
    "lines": [
     "termos Vanilla JavaScript e"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000023",
+   "end": "223.240",
+   "id": "f000057",
    "language": "por",
    "lines": [
     "Vanilla JS se referem ao"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000024",
+   "end": "223.240",
+   "id": "f000058",
    "language": "por",
    "lines": [
-    "JavaScript n\u00e3o estendido por qualquer estrutura ou biblioteca adicional. Scripts escritos em"
+    "JavaScript n\u00e3o estendido por qualquer estrutura ou biblioteca adicional."
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000025",
+   "end": "223.240",
+   "id": "f000059",
+   "language": "por",
+   "lines": [
+    "Scripts escritos em"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000060",
    "language": "por",
    "lines": [
     "Vanilla JS s\u00e3o c\u00f3digos"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000026",
+   "end": "223.240",
+   "id": "f000061",
    "language": "por",
    "lines": [
-    "JavaScript simples.Embora existam semelhan\u00e7as entre"
+    "JavaScript simples."
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000027",
+   "end": "223.240",
+   "id": "f000062",
    "language": "por",
    "lines": [
-    "JavaScript e Java, incluindo o nome da linguagem, a sintaxe e as"
+    "Embora existam semelhan\u00e7as entre"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.840",
-   "id": "f000028",
+   "end": "223.240",
+   "id": "f000063",
    "language": "por",
    "lines": [
-    "respectivas bibliotecas padr\u00e3o, as duas linguagens s\u00e3o distintas e diferem muito no design;"
+    "JavaScript e Java,"
    ]
   },
   {
-   "begin": "168.840",
+   "begin": "223.240",
    "children": [],
-   "end": "168.880",
-   "id": "f000029",
+   "end": "223.240",
+   "id": "f000064",
    "language": "por",
    "lines": [
-    "JavaScript foi influenciado por linguagens de programa\u00e7\u00e3o como Self e Scheme.\u00c9 baseada em ECMAScript, padronizada pela Ecma international nas especifica\u00e7\u00f5es ECMA-262 e ISO/IEC 16262.Origem: Wikip\u00e9dia, a enciclop\u00e9dia livre."
+    "incluindo o nome da linguagem,"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000065",
+   "language": "por",
+   "lines": [
+    "a sintaxe e as"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000066",
+   "language": "por",
+   "lines": [
+    "respectivas bibliotecas padr\u00e3o,"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000067",
+   "language": "por",
+   "lines": [
+    "as duas linguagens s\u00e3o distintas e diferem muito no design;"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000068",
+   "language": "por",
+   "lines": [
+    ""
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000069",
+   "language": "por",
+   "lines": [
+    "JavaScript foi influenciado por linguagens de programa\u00e7\u00e3o como Self e Scheme."
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000070",
+   "language": "por",
+   "lines": [
+    "\u00c9 baseada em ECMAScript,"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000071",
+   "language": "por",
+   "lines": [
+    "padronizada pela Ecma international nas especifica\u00e7\u00f5es ECMA-262 e ISO/IEC 16262."
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000072",
+   "language": "por",
+   "lines": [
+    "Origem:"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000073",
+   "language": "por",
+   "lines": [
+    "Wikip\u00e9dia,"
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.240",
+   "id": "f000074",
+   "language": "por",
+   "lines": [
+    "a enciclop\u00e9dia livre."
+   ]
+  },
+  {
+   "begin": "223.240",
+   "children": [],
+   "end": "223.280",
+   "id": "f000075",
+   "language": "por",
+   "lines": [
+    ""
    ]
   }
  ]

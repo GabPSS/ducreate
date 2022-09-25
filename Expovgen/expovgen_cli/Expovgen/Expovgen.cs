@@ -19,32 +19,33 @@ namespace Expovgen
         {
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
+            //LangAPI1 langapi = new(new string[] { "abc. def?!.ghi", " oi. . tudo bem? " });
             LangAPI1? langapi = new(document);
-            langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" };
-            //Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
-            //langapi.GetKeywords();
-            //Logger.WriteLine("Concluído.");
-            //string[]? keywords = langapi.Keywords;
+            langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" }; //Override para em caso de cota atingida
+            Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
+            langapi.GetKeywords();
+            Logger.WriteLine("Concluído.");
+            string[]? keywords = langapi.Keywords;
 
-                ////Opcional: Imprimir palavras-chave
-                //string toPrint = "Palavras-chave: ";
-                //for (int kw = 0; kw < keywords.Length; kw++)
-                //{
-                //    string keyword = keywords[kw];
-                //    toPrint += "'" + keyword + "'";
-                //    if (kw != keywords.Length - 1)
-                //    {
-                //        toPrint += ", ";
-                //    }
-                //    else
-                //    {
-                //        Logger.WriteLine(toPrint);
-                //    }
-                //}
+            //Opcional: Imprimir palavras-chave
+            string toPrint = "Palavras-chave: ";
+            for (int kw = 0; kw < keywords.Length; kw++)
+            {
+                string keyword = keywords[kw];
+                toPrint += "'" + keyword + "'";
+                if (kw != keywords.Length - 1)
+                {
+                    toPrint += ", ";
+                }
+                else
+                {
+                    Logger.WriteLine(toPrint);
+                }
+            }
 
-                //Separar frases para alinhamento
+            //Separar frases para alinhamento
             langapi.SplitPhrases();
-
+            langapi.MakeCaptions();
             //Console.WriteLine("Pressione qualquer tecla para continuar...");
             //Console.ReadKey();
             return langapi.Keywords;
@@ -97,7 +98,7 @@ namespace Expovgen
             //Etapa 4: Execução do alinhamento forçado com aeneas
             Logger.WriteLine("--- RECURSO 4/5: Alinhamento Forçado ---");
             Console.WriteLine("Gerando mapa de sincronização...");
-            RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\text.txt res\output.json");
+            RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
         }
 
         public void Etapa5()
@@ -139,6 +140,7 @@ namespace Expovgen
             };
             //processst.EnvironmentVariables["PATH"] = "audworks\\audioenv\\Scripts\\;audworks\\audioenv\\Lib\\site-packages\\numpy\\core\\include\\numpy;audworks\\audioenv\\Lib\\;audworks\\audioenv\\Lib\\site-packages\\";
             processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
+            processst.EnvironmentVariables.Add("PYTHONIOENCODING", "UTF-8");
             Process process = Process.Start(processst);
             process.WaitForExit();
             Logger.WriteLine("Process completed");
