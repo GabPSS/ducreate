@@ -8,8 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "expovgen_cli/1.0.0": {
         "dependencies": {
-          "langapi": "1.0.0",
-          "libimgfetch": "1.0.0"
+          "System.Drawing.Common": "6.0.0"
         },
         "runtime": {
           "expovgen_cli.dll": {}
@@ -55,19 +54,6 @@
             "fileVersion": "6.0.21.52210"
           }
         }
-      },
-      "langapi/1.0.0": {
-        "runtime": {
-          "langapi.dll": {}
-        }
-      },
-      "libimgfetch/1.0.0": {
-        "dependencies": {
-          "System.Drawing.Common": "6.0.0"
-        },
-        "runtime": {
-          "libimgfetch.dll": {}
-        }
       }
     }
   },
@@ -90,16 +76,6 @@
       "sha512": "sha512-NfuoKUiP2nUWwKZN6twGqXioIe1zVD0RIj2t976A+czLHr2nY454RwwXs6JU9Htc6mwqL6Dn/nEL3dpVf2jOhg==",
       "path": "system.drawing.common/6.0.0",
       "hashPath": "system.drawing.common.6.0.0.nupkg.sha512"
-    },
-    "langapi/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "libimgfetch/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

@@ -3,15 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "langapi", "langapi\langapi.csproj", "{063FFDB5-C605-421F-8DCD-730ECC64D15A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libimgfetch", "libimgfetch\libimgfetch.csproj", "{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Audioworks", "Audioworks\Audioworks.pyproj", "{4256C467-BF16-4BED-8749-CFDF9CD7D588}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "moviestitch", "moviestitch\moviestitch.pyproj", "{6026571F-044A-473B-B9B4-3BF49588BCA8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expovgen_cli", "expovgen_cli\expovgen_cli.csproj", "{A17378A1-07FB-4646-8846-963F081CDB9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "expovgen_cli", "expovgen_cli\expovgen_cli.csproj", "{A17378A1-07FB-4646-8846-963F081CDB9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,18 +13,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{063FFDB5-C605-421F-8DCD-730ECC64D15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{063FFDB5-C605-421F-8DCD-730ECC64D15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{063FFDB5-C605-421F-8DCD-730ECC64D15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{063FFDB5-C605-421F-8DCD-730ECC64D15A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D3A9E35-5ED5-473D-8D53-99E34155D4BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4256C467-BF16-4BED-8749-CFDF9CD7D588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4256C467-BF16-4BED-8749-CFDF9CD7D588}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6026571F-044A-473B-B9B4-3BF49588BCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6026571F-044A-473B-B9B4-3BF49588BCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A17378A1-07FB-4646-8846-963F081CDB9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A17378A1-07FB-4646-8846-963F081CDB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A17378A1-07FB-4646-8846-963F081CDB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU

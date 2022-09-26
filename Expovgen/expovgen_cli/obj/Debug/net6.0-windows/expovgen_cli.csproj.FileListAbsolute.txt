@@ -267,10 +267,6 @@ E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\System.Drawing.Common
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\langapi.dll
-E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\libimgfetch.dll
-E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\langapi.pdb
-E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\libimgfetch.pdb
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.csproj.AssemblyReference.cache
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.GeneratedMSBuildEditorConfig.editorconfig
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.AssemblyInfoInputs.cache
