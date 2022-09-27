@@ -14,14 +14,15 @@ namespace Expovgen
     public class Expovgen
     {
         public ExpovgenLogs Logger { get; set; } = new();
+        private string[] LangAPIKeywords { get; set; } = Array.Empty<string>();
+        public (int width,int height) VideoDimensions { get; set; }
 
         public string[]? Etapa1(string filePath)
         {
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
-            //LangAPI1 langapi = new(new string[] { "abc. def?!.ghi", " oi. . tudo bem? " });
             LangAPI1? langapi = new(document);
-            langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" }; //Override para em caso de cota atingida
+            //langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" }; //Override para em caso de cota atingida
             Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
             langapi.GetKeywords();
             Logger.WriteLine("Concluído.");
@@ -46,10 +47,11 @@ namespace Expovgen
             //Separar frases para alinhamento
             langapi.SplitPhrases();
             langapi.MakeCaptions();
-            //Console.WriteLine("Pressione qualquer tecla para continuar...");
-            //Console.ReadKey();
+
+            //Retornar palavras-chave
+            LangAPIKeywords = keywords;
             return langapi.Keywords;
-            //return keywords;
+            
         }
 
         public void Etapa2(string[] keywords)
@@ -98,7 +100,10 @@ namespace Expovgen
             //Etapa 4: Execução do alinhamento forçado com aeneas
             Logger.WriteLine("--- RECURSO 4/5: Alinhamento Forçado ---");
             Console.WriteLine("Gerando mapa de sincronização...");
-            RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
+            //RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
+            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.aeneas_inst, "res\\speech.mp3 res\\cc.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\ccmap.txt");
+            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.aeneas_inst, "res\\speech.mp3 res\\split.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\splitmap.txt");
+            LangAPI1.PrepareAlignmentAgainstKeywords("res\\keywords.txt", "res\\splitmap.txt");
         }
 
         public void Etapa5()
@@ -110,23 +115,26 @@ namespace Expovgen
 
         enum PyTasks
         {
-            AudioWorks_TTS, AudioWorks_Align
+            AudioWorks_TTS, AudioWorks_Align, Aeneas_cmdline
         }
 
         private static string[] PyTasks_Paths =
         {
             "tts",
-            "align"
+            "align",
+            "-m aeneas.tools.execute_task"
         };
 
         enum PyEnvs
         {
-            audworks
+            audworks,
+            aeneas_inst
         }
 
         private static string[] PyEnvs_Paths =
         {
-            @"audworks\Audioworks.exe"
+            @"audworks\Audioworks.exe",
+            @"\Python37-32\python.exe",
         };
 
         void RunPY(PyTasks pytask, PyEnvs pyenv, string args)
@@ -138,6 +146,10 @@ namespace Expovgen
                 FileName = PyEnvs_Paths[(int)pyenv],
                 Arguments = PyTasks_Paths[(int)pytask] + " " + args,
             };
+            if (pyenv == PyEnvs.aeneas_inst)
+            {
+                processst.FileName = processst.EnvironmentVariables["SystemDrive"] + processst.FileName;
+            }
             //processst.EnvironmentVariables["PATH"] = "audworks\\audioenv\\Scripts\\;audworks\\audioenv\\Lib\\site-packages\\numpy\\core\\include\\numpy;audworks\\audioenv\\Lib\\;audworks\\audioenv\\Lib\\site-packages\\";
             processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
             processst.EnvironmentVariables.Add("PYTHONIOENCODING", "UTF-8");

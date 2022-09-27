@@ -7,7 +7,6 @@ imperativo e funcional).
 Juntamente com HTML e CSS,
 o
 JavaScript é uma das três principais tecnologias da World Wide Web.
-
 JavaScript permite
 páginas da Web interativas e,
 portanto,
@@ -65,11 +64,9 @@ incluindo o nome da linguagem,
 a sintaxe e as
 respectivas bibliotecas padrão,
 as duas linguagens são distintas e diferem muito no design;
-
 JavaScript foi influenciado por linguagens de programação como Self e Scheme.
 É baseada em ECMAScript,
 padronizada pela Ecma international nas especificações ECMA-262 e ISO/IEC 16262.
 Origem:
 Wikipédia,
 a enciclopédia livre.
-

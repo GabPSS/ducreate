@@ -11,6 +11,7 @@ namespace Expovgen.LangAPI
         private string[] Document { get; set; }
 
         public string[]? Keywords {get;set;}
+        public string KeywordsFileTargetPath { get; set; } = "res\\keywords.txt";
         public LangAPI1(string[] document)
         {
             Document = document;
@@ -67,6 +68,8 @@ namespace Expovgen.LangAPI
             {
                 Keywords = null;
             }
+
+            File.WriteAllLines(KeywordsFileTargetPath, keywords);
         }
 
         public void SplitPhrases()
@@ -217,6 +220,26 @@ namespace Expovgen.LangAPI
             File.WriteAllLines(@"res\cc.txt", phrases);
         }
 
+        public static void PrepareAlignmentAgainstKeywords(string keywordsFilePath, string filePath)
+        {
+            string[] doc = File.ReadAllLines(filePath);
+            string[] Keywords = File.ReadAllLines(keywordsFilePath);
+
+            //Checks each line and adds modifier id to the start of them
+            for (int i = 0; i < doc.Length; i++)
+            {
+                for (int i1 = 0; i1 < Keywords.Length; i1++)
+                {
+                    if (doc[i].Contains(Keywords[i1]))
+                    {
+                        doc[i] = i1.ToString("000") + " " + doc[i];
+                        break;
+                    }
+                }
+            }
+
+            File.WriteAllLines(filePath, doc);
+        }
 
         public class QuotaExceededException : Exception
         {
