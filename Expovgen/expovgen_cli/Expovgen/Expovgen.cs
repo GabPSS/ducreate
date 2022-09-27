@@ -14,7 +14,6 @@ namespace Expovgen
     public class Expovgen
     {
         public ExpovgenLogs Logger { get; set; } = new();
-        private string[] LangAPIKeywords { get; set; } = Array.Empty<string>();
         public (int width,int height) VideoDimensions { get; set; }
 
         public string[]? Etapa1(string filePath)
@@ -49,7 +48,6 @@ namespace Expovgen
             langapi.MakeCaptions();
 
             //Retornar palavras-chave
-            LangAPIKeywords = keywords;
             return langapi.Keywords;
             
         }
@@ -101,8 +99,8 @@ namespace Expovgen
             Logger.WriteLine("--- RECURSO 4/5: Alinhamento Forçado ---");
             Console.WriteLine("Gerando mapa de sincronização...");
             //RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
-            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.aeneas_inst, "res\\speech.mp3 res\\cc.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\ccmap.txt");
-            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.aeneas_inst, "res\\speech.mp3 res\\split.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\splitmap.txt");
+            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\cc.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\ccmap.txt");
+            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\split.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\splitmap.txt");
             LangAPI1.PrepareAlignmentAgainstKeywords("res\\keywords.txt", "res\\splitmap.txt");
         }
 
@@ -110,31 +108,32 @@ namespace Expovgen
         {
             //TODO: Implement Etapa 5 (moviestitch)
             Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
-            throw new NotImplementedException();
+            RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
         }
 
         enum PyTasks
         {
-            AudioWorks_TTS, AudioWorks_Align, Aeneas_cmdline
+            AudioWorks_TTS, AudioWorks_Align, Aeneas_cmdline, Moviepy_Script
         }
 
         private static string[] PyTasks_Paths =
         {
             "tts",
             "align",
-            "-m aeneas.tools.execute_task"
+            "-m aeneas.tools.execute_task",
+            "stitchtest2.py"
         };
 
         enum PyEnvs
         {
             audworks,
-            aeneas_inst
+            python_inst
         }
 
         private static string[] PyEnvs_Paths =
         {
             @"audworks\Audioworks.exe",
-            @"\Python37-32\python.exe",
+            @"\Python37-32\python.exe", //TODO: Replace this path with env variables
         };
 
         void RunPY(PyTasks pytask, PyEnvs pyenv, string args)
@@ -146,7 +145,7 @@ namespace Expovgen
                 FileName = PyEnvs_Paths[(int)pyenv],
                 Arguments = PyTasks_Paths[(int)pytask] + " " + args,
             };
-            if (pyenv == PyEnvs.aeneas_inst)
+            if (pyenv == PyEnvs.python_inst)
             {
                 processst.FileName = processst.EnvironmentVariables["SystemDrive"] + processst.FileName;
             }

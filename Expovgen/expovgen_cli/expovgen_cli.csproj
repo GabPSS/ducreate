@@ -40,4 +40,10 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="stitchtest2.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

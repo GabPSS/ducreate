@@ -26,7 +26,7 @@ namespace Expovgen
             Console.WriteLine(" [2] - Recurso: Pesquisa de imagens");
             Console.WriteLine(" [3] - Recurso: Conversão de texto para voz");
             Console.WriteLine(" [4] - Recurso: Alinhamento forçado");
-            Console.WriteLine(" [5] - Recurso: Junção do vídeo final (indisp.)");
+            Console.WriteLine(" [5] - Recurso: Junção do vídeo final");
         input:
             Console.WriteLine("");
             Console.Write("Digite a opção desejada: ");
