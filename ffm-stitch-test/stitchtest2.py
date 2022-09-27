@@ -1,38 +1,77 @@
 from moviepy.video.fx import resize
 from moviepy.editor import *
 
+# Read files and define variables and arrays
+
 vid_height = 1366
 vid_width = 768
 
-
 split_syncmap = []
-with open('res\\splitmap.txt') as split_syncmap_file:
+with open('res\\splitmap.txt',mode="r",encoding="utf-8") as split_syncmap_file:
     split_syncmap = split_syncmap_file.readlines()
 
 vclips_array = []
-counter = 0
+cc_clips_array = []
 
+cc_texts = []
+cc_map = []
+cc_durations = []
+
+with open('res\\ccmap.txt',mode="r",encoding="utf-8") as cc_map_file:
+    cc_map = cc_map_file.readlines()
+
+with open('res\\cc.txt',mode="r",encoding="utf-8") as cc_texts_file:
+    cc_texts = cc_texts_file.readlines()
+
+
+# Create image clips and add them respectively
+counter = 0
 for x in split_syncmap:
     data = x.split()
     clipduration = float(data[3]) - float(data[2])
     counter += clipduration
     imgclip = ImageClip("res\\imgs\\" + data[0] + ".jpg",duration=clipduration)
+    #imgclip = resize.resize(imgclip,width=vid_width,height=vid_height)
     vclips_array.append(imgclip)
 
+# Create speech clip
 speech_aud = AudioFileClip("res\\speech.mp3")
 speech_aud = speech_aud.subclip(0,counter);
 
-finalvid = concatenate_videoclips(vclips_array);
+# Creates caption clips and adds them
+counter2 = 0
+for text in cc_texts:
+    cc_data = cc_map[counter2].split()
+    cc_clip = TextClip(text,fontsize=20,color='white',bg_color='black')
+    cc_clip = cc_clip.set_position('bottom')
+    cc_duration = float(cc_data[2]) - float(cc_data[1])
+    cc_clip = cc_clip.set_duration(cc_duration)
+    cc_clips_array.append(cc_clip)
+    cc_durations.append(cc_duration)
+    counter2 += 1
+
+# Resplits video in order to add subtitles
+allvideo = concatenate_videoclips(vclips_array)
+vid_divisions = []
+
+counter3 = 0
+startat = 0
+for x in cc_durations:
+    endat = startat + x
+    division = allvideo.subclip(startat,endat)
+    division = CompositeVideoClip([division,cc_clips_array[counter3]])
+    vid_divisions.append(division)
+    counter3 += 1
+    startat = endat
+
+# Join everything together
+finalvid = concatenate_videoclips(vid_divisions);
 finalvid = finalvid.set_audio(speech_aud);
 finalvid.write_videofile('finalvidtest.mp4', fps=30)
 
-# intializes all clips
 
-#img1 = ImageClip("007.png",duration=5)
-#img2 = ImageClip("004.png",duration=5)
-#img3 = ImageClip("005.png",duration=5)
-#img4 = ImageClip("008.png",duration=5)
-#aud = AudioFileClip("aud.mp3")
+## --- EXTRA BITS OF CODE ---
+
 #aud = aud.subclip(0,20)
 #aud = aud.volumex(0.2)
 

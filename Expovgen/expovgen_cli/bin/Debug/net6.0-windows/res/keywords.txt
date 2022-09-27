@@ -1,20 +1,20 @@
 linguagem de programação
-principais navegadores
-grande maioria dos sites
-termos Vanilla JavaScript
-principal linguagem
-lado do servidor
-mecanismo JavaScript
-páginas da Web interativas
-alto nível
-linguagem multiparadigma
-navegadores web
-JavaScript
-Vanilla JS
-mecanismos JavaScript
-comunicação assíncrona
-respectivas bibliotecas padrão
-tempo de execução ambientes
-funções de alta ordem
-parte dos navegadores web
-bancos de dados da Web
+Diferentes partes de um programa
+manutenção de um programa de computador
+Diferentes linguagens de programação
+linguagem de máquina
+Donald Knuth
+processo de escrita
+maioria das linguagens
+Edsger Dijkstra
+Programação
+David Parnas
+décadas
+motivo
+programadores
+programa
+linguagens
+arte
+ciência
+matemática
+programas

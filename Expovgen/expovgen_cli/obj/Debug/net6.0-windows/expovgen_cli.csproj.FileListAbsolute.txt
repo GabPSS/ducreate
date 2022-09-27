@@ -278,3 +278,12 @@ E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\ref\expovgen_cli.dll
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.pdb
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\expovgen_cli.genruntimeconfig.cache
 E:\expovgen\Expovgen\expovgen_cli\obj\Debug\net6.0-windows\refint\expovgen_cli.dll
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\stitchtest2.py
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\entry_points.txt
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\INSTALLER
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\LICENSE.txt
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\METADATA
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\RECORD
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\REQUESTED
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\top_level.txt
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\WHEEL
