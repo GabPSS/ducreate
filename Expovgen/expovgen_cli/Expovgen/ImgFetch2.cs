@@ -53,6 +53,7 @@ namespace Expovgen.ImgFetch
         // Private properties for use only within the API
         private List<(string query, string[] urls)>? Results { get; set; }
         private HttpClient webClient { get; set; } = new HttpClient();
+        //private (int width, int height) VideoDimensions { get; set; } = (1366, 768);
 
         #endregion
 
@@ -146,6 +147,7 @@ namespace Expovgen.ImgFetch
                     PossibleImageFiles[x1] = DownloadImage(Results[x1].urls[0]);
                 }
                 catch (ArgumentOutOfRangeException) { return Array.Empty<Image>(); }
+                catch (IndexOutOfRangeException) { continue; }
             }
 
             //Convert each stream to a bitmap and redownload if missing.

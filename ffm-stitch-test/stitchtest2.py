@@ -16,7 +16,7 @@ for x in split_syncmap:
     data = x.split()
     clipduration = float(data[3]) - float(data[2])
     counter += clipduration
-    imgclip = ImageClip("res\\img\\" + data[0] + ".png",duration=clipduration)
+    imgclip = ImageClip("res\\imgs\\" + data[0] + ".jpg",duration=clipduration)
     vclips_array.append(imgclip)
 
 speech_aud = AudioFileClip("res\\speech.mp3")

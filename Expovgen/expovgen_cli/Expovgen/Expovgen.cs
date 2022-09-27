@@ -75,7 +75,7 @@ namespace Expovgen
                 {
                     try
                     {
-                        images[x].Save(@"res\imgs\img" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        images[x].Save(@"res\imgs\" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                     catch { }
                 }
