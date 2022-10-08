@@ -287,3 +287,5 @@ E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\REQUESTED
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\top_level.txt
 E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\audworks\wheel-0.37.1.dist-info\WHEEL
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\Libexpovgen.dll
+E:\expovgen\Expovgen\expovgen_cli\bin\Debug\net6.0-windows\Libexpovgen.pdb

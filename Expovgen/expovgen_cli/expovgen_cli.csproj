@@ -12,38 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="audworks\*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-	  <None Update="audworks\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="audworks\*\*\*\*\*\*\*\*\*">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="stitchtest2.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\Libexpovgen\Libexpovgen.csproj" />
   </ItemGroup>
 </Project>

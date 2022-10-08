@@ -31,7 +31,7 @@ for x in split_syncmap:
     clipduration = float(data[3]) - float(data[2])
     counter += clipduration
     imgclip = ImageClip("res\\imgs\\" + data[0] + ".jpg",duration=clipduration)
-    imgclip = imgclip.resize( (vid_height,vid_width) )
+    imgclip = imgclip.resize( (vid_width,vid_height) )
     vclips_array.append(imgclip)
 
 # Create speech clip
