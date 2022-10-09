@@ -49,9 +49,9 @@ namespace Expovgen.ImgFetch
         public string[]? RequestQueries { get; set; }
         public Services Service { get; set; }
         public IServicePreferences? ServicePreferences { get; set; }
+        public List<(string query, string[] urls)>? Results { get; set; }
 
         // Private properties for use only within the API
-        private List<(string query, string[] urls)>? Results { get; set; }
         private HttpClient webClient { get; set; } = new HttpClient();
         //private (int width, int height) VideoDimensions { get; set; } = (1366, 768);
 

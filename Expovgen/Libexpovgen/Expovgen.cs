@@ -16,40 +16,97 @@ namespace Expovgen
         public ExpovgenLogs Logger { get; set; } = new();
         public (int width,int height) VideoDimensions { get; set; }
 
-        public string[]? Etapa1(string filePath)
+        #region Etapa 1
+
+        public class Etapa1EventArgs : EventArgs
+        {
+            public string[] Keywords { get; set; }
+        }
+
+        public delegate void Etapa1EventHandler(object source, Etapa1EventArgs e);
+        public event Etapa1EventHandler Etapa1Complete;
+        public event Etapa1EventHandler Etapa1Failed;
+
+        protected virtual void OnEtapa1Complete(string[] keywords)
+        {
+            Etapa1Complete(this, new Etapa1EventArgs() { Keywords = keywords });
+        }
+
+        protected virtual void OnEtapa1Failed()
+        {
+            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = Array.Empty<string>() });
+        }
+
+
+        public void Etapa1(string filePath = "res\\text.txt")
         {
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
-            //langapi.Keywords = new string[] { "linguagem de programação", "principais navegadores", "grande maioria dos sites", "termos Vanilla JavaScript", "principal linguagem", "lado do servidor", "mecanismo JavaScript", "páginas da Web interativas", "alto nível", "linguagem multiparadigma", "navegadores web", "JavaScript", "Vanilla JS", "mecanismos JavaScript", "comunicação assíncrona", "respectivas bibliotecas padrão", "tempo de execução ambientes", "funções de alta ordem", "parte dos navegadores web", "bancos de dados da Web" }; //Override para em caso de cota atingida
             Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
-            langapi.GetKeywords();
+            langapi.GetKeywords(); 
             Logger.WriteLine("Concluído.");
-            string[]? keywords = langapi.Keywords;
 
-            //Opcional: Imprimir palavras-chave
-            string toPrint = "Palavras-chave: ";
-            for (int kw = 0; kw < keywords.Length; kw++)
+            if (langapi.Keywords is null)
             {
-                string keyword = keywords[kw];
-                toPrint += "'" + keyword + "'";
-                if (kw != keywords.Length - 1)
-                {
-                    toPrint += ", ";
-                }
-                else
-                {
-                    Logger.WriteLine(toPrint);
-                }
+                Logger.WriteLine("Erro ao extrair palavras-chave!");
+                OnEtapa1Failed();
+                return;
             }
 
             //Separar frases para alinhamento
             langapi.SplitPhrases();
             langapi.MakeCaptions();
 
-            //Retornar palavras-chave
-            return langapi.Keywords;
-            
+            OnEtapa1Complete(langapi.Keywords);
+        }
+
+        public void OverrideEtapa1()
+        {
+            File.Copy("res\\text.txt", "res\\split.txt");
+            File.Copy("res\\text.txt", "res\\keywords.txt");
+            string[] outputLines = File.ReadAllLines("res\\text.txt");
+            LangAPI1 langAPI = new LangAPI1(outputLines);
+            langAPI.MakeCaptions();
+            Logger.WriteLine("Override completo");
+            OnEtapa1Complete(outputLines);
+        }
+
+        public void OverrideEtapa1(string[] inputKeywords, string filePath = "res\\text.txt")
+        {
+            string[] doc = File.ReadAllLines(filePath);
+            LangAPI1 langAPI = new LangAPI1(doc);
+            langAPI.Keywords = inputKeywords;
+            langAPI.SplitPhrases();
+            langAPI.MakeCaptions();
+            Logger.WriteLine("Override completo");
+            OnEtapa1Complete(langAPI.Keywords);
+        }
+
+        #endregion
+
+        #region Etapa 2
+
+        public class Etapa2EventArgs : EventArgs
+        {
+            public List<Image?> Images { get; set; }
+            public List<(string query, string[] urls)>? Results { get; set; }
+        }
+
+        public delegate void Etapa2EventHandler(object sender, Etapa2EventArgs e);
+        public event Etapa2EventHandler Etapa2Complete;
+        public event Etapa2EventHandler Etapa2Incomplete;
+
+        protected virtual void OnEtapa2Done(List<Image?> images, List<(string query, string[] urls)>? results, bool TotallySuccessful = true)
+        {
+            if (TotallySuccessful)
+            {
+                Etapa2Complete(this, new Etapa2EventArgs() { Images = images, Results = results });
+            }
+            else
+            {
+                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, Results = results });
+            }
         }
 
         public void Etapa2(string[] keywords)
@@ -66,7 +123,7 @@ namespace Expovgen
             Directory.CreateDirectory(@"res\imgs");
 
             List<Image?> images = imgs.RequestImages().ToList();
-
+            bool TotallySuccessful = true; ;
             if (images.Count > 0)
             {
                 for (int x = 0; x < images.Count; x++)
@@ -75,15 +132,19 @@ namespace Expovgen
                     {
                         images[x].Save(@"res\imgs\" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
-                    catch { }
+                    catch 
+                    {
+                        Logger.WriteLine("Failed to write image " + x + " to disk, possibly a null image");
+                        TotallySuccessful = false;
+                    }
                 }
             }
 
             Logger.WriteLine(images.Count + " imagens baixadas da internet.");
-            
-            //Console.WriteLine("Pressione qualquer tecla...");
-            //Console.ReadKey();
+            OnEtapa2Done(images, imgs.Results, TotallySuccessful);
         }
+
+        #endregion
 
         public void Etapa3()
         {
