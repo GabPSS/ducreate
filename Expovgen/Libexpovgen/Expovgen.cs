@@ -11,13 +11,15 @@ using Expovgen.LangAPI;
 
 namespace Expovgen
 {
-    public enum Etapa1Behaviors { Auto, ForceManual, AutoManual }
+
+    public enum Etapa1Behaviors { Auto, ForceManual, ForceOneByParagraph, AutoManual }
     public enum Etapa2Behaviors { Auto, ForceManual, AutoManual }
-    public enum Etapa3Behaviors { Auto, ForceManual, AutoManual }
+    public enum Etapa3Behaviors { Auto, ForceManual }
     public enum Etapa4Behaviors { Auto, None }
 
     public class Expovgen
     {
+        private const string WorkDir = "res";
 
         #region Public API properties
         public ExpovgenLogs Logger { get; set; } = new();
@@ -31,7 +33,52 @@ namespace Expovgen
 
         #endregion
 
+        public Expovgen()
+        {
+            //Apagar arquivos anteriores
+            
+            string[] files = Array.Empty<string>(), folders = Array.Empty<string>();
+
+            try
+            {
+                files = Directory.EnumerateFiles(WorkDir, "*.*", SearchOption.AllDirectories).ToArray();
+            }
+            catch { }
+
+            try
+            {
+                folders = Directory.EnumerateDirectories(WorkDir, "*", SearchOption.AllDirectories).ToArray();
+            }
+            catch { }
+
+            foreach (string file in files)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch { }
+            }
+            foreach (string folder in folders)
+            {
+                try
+                {
+                    Directory.Delete(folder);
+                }
+                catch { }
+            }
+            try
+            {
+                Directory.Delete(WorkDir);
+            }
+            catch { }
+            
+        }
+
+
         #region Etapa 1
+
+        #region Events
 
         public class Etapa1EventArgs : EventArgs
         {
@@ -48,14 +95,27 @@ namespace Expovgen
             Etapa1Complete(this, new Etapa1EventArgs() { Keywords = keywords });
         }
 
-        protected virtual void OnEtapa1Failed(bool Intentional)
+        protected virtual void OnEtapa1Failed(bool Intentional, string[] keywords)
         {
-            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = Array.Empty<string>(), OverrideIntentionallyRequested = Intentional });
+            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = keywords, OverrideIntentionallyRequested = Intentional });
         }
 
+        #endregion
 
-        public void Etapa1(bool forceOverrideAfterCompletion = false, string filePath = "res\\text.txt")
+        public void Etapa1(string filePath = "res\\text.txt")
         {
+            //Cancelar em caso de ForceManual
+            if (Etapa1Behavior == Etapa1Behaviors.ForceManual)
+            {
+                OnEtapa1Failed(true, Array.Empty<string>());
+                return;
+            }
+            if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph)
+            {
+                OverrideEtapa1();
+                return;
+            }
+
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
@@ -66,19 +126,19 @@ namespace Expovgen
             if (langapi.Keywords is null)
             {
                 Logger.WriteLine("Erro ao extrair palavras-chave!");
-                OnEtapa1Failed(forceOverrideAfterCompletion);
-                return;
-            }
-            else if (forceOverrideAfterCompletion)
-            {
-                Logger.WriteLine("Override foçado solicitado");
-                OnEtapa1Failed(forceOverrideAfterCompletion);
+                OnEtapa1Failed(false, Array.Empty<string>());
                 return;
             }
 
             //Separar frases para alinhamento
             langapi.SplitPhrases();
             langapi.MakeCaptions();
+
+            //Retornar adequadamente
+            if (Etapa1Behavior == Etapa1Behaviors.AutoManual)
+            {
+                OnEtapa1Failed(true,langapi.Keywords);
+            }
 
             OnEtapa1Complete(langapi.Keywords);
         }
@@ -121,13 +181,21 @@ namespace Expovgen
         {
             public List<Image?> Images { get; set; }
             public string[] RequestQueries { get; set; }
+            public bool OverrideRequestedIntentionally { get; set; } = false;
         }
 
         public delegate void Etapa2EventHandler(object sender, Etapa2EventArgs e);
         public event Etapa2EventHandler Etapa2Complete;
         public event Etapa2EventHandler Etapa2Incomplete;
 
-        protected virtual void OnEtapa2Done(List<Image?> images, string[] requestQueries, bool TotallySuccessful = true)
+        /// <summary>
+        /// Standard method called when Etapa2 returns work
+        /// </summary>
+        /// <param name="images">The images generated (if not, send in an empty array)</param>
+        /// <param name="requestQueries">The queries requested</param>
+        /// <param name="TotallySuccessful">True if the step was completely successful and no unrequested user intervention is required. Otherwise, false.</param>
+        /// <param name="overrideIntentional">True if TotallySuccessful=false was intentional, due to the user requesting intervention, otherwise false</param>
+        protected virtual void OnEtapa2Done(List<Image?> images, string[] requestQueries, bool TotallySuccessful = true, bool overrideIntentional = false)
         {
             if (TotallySuccessful)
             {
@@ -135,12 +203,18 @@ namespace Expovgen
             }
             else
             {
-                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries });
+                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries, OverrideRequestedIntentionally = overrideIntentional });
             }
         }
 
         public void Etapa2(string[] keywords)
         {
+            if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph || Etapa2Behavior == Etapa2Behaviors.ForceManual)
+            {
+                OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, true);
+                return;
+            }
+
             //Etapa 2: Busca de imagens para cada palavra-chave
             Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
 
@@ -153,9 +227,15 @@ namespace Expovgen
 
             List<Image?> images = fetcher.RequestImages().ToList();
             bool TotallySuccessful = SaveImgfetchPictures(images);
-
+            
             Logger.WriteLine(images.Count + " imagens baixadas da internet.");
-            OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful);
+            
+            if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
+            {
+                OnEtapa2Done(images, keywords, false, true);
+            }
+
+            OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful,false);
         }
 
         public static bool SaveImgfetchPictures(List<Image?> images)
@@ -181,13 +261,48 @@ namespace Expovgen
 
         #endregion
 
+        #region Etapa 3
+
+        #region Etapa 3 Events
+
+        public class Etapa3EventArgs : EventArgs
+        {
+            public bool OverrideIntentional { get; set; }
+        }
+
+        public delegate void Etapa3EventHandler(object sender, Etapa3EventArgs e);
+        public event Etapa3EventHandler Etapa3Completed;
+        public event Etapa3EventHandler Etapa3Failed;
+
+        protected virtual void OnEtapa3Completed()
+        {
+            Etapa3Completed(this, new Etapa3EventArgs() { OverrideIntentional = false });
+        }
+
+        protected virtual void OnEtapa3Failed(bool Intentional = false)
+        {
+            Etapa3Failed(this, new Etapa3EventArgs() { OverrideIntentional = Intentional });
+        }
+
+        #endregion
+
+
         public void Etapa3()
         {
+            if (Etapa3Behavior == Etapa3Behaviors.ForceManual)
+            {
+                OnEtapa3Failed(true);
+                return;
+            }
+
             //Etapa 3: Conversão de Texto para voz (audioworks)
             Logger.WriteLine("--- RECURSO 3/5: Conversão de texto para voz ---");
             Logger.WriteLine("Convertendo texto para voz...(RunPY)");
             RunPY(PyTasks.AudioWorks_TTS, PyEnvs.audworks, @"res\text.txt res\speech.mp3");
+            OnEtapa3Completed();
         }
+
+        #endregion
 
         public void Etapa4()
         {

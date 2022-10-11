@@ -34,46 +34,51 @@ namespace ExpovgenGUI
 
         private void SaveAllImages(object? sender, FormClosingEventArgs e)
         {
-            List<int> indices = new();
-            for (int i = 0; i < imageList1.Images.Count; i++)
+            if (cancelClose)
             {
-                Image? image = ((ImageItem)listView1.Items[i]).ResultingImage;
-                if (image is null)
+                List<int> indices = new();
+                for (int i = 0; i < imageList1.Images.Count; i++)
                 {
-                    indices.Add(i + 1);
-                }
-            }
-
-            if (indices.Count > 0)
-            {
-                string outputString = "";
-                for (int i = 0; i < indices.Count; i++)
-                {
-                    outputString += indices[i] + "ª";
-                    if (indices.Count >= 2 && i == indices.Count - 2)
+                    Image? image = ((ImageItem)listView1.Items[i]).ResultingImage;
+                    if (image is null)
                     {
-                        outputString += " e a ";
-                    }
-                    else if (i < indices.Count - 1)
-                    {
-                        outputString += ", a ";
+                        indices.Add(i + 1);
                     }
                 }
-                MessageBox.Show("Favor adicionar a " + outputString + " imagem", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                e.Cancel = true;
-            }
-            else
-            {
-                List<Image> resultimages = new();
-                foreach (ImageItem item in listView1.Items)
+
+                if (indices.Count > 0)
                 {
-                    Image newItem = Expovgen.ImgFetch.ImgFetch2.ResizeImage(item.ResultingImage, VideoDimensions.width, VideoDimensions.height, Brushes.Black);
-                    resultimages.Add(newItem);
+                    string outputString = "";
+                    for (int i = 0; i < indices.Count; i++)
+                    {
+                        outputString += indices[i] + "ª";
+                        if (indices.Count >= 2 && i == indices.Count - 2)
+                        {
+                            outputString += " e a ";
+                        }
+                        else if (i < indices.Count - 1)
+                        {
+                            outputString += ", a ";
+                        }
+                    }
+                    MessageBox.Show("Favor adicionar a " + outputString + " imagem", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true;
                 }
-                Expovgen.Expovgen.SaveImgfetchPictures(resultimages);
+                else
+                {
+                    List<Image> resultimages = new();
+                    foreach (ImageItem item in listView1.Items)
+                    {
+                        Image newItem = Expovgen.ImgFetch.ImgFetch2.ResizeImage(item.ResultingImage, VideoDimensions.width, VideoDimensions.height, Brushes.Black);
+                        resultimages.Add(newItem);
+                    }
+                    Expovgen.Expovgen.SaveImgfetchPictures(resultimages);
+                    DialogResult = DialogResult.OK;
+                }
+            } else
+            {
+                DialogResult = DialogResult.Cancel;
             }
-
-
         }
 
         /// <summary>
@@ -132,6 +137,16 @@ namespace ExpovgenGUI
             };
 
             listView1.Items.Add(item);
+        }
+        bool cancelClose = true;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cancelClose = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

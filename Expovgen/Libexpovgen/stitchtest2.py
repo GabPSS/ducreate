@@ -3,8 +3,8 @@ from moviepy.editor import *
 
 # Read files and define variables and arrays
 
-vid_height = 1366
-vid_width = 768
+vid_width = 1366
+vid_height = 768
 
 split_syncmap = []
 with open('res\\splitmap.txt',mode="r",encoding="utf-8") as split_syncmap_file:
