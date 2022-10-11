@@ -11,13 +11,23 @@ using Expovgen.LangAPI;
 
 namespace Expovgen
 {
+    public enum Etapa1Behaviors { Auto, ForceManual, AutoManual }
+    public enum Etapa2Behaviors { Auto, ForceManual, AutoManual }
+    public enum Etapa3Behaviors { Auto, ForceManual, AutoManual }
+    public enum Etapa4Behaviors { Auto, None }
+
     public class Expovgen
     {
 
         #region Public API properties
-
         public ExpovgenLogs Logger { get; set; } = new();
         public (int Width, int Height) VideoDimensions { get; set; } = (1366, 768);
+
+        //Settings for etapas
+        public Etapa1Behaviors Etapa1Behavior { get; set; } = Etapa1Behaviors.Auto;
+        public Etapa2Behaviors Etapa2Behavior { get; set; } = Etapa2Behaviors.Auto;
+        public Etapa3Behaviors Etapa3Behavior { get; set; } = Etapa3Behaviors.Auto;
+        public Etapa4Behaviors Etapa4Behavior { get; set; } = Etapa4Behaviors.Auto;
 
         #endregion
 
