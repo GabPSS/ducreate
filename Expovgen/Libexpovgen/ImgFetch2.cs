@@ -50,6 +50,7 @@ namespace Expovgen.ImgFetch
         public Services Service { get; set; }
         public IServicePreferences? ServicePreferences { get; set; }
         public List<(string query, string[] urls)>? Results { get; set; }
+        public (int Width,int Height) ImageDimensions { get; set; }
 
         // Private properties for use only within the API
         private HttpClient webClient { get; set; } = new HttpClient();
@@ -60,9 +61,10 @@ namespace Expovgen.ImgFetch
         /// <summary>
         /// Standard constructor for ImgFetch
         /// </summary>
-        public ImgFetch2(ExpovgenLogs logs)
+        public ImgFetch2(ExpovgenLogs logs, (int Width, int Height) imageDimensions)
         {
             Logs = logs;
+            ImageDimensions = imageDimensions;
         }
 
         #region Auxiliary methods for getting URL strings
@@ -163,6 +165,7 @@ namespace Expovgen.ImgFetch
                     try
                     {
                         convertedImage = Image.FromStream(PossibleImageFiles[i]);
+                        convertedImage = ResizeImage(convertedImage, ImageDimensions.Width, ImageDimensions.Height, Brushes.Black);
                         goto loopend;
                     }
                     catch
@@ -198,6 +201,50 @@ namespace Expovgen.ImgFetch
             return Images;
 
             //TODO: (Idea) Make it so the program is able to return the non-downloaded image URLs, so new downloads can be requested
+        }
+        
+        /// <summary>
+        /// Rezises an image within the specified bounds of the height in an 16:9 aspect ratio
+        /// </summary>
+        /// <param name="sourceImage"></param>
+        /// <param name="height"></param>
+        /// <param name="backgroundFill"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Image ResizeImage(Image sourceImage, int tgtBaseWidth, int tgtBaseHeight, Brush backgroundFill)
+        {
+            //Size of the input image
+            int srcWidth = sourceImage.Width;
+            int srcHeight = sourceImage.Height;
+
+            //Size of the image in the base
+            int ImgHeight = tgtBaseHeight;
+            int ImgWidth = tgtBaseHeight * srcWidth / srcHeight;
+
+            //Image's position on the base
+            int ImgPosX = (tgtBaseWidth - ImgWidth) / 2;
+            int ImgPosY = 0;
+                
+            if (ImgPosX < 0)
+            {
+                ImgHeight = tgtBaseWidth * srcHeight / srcWidth;
+                ImgWidth = tgtBaseWidth;
+
+                ImgPosX = 0;
+                ImgPosY = (tgtBaseHeight - ImgHeight) / 2;
+            }
+
+            //Creating a bitmap, the corresponding Graphics, and drawing the image
+            Bitmap @base = new Bitmap(tgtBaseWidth, tgtBaseHeight);
+            Graphics gfx = Graphics.FromImage(@base);
+            gfx.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            gfx.FillRectangle(backgroundFill, 0, 0, tgtBaseWidth, tgtBaseHeight);
+            gfx.DrawImage(sourceImage, ImgPosX, ImgPosY, ImgWidth, ImgHeight);
+            gfx.Dispose();
+
+            //Returning the bitmap contianing the image
+            return @base;
+
         }
 
         #region API-interfacing and image downloading methods

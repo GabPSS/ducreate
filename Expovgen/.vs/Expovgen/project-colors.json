@@ -10,7 +10,17 @@
       "ProjectGuid": "0d3a9e35-5ed5-473d-8d53-99e34155d4bf",
       "DisplayName": "libimgfetch",
       "ColorIndex": 1
+    },
+    "934f91e4-4a70-4834-9e60-d8b7a4ccc1f3": {
+      "ProjectGuid": "934f91e4-4a70-4834-9e60-d8b7a4ccc1f3",
+      "DisplayName": "ExpovgenGUI",
+      "ColorIndex": 2
+    },
+    "75395987-744a-4cda-8078-84293752f70a": {
+      "ProjectGuid": "75395987-744a-4cda-8078-84293752f70a",
+      "DisplayName": "Libexpovgen",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

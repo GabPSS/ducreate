@@ -13,14 +13,20 @@ namespace Expovgen
 {
     public class Expovgen
     {
+
+        #region Public API properties
+
         public ExpovgenLogs Logger { get; set; } = new();
-        public (int width,int height) VideoDimensions { get; set; }
+        public (int Width, int Height) VideoDimensions { get; set; } = (1366, 768);
+
+        #endregion
 
         #region Etapa 1
 
         public class Etapa1EventArgs : EventArgs
         {
             public string[] Keywords { get; set; }
+            public bool OverrideIntentionallyRequested { get; set; }
         }
 
         public delegate void Etapa1EventHandler(object source, Etapa1EventArgs e);
@@ -32,13 +38,13 @@ namespace Expovgen
             Etapa1Complete(this, new Etapa1EventArgs() { Keywords = keywords });
         }
 
-        protected virtual void OnEtapa1Failed()
+        protected virtual void OnEtapa1Failed(bool Intentional)
         {
-            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = Array.Empty<string>() });
+            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = Array.Empty<string>(), OverrideIntentionallyRequested = Intentional });
         }
 
 
-        public void Etapa1(string filePath = "res\\text.txt")
+        public void Etapa1(bool forceOverrideAfterCompletion = false, string filePath = "res\\text.txt")
         {
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
@@ -50,7 +56,13 @@ namespace Expovgen
             if (langapi.Keywords is null)
             {
                 Logger.WriteLine("Erro ao extrair palavras-chave!");
-                OnEtapa1Failed();
+                OnEtapa1Failed(forceOverrideAfterCompletion);
+                return;
+            }
+            else if (forceOverrideAfterCompletion)
+            {
+                Logger.WriteLine("Override foçado solicitado");
+                OnEtapa1Failed(forceOverrideAfterCompletion);
                 return;
             }
 
@@ -61,6 +73,9 @@ namespace Expovgen
             OnEtapa1Complete(langapi.Keywords);
         }
 
+        /// <summary>
+        /// Prepare all text files for the next steps as <seealso cref="Etapa1(string)"/>, but treat keywords not as words but entire paragraphs (ideal for presentation modes)
+        /// </summary>
         public void OverrideEtapa1()
         {
             File.Copy("res\\text.txt", "res\\split.txt");
@@ -72,6 +87,11 @@ namespace Expovgen
             OnEtapa1Complete(outputLines);
         }
 
+        /// <summary>
+        /// Prepare all text files for the next steps as <seealso cref="Etapa1(string)"/>, but use <paramref name="inputKeywords"/> instead of requesting the keywords through the web API.
+        /// </summary>
+        /// <param name="inputKeywords"></param>
+        /// <param name="filePath"></param>
         public void OverrideEtapa1(string[] inputKeywords, string filePath = "res\\text.txt")
         {
             string[] doc = File.ReadAllLines(filePath);
@@ -90,22 +110,22 @@ namespace Expovgen
         public class Etapa2EventArgs : EventArgs
         {
             public List<Image?> Images { get; set; }
-            public List<(string query, string[] urls)>? Results { get; set; }
+            public string[] RequestQueries { get; set; }
         }
 
         public delegate void Etapa2EventHandler(object sender, Etapa2EventArgs e);
         public event Etapa2EventHandler Etapa2Complete;
         public event Etapa2EventHandler Etapa2Incomplete;
 
-        protected virtual void OnEtapa2Done(List<Image?> images, List<(string query, string[] urls)>? results, bool TotallySuccessful = true)
+        protected virtual void OnEtapa2Done(List<Image?> images, string[] requestQueries, bool TotallySuccessful = true)
         {
             if (TotallySuccessful)
             {
-                Etapa2Complete(this, new Etapa2EventArgs() { Images = images, Results = results });
+                Etapa2Complete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries });
             }
             else
             {
-                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, Results = results });
+                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries });
             }
         }
 
@@ -114,15 +134,23 @@ namespace Expovgen
             //Etapa 2: Busca de imagens para cada palavra-chave
             Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
 
-            ImgFetch2 imgs = new(Logger)
+            ImgFetch2 fetcher = new(Logger, VideoDimensions)
             {
                 Service = Services.google,
                 RequestQueries = keywords
             };
 
-            Directory.CreateDirectory(@"res\imgs");
 
-            List<Image?> images = imgs.RequestImages().ToList();
+            List<Image?> images = fetcher.RequestImages().ToList();
+            bool TotallySuccessful = SaveImgfetchPictures(images);
+
+            Logger.WriteLine(images.Count + " imagens baixadas da internet.");
+            OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful);
+        }
+
+        public static bool SaveImgfetchPictures(List<Image?> images)
+        {
+            Directory.CreateDirectory(@"res\imgs");
             bool TotallySuccessful = true; ;
             if (images.Count > 0)
             {
@@ -132,16 +160,13 @@ namespace Expovgen
                     {
                         images[x].Save(@"res\imgs\" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
-                    catch 
+                    catch
                     {
-                        Logger.WriteLine("Failed to write image " + x + " to disk, possibly a null image");
                         TotallySuccessful = false;
                     }
                 }
             }
-
-            Logger.WriteLine(images.Count + " imagens baixadas da internet.");
-            OnEtapa2Done(images, imgs.Results, TotallySuccessful);
+            return TotallySuccessful;
         }
 
         #endregion
@@ -171,6 +196,8 @@ namespace Expovgen
             Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
             RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
         }
+
+        #region Python Interop
 
         enum PyTasks
         {
@@ -218,10 +245,13 @@ namespace Expovgen
             Logger.WriteLine("Process completed");
             //Console.ReadKey();
         }
+
+        #endregion
     }
 
     internal class ExpovgenProject
     {
+        //TODO: Make it save previous keywords used
         public string Title { get; set; }
         public string Description { get; set; }
         public string? FilePath { get; set; }
