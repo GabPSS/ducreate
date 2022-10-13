@@ -33,6 +33,8 @@ namespace Expovgen
 
         #endregion
 
+        #region Public constructor
+
         public Expovgen()
         {
             //Apagar arquivos anteriores
@@ -75,8 +77,13 @@ namespace Expovgen
             
         }
 
+        #endregion
+
+        #region Etapas 1-5
 
         #region Etapa 1
+
+        //Implementation status: Complete
 
         #region Events
 
@@ -177,6 +184,8 @@ namespace Expovgen
 
         #region Etapa 2
 
+        //Implementation status: Complete
+
         public class Etapa2EventArgs : EventArgs
         {
             public List<Image?> Images { get; set; }
@@ -263,6 +272,11 @@ namespace Expovgen
 
         #region Etapa 3
 
+        //Implementation status: Started
+        /* Issues:
+         *   - Find out how to detect failure if Etapa 3 python step fails
+         */
+
         #region Etapa 3 Events
 
         public class Etapa3EventArgs : EventArgs
@@ -286,7 +300,6 @@ namespace Expovgen
 
         #endregion
 
-
         public void Etapa3()
         {
             if (Etapa3Behavior == Etapa3Behaviors.ForceManual)
@@ -304,6 +317,8 @@ namespace Expovgen
 
         #endregion
 
+        #region Etapa 4
+
         public void Etapa4()
         {
             //Etapa 4: Execução do alinhamento forçado com aeneas
@@ -315,12 +330,20 @@ namespace Expovgen
             LangAPI1.PrepareAlignmentAgainstKeywords("res\\keywords.txt", "res\\splitmap.txt");
         }
 
+        #endregion
+
+        #region Etapa 5
+
         public void Etapa5()
         {
             //TODO: Implement Etapa 5 (moviestitch)
             Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
             RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
         }
+
+        #endregion
+
+        #endregion
 
         #region Python Interop
 
@@ -329,7 +352,7 @@ namespace Expovgen
             AudioWorks_TTS, AudioWorks_Align, Aeneas_cmdline, Moviepy_Script
         }
 
-        private static string[] PyTasks_Paths =
+        private static readonly string[] PyTasks_Paths =
         {
             "tts",
             "align",
