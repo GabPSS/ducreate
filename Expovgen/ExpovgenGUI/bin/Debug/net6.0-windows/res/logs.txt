@@ -1,0 +1,13 @@
+Override completo
+--- RECURSO 3/5: Conversão de texto para voz ---
+Convertendo texto para voz...(RunPY)
+Starting python task AudioWorks_TTS...
+Process completed
+--- RECURSO 4/5: Alinhamento Forçado ---
+Starting python task Aeneas_cmdline...
+Process completed
+Starting python task Aeneas_cmdline...
+Process completed
+--- RECURSO 5/5: Geração do vídeo final ---
+Starting python task Moviepy_Script...
+Process completed

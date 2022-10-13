@@ -311,8 +311,11 @@ namespace Expovgen
             //Etapa 3: Conversão de Texto para voz (audioworks)
             Logger.WriteLine("--- RECURSO 3/5: Conversão de texto para voz ---");
             Logger.WriteLine("Convertendo texto para voz...(RunPY)");
-            RunPY(PyTasks.AudioWorks_TTS, PyEnvs.audworks, @"res\text.txt res\speech.mp3");
-            OnEtapa3Completed();
+            int result = RunPY(PyTasks.AudioWorks_TTS, PyEnvs.audworks, @"res\text.txt res\speech.mp3");
+            if (result == 0)
+                OnEtapa3Completed();
+            else
+                OnEtapa3Failed(false);
         }
 
         #endregion
@@ -336,7 +339,6 @@ namespace Expovgen
 
         public void Etapa5()
         {
-            //TODO: Implement Etapa 5 (moviestitch)
             Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
             RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
         }
@@ -369,10 +371,17 @@ namespace Expovgen
         private static string[] PyEnvs_Paths =
         {
             @"audworks\Audioworks.exe",
-            @"\Python37-32\python.exe", //TODO: Replace this path with env variables
+            @"\Python37-32\python.exe", //TODO: Replace this path with setting
         };
 
-        void RunPY(PyTasks pytask, PyEnvs pyenv, string args)
+        /// <summary>
+        /// Starts a python instance to run a preset python task
+        /// </summary>
+        /// <param name="pytask">The task string to run</param>
+        /// <param name="pyenv">The environment/compiled script on which to run the task</param>
+        /// <param name="args">String arguments to pass</param>
+        /// <returns>an <see cref="int"/> corresponding to the process's exit code</returns>
+        int RunPY(PyTasks pytask, PyEnvs pyenv, string args)
         {
             Logger.WriteLine("Starting python task " + pytask.ToString() + "...");
             ProcessStartInfo processst = new()
@@ -380,18 +389,37 @@ namespace Expovgen
                 UseShellExecute = false,
                 FileName = PyEnvs_Paths[(int)pyenv],
                 Arguments = PyTasks_Paths[(int)pytask] + " " + args,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                WindowStyle = ProcessWindowStyle.Hidden
             };
             if (pyenv == PyEnvs.python_inst)
             {
                 processst.FileName = processst.EnvironmentVariables["SystemDrive"] + processst.FileName;
             }
-            //processst.EnvironmentVariables["PATH"] = "audworks\\audioenv\\Scripts\\;audworks\\audioenv\\Lib\\site-packages\\numpy\\core\\include\\numpy;audworks\\audioenv\\Lib\\;audworks\\audioenv\\Lib\\site-packages\\";
             processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
             processst.EnvironmentVariables.Add("PYTHONIOENCODING", "UTF-8");
+            
             Process process = Process.Start(processst);
+            process.OutputDataReceived += WritePythonDataToLog;
+            process.ErrorDataReceived += WritePythonDataToLog;
             process.WaitForExit();
-            Logger.WriteLine("Process completed");
-            //Console.ReadKey();
+            if (process.ExitCode != 0)
+            {
+                Logger.WriteLine("Python step " + pytask.ToString() + " failed");
+            }
+            else
+            {
+                Logger.WriteLine("Process completed");
+            }
+            return process.ExitCode;
+        }
+
+        private void WritePythonDataToLog(object sender, DataReceivedEventArgs e)
+        {
+            Logger.WriteLine("[RunPY] " + e.Data);
         }
 
         #endregion

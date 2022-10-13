@@ -1,4 +1,5 @@
 using Expovgen;
+using System.Diagnostics;
 
 namespace ExpovgenGUI
 {
@@ -13,19 +14,28 @@ namespace ExpovgenGUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Thread thread = new Thread(StartProcess);
+            thread.Name = "Expovgen Video Generator";
+            thread.Start();
+            
+            
+        }
+
+        private void StartProcess()
+        {
             //Create new video generator
             expovgen = new Expovgen.Expovgen()
             {
                 VideoDimensions = videoDimensions,
                 Etapa1Behavior = Etapa1Behaviors.ForceOneByParagraph,
                 Etapa2Behavior = Etapa2Behaviors.ForceManual,
-                Etapa3Behavior = Etapa3Behaviors.ForceManual
+                Etapa3Behavior = Etapa3Behaviors.Auto
             };
 
             //Create files and directories
             Directory.CreateDirectory("res");
             File.WriteAllLines("res\\text.txt", textBox1.Lines);
-            
+
             //Create events
             expovgen.Logger.TextWritten += Logger_TextWritten;
 
@@ -42,15 +52,16 @@ namespace ExpovgenGUI
             expovgen.Etapa1();
         }
 
-        
-
         /// <summary>
         /// Provides an interface for handling logs written by Expovgen logger
         /// </summary>
         private void Logger_TextWritten(object source, ExpovgenLogs.TextWrittenEventArgs e)
         {
-            label1.Text = e.WrittenText;
-            label1.Update();
+            label1.Invoke(new Action(() =>
+            {
+                label1.Text = e.WrittenText;
+                label1.Update();
+            }));
             File.AppendAllLines("res\\logs.txt",new string[] { e.WrittenText });
         }
 
@@ -93,7 +104,13 @@ namespace ExpovgenGUI
             
             
             Etapa2OverrideForm overrideForm = new Etapa2OverrideForm(e.RequestQueries, e.Images, videoDimensions);
-            if (overrideForm.ShowDialog() == DialogResult.OK)
+            DialogResult result = DialogResult.None;
+            this.Invoke(new Action(() =>
+            {
+                result = overrideForm.ShowDialog();
+            }));
+            
+            if (result == DialogResult.OK)
             {
                 expovgen.Etapa3();
             }
