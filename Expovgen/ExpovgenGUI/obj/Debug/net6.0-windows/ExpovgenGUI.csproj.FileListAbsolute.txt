@@ -147,4 +147,4 @@ E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Etapa2Over
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Properties.Resources.resources
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\refint\ExpovgenGUI.dll
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Etapa1OverrideForm.resources
-E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.CreateVideoWizard.resources
+E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.CreatingVideoForm.resources

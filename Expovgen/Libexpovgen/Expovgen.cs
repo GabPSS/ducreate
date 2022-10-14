@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Expovgen.ImgFetch;
+using Expovgen.LangAPI;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using Expovgen.ImgFetch;
-using Expovgen.LangAPI;
 
 namespace Expovgen
 {
-
+    public enum GenerationType { VideoGen, AudioOnlyGen }
     public enum Etapa1Behaviors { Auto, ForceManual, ForceOneByParagraph, AutoManual }
     public enum Etapa2Behaviors { Auto, ForceManual, AutoManual }
     public enum Etapa3Behaviors { Auto, ForceManual }
-    public enum Etapa4Behaviors { Auto, None }
 
     public class Expovgen
     {
@@ -29,16 +22,24 @@ namespace Expovgen
         public Etapa1Behaviors Etapa1Behavior { get; set; } = Etapa1Behaviors.Auto;
         public Etapa2Behaviors Etapa2Behavior { get; set; } = Etapa2Behaviors.Auto;
         public Etapa3Behaviors Etapa3Behavior { get; set; } = Etapa3Behaviors.Auto;
-        public Etapa4Behaviors Etapa4Behavior { get; set; } = Etapa4Behaviors.Auto;
 
         #endregion
 
         #region Public constructor
 
-        public Expovgen()
+        public Expovgen(ExpovgenGenerationSettings settings)
+        {
+            Dispose();
+            Etapa1Behavior = settings.Etapa1Behaviors;
+            Etapa2Behavior = settings.Etapa2Behaviors;
+            Etapa3Behavior = settings.Etapa3Behaviors;
+            VideoDimensions = settings.videoDimensions;
+        }
+
+        public static void Dispose()
         {
             //Apagar arquivos anteriores
-            
+
             string[] files = Array.Empty<string>(), folders = Array.Empty<string>();
 
             try
@@ -74,7 +75,6 @@ namespace Expovgen
                 Directory.Delete(WorkDir);
             }
             catch { }
-            
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace Expovgen
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
             Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
-            langapi.GetKeywords(); 
+            langapi.GetKeywords();
             Logger.WriteLine("Concluído.");
 
             if (langapi.Keywords is null)
@@ -144,7 +144,7 @@ namespace Expovgen
             //Retornar adequadamente
             if (Etapa1Behavior == Etapa1Behaviors.AutoManual)
             {
-                OnEtapa1Failed(true,langapi.Keywords);
+                OnEtapa1Failed(true, langapi.Keywords);
             }
 
             OnEtapa1Complete(langapi.Keywords);
@@ -171,13 +171,18 @@ namespace Expovgen
         /// <param name="filePath"></param>
         public void OverrideEtapa1(string[] inputKeywords, string filePath = "res\\text.txt")
         {
-            string[] doc = File.ReadAllLines(filePath);
-            LangAPI1 langAPI = new LangAPI1(doc);
-            langAPI.Keywords = inputKeywords;
-            langAPI.SplitPhrases();
-            langAPI.MakeCaptions();
-            Logger.WriteLine("Override completo");
-            OnEtapa1Complete(langAPI.Keywords);
+            try
+            {
+                string[] doc = File.ReadAllLines(filePath);
+                File.WriteAllLines("res\\keywords.txt", inputKeywords);
+                LangAPI1 langAPI = new LangAPI1(doc);
+                langAPI.Keywords = inputKeywords;
+                langAPI.SplitPhrases();
+                langAPI.MakeCaptions();
+                Logger.WriteLine("Override completo");
+                OnEtapa1Complete(langAPI.Keywords);
+            }
+            catch (UserForceCancelException) { }
         }
 
         #endregion
@@ -218,33 +223,37 @@ namespace Expovgen
 
         public void Etapa2(string[] keywords)
         {
-            if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph || Etapa2Behavior == Etapa2Behaviors.ForceManual)
+            try
             {
-                OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, true);
-                return;
+                if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph || Etapa2Behavior == Etapa2Behaviors.ForceManual)
+                {
+                    OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, true);
+                    return;
+                }
+
+                //Etapa 2: Busca de imagens para cada palavra-chave
+                Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
+
+                ImgFetch2 fetcher = new(Logger, VideoDimensions)
+                {
+                    Service = Services.google,
+                    RequestQueries = keywords
+                };
+
+
+                List<Image?> images = fetcher.RequestImages().ToList();
+                bool TotallySuccessful = SaveImgfetchPictures(images);
+
+                Logger.WriteLine(images.Count + " imagens baixadas da internet.");
+
+                if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
+                {
+                    OnEtapa2Done(images, keywords, false, true);
+                }
+
+                OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful, false);
             }
-
-            //Etapa 2: Busca de imagens para cada palavra-chave
-            Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
-
-            ImgFetch2 fetcher = new(Logger, VideoDimensions)
-            {
-                Service = Services.google,
-                RequestQueries = keywords
-            };
-
-
-            List<Image?> images = fetcher.RequestImages().ToList();
-            bool TotallySuccessful = SaveImgfetchPictures(images);
-            
-            Logger.WriteLine(images.Count + " imagens baixadas da internet.");
-            
-            if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
-            {
-                OnEtapa2Done(images, keywords, false, true);
-            }
-
-            OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful,false);
+            catch (UserForceCancelException) { }
         }
 
         public static bool SaveImgfetchPictures(List<Image?> images)
@@ -302,45 +311,111 @@ namespace Expovgen
 
         public void Etapa3()
         {
-            if (Etapa3Behavior == Etapa3Behaviors.ForceManual)
+            try
             {
-                OnEtapa3Failed(true);
-                return;
-            }
+                if (Etapa3Behavior == Etapa3Behaviors.ForceManual)
+                {
+                    OnEtapa3Failed(true);
+                    return;
+                }
 
-            //Etapa 3: Conversão de Texto para voz (audioworks)
-            Logger.WriteLine("--- RECURSO 3/5: Conversão de texto para voz ---");
-            Logger.WriteLine("Convertendo texto para voz...(RunPY)");
-            int result = RunPY(PyTasks.AudioWorks_TTS, PyEnvs.audworks, @"res\text.txt res\speech.mp3");
-            if (result == 0)
-                OnEtapa3Completed();
-            else
-                OnEtapa3Failed(false);
+                //Etapa 3: Conversão de Texto para voz (audioworks)
+                Logger.WriteLine("--- RECURSO 3/5: Conversão de texto para voz ---");
+                Logger.WriteLine("Convertendo texto para voz...(RunPY)");
+                int result = RunPY(PyTasks.AudioWorks_TTS, PyEnvs.audworks, @"res\text.txt res\speech.mp3");
+                if (result == 0)
+                    OnEtapa3Completed();
+                else
+                    OnEtapa3Failed(false);
+            }
+            catch (UserForceCancelException) { }
         }
 
         #endregion
 
         #region Etapa 4
 
+        #region Etapa 4 Events
+
+        public delegate void Etapa4EventHandler(object sender, EventArgs e);
+        public event Etapa4EventHandler Etapa4Completed;
+        public event Etapa4EventHandler Etapa4Failed;
+
+        protected virtual void OnEtapa4Completed()
+        {
+            Etapa4Completed(this, new EventArgs());
+        }
+
+        protected virtual void OnEtapa4Failed()
+        {
+            Etapa4Failed(this, new EventArgs());
+        }
+
+        #endregion
+
         public void Etapa4()
         {
-            //Etapa 4: Execução do alinhamento forçado com aeneas
-            Logger.WriteLine("--- RECURSO 4/5: Alinhamento Forçado ---");
-            Console.WriteLine("Gerando mapa de sincronização...");
-            //RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
-            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\cc.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\ccmap.txt");
-            RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\split.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\splitmap.txt");
-            LangAPI1.PrepareAlignmentAgainstKeywords("res\\keywords.txt", "res\\splitmap.txt");
+            try
+            {
+                //Etapa 4: Execução do alinhamento forçado com aeneas
+                Logger.WriteLine("--- RECURSO 4/5: Alinhamento Forçado ---");
+                Console.WriteLine("Gerando mapa de sincronização...");
+                //RunPY(PyTasks.AudioWorks_Align, PyEnvs.audworks, @"res\speech.mp3 res\cc.txt res\output.json");
+                int r1 = RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\cc.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\ccmap.txt");
+                if (r1 != 0)
+                {
+                    OnEtapa4Failed();
+                    return;
+                }
+                int r2 = RunPY(PyTasks.Aeneas_cmdline, PyEnvs.python_inst, "res\\speech.mp3 res\\split.txt \"task_language=por|is_text_type=plain|os_task_file_format=txt\" res\\splitmap.txt");
+                if (r2 != 0)
+                {
+                    OnEtapa4Failed();
+                    return;
+                }
+                LangAPI1.PrepareAlignmentAgainstKeywords("res\\keywords.txt", "res\\splitmap.txt");
+                OnEtapa4Completed();
+            }
+            catch (UserForceCancelException) { }
         }
 
         #endregion
 
         #region Etapa 5
 
+        #region Etapa 5 Events
+
+        public delegate void Etapa5EventHandler(object sender, EventArgs e);
+        public event Etapa5EventHandler Etapa5Completed;
+        public event Etapa5EventHandler Etapa5Failed;
+
+        protected virtual void OnEtapa5Completed()
+        {
+            Etapa5Completed(this, new EventArgs());
+        }
+
+        protected virtual void OnEtapa5Failed()
+        {
+            Etapa5Failed(this, new EventArgs());
+        }
+
+        #endregion
         public void Etapa5()
         {
-            Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
-            RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
+            try
+            {
+                Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
+                if (r == 0)
+                {
+                    OnEtapa5Completed();
+                }
+                else
+                {
+                    OnEtapa5Failed();
+                }
+            }
+            catch (UserForceCancelException) { }
         }
 
         #endregion
@@ -349,7 +424,7 @@ namespace Expovgen
 
         #region Python Interop
 
-        enum PyTasks
+        private enum PyTasks
         {
             AudioWorks_TTS, AudioWorks_Align, Aeneas_cmdline, Moviepy_Script
         }
@@ -362,7 +437,7 @@ namespace Expovgen
             "stitchtest2.py"
         };
 
-        enum PyEnvs
+        private enum PyEnvs
         {
             audworks,
             python_inst
@@ -381,7 +456,7 @@ namespace Expovgen
         /// <param name="pyenv">The environment/compiled script on which to run the task</param>
         /// <param name="args">String arguments to pass</param>
         /// <returns>an <see cref="int"/> corresponding to the process's exit code</returns>
-        int RunPY(PyTasks pytask, PyEnvs pyenv, string args)
+        private int RunPY(PyTasks pytask, PyEnvs pyenv, string args)
         {
             Logger.WriteLine("Starting python task " + pytask.ToString() + "...");
             ProcessStartInfo processst = new()
@@ -401,11 +476,13 @@ namespace Expovgen
             }
             processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
             processst.EnvironmentVariables.Add("PYTHONIOENCODING", "UTF-8");
-            
+
             Process process = Process.Start(processst);
             process.OutputDataReceived += WritePythonDataToLog;
             process.ErrorDataReceived += WritePythonDataToLog;
+            process.BeginErrorReadLine();
             process.WaitForExit();
+            process.CancelErrorRead();
             if (process.ExitCode != 0)
             {
                 Logger.WriteLine("Python step " + pytask.ToString() + " failed");
@@ -423,6 +500,11 @@ namespace Expovgen
         }
 
         #endregion
+    }
+
+    public class UserForceCancelException : Exception
+    {
+
     }
 
     internal class ExpovgenProject
@@ -445,10 +527,22 @@ namespace Expovgen
         }
     }
 
+    /// <summary>
+    /// Holds definitions for Expovgen video/podcast generation
+    /// </summary>
+    public class ExpovgenGenerationSettings
+    {
+        public Etapa1Behaviors Etapa1Behaviors { get; set; } = Etapa1Behaviors.Auto;
+        public Etapa2Behaviors Etapa2Behaviors { get; set; } = Etapa2Behaviors.Auto;
+        public Etapa3Behaviors Etapa3Behaviors { get; set; } = Etapa3Behaviors.Auto;
+        public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
+        public (int width, int height) videoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable
+    }
+
     public class ExpovgenLogs
     {
         public List<string> Log = new List<string>();
-        
+
 
         public class TextWrittenEventArgs : EventArgs
         {
