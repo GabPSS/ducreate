@@ -17,6 +17,10 @@ namespace Expovgen.LangAPI
             Document = document;
         }
 
+        /// <summary>
+        /// Obtains keywords from LangAPI Request
+        /// </summary>
+        /// <exception cref="QuotaExceededException"></exception>
         public void GetKeywords()
         {
             HttpRequestMessage request = new HttpRequestMessage();
@@ -31,7 +35,7 @@ namespace Expovgen.LangAPI
             }
             byte[] contentBytes = Encoding.UTF8.GetBytes(content.ToString());
             request.Content = new ByteArrayContent(contentBytes);
-            HttpResponseMessage response = client.Send(request);
+            HttpResponseMessage response = client.Send(request); //TODO: What if there is no internet connection?
             if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
             {
                 throw new QuotaExceededException();

@@ -16,7 +16,6 @@ namespace ExpovgenGUI
         private void button1_Click(object sender, EventArgs e)
         {
             new CreatingVideoForm(textBox1.Lines,settings).Show();
-            Hide();
         }
     }
 }

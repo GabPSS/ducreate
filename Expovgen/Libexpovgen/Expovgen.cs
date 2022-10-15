@@ -9,7 +9,7 @@ namespace Expovgen
     public enum Etapa1Behaviors { Auto, ForceManual, ForceOneByParagraph, AutoManual }
     public enum Etapa2Behaviors { Auto, ForceManual, AutoManual }
     public enum Etapa3Behaviors { Auto, ForceManual }
-
+    public enum WindowStyle { Simple, Detailed }
     public class Expovgen
     {
         private const string WorkDir = "res";
@@ -19,10 +19,11 @@ namespace Expovgen
         public (int Width, int Height) VideoDimensions { get; set; } = (1366, 768);
 
         //Settings for etapas
-        public Etapa1Behaviors Etapa1Behavior { get; set; } = Etapa1Behaviors.Auto;
-        public Etapa2Behaviors Etapa2Behavior { get; set; } = Etapa2Behaviors.Auto;
-        public Etapa3Behaviors Etapa3Behavior { get; set; } = Etapa3Behaviors.Auto;
-
+        public Etapa1Behaviors Etapa1Behavior { get; set; }
+        public Etapa2Behaviors Etapa2Behavior { get; set; }
+        public Etapa3Behaviors Etapa3Behavior { get; set; }
+        public Services ImgFetchService { get; set; }
+        public IServicePreferences? ImgFetchServicePreferences { get; set; }
         #endregion
 
         #region Public constructor
@@ -34,6 +35,8 @@ namespace Expovgen
             Etapa2Behavior = settings.Etapa2Behaviors;
             Etapa3Behavior = settings.Etapa3Behaviors;
             VideoDimensions = settings.videoDimensions;
+            ImgFetchService = settings.ImgFetchService;
+            ImgFetchServicePreferences = settings.ImgFetchServicePreferences;
         }
 
         public static void Dispose()
@@ -127,7 +130,15 @@ namespace Expovgen
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
             Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
-            langapi.GetKeywords();
+            try
+            {
+                langapi.GetKeywords();
+            }
+            catch (LangAPI1.QuotaExceededException)
+            {
+                Logger.WriteLine("Recurso de extração de palavras-chave (LangAPI) temporariamente indisponível, cota limite da API atingida. Se o problema persistir, tente amanhã");
+            }
+            catch { }
             Logger.WriteLine("Concluído.");
 
             if (langapi.Keywords is null)
@@ -223,6 +234,7 @@ namespace Expovgen
 
         public void Etapa2(string[] keywords)
         {
+            Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
             try
             {
                 if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph || Etapa2Behavior == Etapa2Behaviors.ForceManual)
@@ -232,26 +244,33 @@ namespace Expovgen
                 }
 
                 //Etapa 2: Busca de imagens para cada palavra-chave
-                Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
 
                 ImgFetch2 fetcher = new(Logger, VideoDimensions)
                 {
-                    Service = Services.google,
-                    RequestQueries = keywords
+                    Service = ImgFetchService,
+                    RequestQueries = keywords,
+                    ServicePreferences = ImgFetchServicePreferences                    
                 };
 
-
-                List<Image?> images = fetcher.RequestImages().ToList();
-                bool TotallySuccessful = SaveImgfetchPictures(images);
-
-                Logger.WriteLine(images.Count + " imagens baixadas da internet.");
-
-                if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
+                try
                 {
-                    OnEtapa2Done(images, keywords, false, true);
+                    List<Image?> images = fetcher.RequestImages().ToList();
+                    bool TotallySuccessful = SaveImgfetchPictures(images);
+
+                    Logger.WriteLine(images.Count + " imagens baixadas da internet.");
+
+                    if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
+                    {
+                        OnEtapa2Done(images, keywords, false, true);
+                        return;
+                    }
+                    OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful, false);
+                }
+                catch
+                {
+                    OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, false);
                 }
 
-                OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful, false);
             }
             catch (UserForceCancelException) { }
         }
@@ -532,11 +551,29 @@ namespace Expovgen
     /// </summary>
     public class ExpovgenGenerationSettings
     {
+        /// <summary>
+        /// Behaviors for step 1
+        /// </summary>
         public Etapa1Behaviors Etapa1Behaviors { get; set; } = Etapa1Behaviors.Auto;
+        /// <summary>
+        /// Behaviors for step 2
+        /// </summary>
         public Etapa2Behaviors Etapa2Behaviors { get; set; } = Etapa2Behaviors.Auto;
+        /// <summary>
+        /// Behaviors for step 3
+        /// </summary>
         public Etapa3Behaviors Etapa3Behaviors { get; set; } = Etapa3Behaviors.Auto;
+        /// <summary>
+        /// Behaviors for step 4
+        /// </summary>
         public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
+        /// <summary>
+        /// Width and height of video dimensions
+        /// </summary>
         public (int width, int height) videoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable
+        public Services ImgFetchService { get; set; } = Services.google;
+        public IServicePreferences? ImgFetchServicePreferences { get; set; }
+        public WindowStyle WindowStyle { get; set; } = WindowStyle.Simple;
     }
 
     public class ExpovgenLogs
