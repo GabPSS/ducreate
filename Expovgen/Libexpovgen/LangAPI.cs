@@ -52,7 +52,7 @@ namespace Expovgen.LangAPI
             List<string> keywords = new List<string>();
             if (obj is not null)
             {
-                if ((string)obj["result"] is not null)
+                if (obj["result"] is not null)
                 {
                     int count = 0;
                     while (true)

@@ -15,7 +15,7 @@ namespace ExpovgenGUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            settings.videoDimensions = (Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value));
+            settings.VideoDimensions = (Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value));
             List<string>? check = settings.CheckValid();
             if (check is not null)
             {

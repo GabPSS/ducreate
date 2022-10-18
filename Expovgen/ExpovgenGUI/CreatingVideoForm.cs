@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Expovgen;
+﻿using Expovgen;
 
 namespace ExpovgenGUI
 {
     public partial class CreatingVideoForm : Form
     {
-        //TODO: Implement this form
-
-        
         private string[] Document { get; set; }
-        readonly string[] titles = { "Extração de palavras-chave", "Pesquisa de imagens", "Geração da narração", "Alinhamento forçado", "Renderização (pode levar um tempo)" };
-        List<PictureBox> pbxs = new();
-        List<Label> lbls = new();
-        List<ProgressBar> pbrs = new();
-        ExpovgenGenerationSettings Settings { get; set; }
+        private readonly string[] titles = { "Extração de palavras-chave", "Pesquisa de imagens", "Geração da narração", "Alinhamento forçado", "Renderização (pode levar um tempo)" };
+        private readonly List<PictureBox> pbxs = new();
+        private readonly List<Label> lbls = new();
+        private readonly List<ProgressBar> pbrs = new();
+
+        private ExpovgenGenerationSettings Settings { get; set; }
 
         public CreatingVideoForm(string[] document, ExpovgenGenerationSettings settings)
         {
@@ -55,7 +44,7 @@ namespace ExpovgenGUI
                     pbxs.Add(pbx);
                     lbls.Add(lbl);
                     pbrs.Add(pbr);
-                    
+
                     tableLayoutPanel1.Controls.Add(pbx);
                     tableLayoutPanel1.Controls.Add(lbl);
                     tableLayoutPanel1.Controls.Add(pbr);
@@ -78,7 +67,10 @@ namespace ExpovgenGUI
 
         #region Video generation
 
-        Expovgen.Expovgen expovgen;
+        private Expovgen.Expovgen expovgen;
+        private int currentStep = 0;
+
+        #region Process control methods
 
         private void StartProcess()
         {
@@ -112,35 +104,6 @@ namespace ExpovgenGUI
             expovgen.Etapa1();
         }
 
-        int currentStep = 0;
-
-        /// <summary>
-        /// Provides an interface for handling logs written by Expovgen logger
-        /// </summary>
-        private void Logger_TextWritten(object source, ExpovgenLogs.TextWrittenEventArgs e)
-        {
-            listBox1.Invoke(new Action(() =>
-            {
-                if (currentStep == 4)
-                {
-                    try
-                    {
-                        string[] progfind = e.WrittenText.Substring(10).Trim().Split('%');
-                        int val = Convert.ToInt32(progfind[0]);
-                        pbrs[4].Style = ProgressBarStyle.Continuous;
-                        pbrs[4].Value = val;
-                        unifiedProgressBar.Style = ProgressBarStyle.Continuous;
-                        unifiedProgressBar.Value = val;
-
-                    } catch { }
-                }
-                listBox1.Items.Add(e.WrittenText);
-            }));
-            File.AppendAllLines("res\\logs.txt", new string[] { e.WrittenText });
-        }
-
-        #region Form-specific/visual methods
-
         private void SwitchToDetailsView()
         {
             SuspendLayout();
@@ -157,6 +120,12 @@ namespace ExpovgenGUI
             ResumeLayout();
         }
 
+        private void SwitchStep()
+        {
+            CompleteStep(currentStep);
+            StartStep(currentStep + 1);
+        }
+        #region Switching Steps
         private void CompleteStep(int stepNum)
         {
             Invoke(new Action(() =>
@@ -182,6 +151,7 @@ namespace ExpovgenGUI
                 currentStep = stepNum;
             }));
         }
+        #endregion
 
         private void ShowStepAsErrored(int stepNum)
         {
@@ -210,7 +180,7 @@ namespace ExpovgenGUI
 
                 expovgen.Etapa4Completed -= Expovgen_Etapa4Completed;
                 expovgen.Etapa4Failed -= Expovgen_Etapa4Failed;
-            
+
                 expovgen.Etapa5Completed -= Expovgen_Etapa5Completed;
                 expovgen.Etapa5Failed -= Expovgen_Etapa5Failed;
 
@@ -228,8 +198,7 @@ namespace ExpovgenGUI
 
         private void Expovgen_Etapa1Complete(object source, Expovgen.Expovgen.Etapa1EventArgs e)
         {
-            CompleteStep(0);
-            StartStep(1);
+            SwitchStep();
             if (shouldCancel)
             {
                 return;
@@ -252,7 +221,7 @@ namespace ExpovgenGUI
                     return;
                 }
             }
-            
+
             Etapa1OverrideForm overrideForm = new(e.Keywords);
             DialogResult dr = overrideForm.ShowDialog();
             switch (dr)
@@ -285,7 +254,7 @@ namespace ExpovgenGUI
                 );
 
 
-            Etapa2OverrideForm overrideForm = new Etapa2OverrideForm(e.RequestQueries, e.Images, Settings.videoDimensions);
+            Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, Settings.VideoDimensions);
             DialogResult result = DialogResult.None;
             this.Invoke(new Action(() =>
             {
@@ -294,8 +263,7 @@ namespace ExpovgenGUI
 
             if (result == DialogResult.OK)
             {
-                CompleteStep(1);
-                StartStep(2);
+                SwitchStep();
                 if (shouldCancel)
                 {
                     return;
@@ -306,8 +274,7 @@ namespace ExpovgenGUI
 
         private void Expovgen_Etapa2Complete(object sender, Expovgen.Expovgen.Etapa2EventArgs e)
         {
-            CompleteStep(1);
-            StartStep(2);
+            SwitchStep();
             if (shouldCancel)
             {
                 return;
@@ -324,8 +291,7 @@ namespace ExpovgenGUI
             {
                 return;
             }
-            CompleteStep(2);
-            StartStep(3);
+            SwitchStep();
             expovgen.Etapa4();
         }
 
@@ -343,19 +309,18 @@ namespace ExpovgenGUI
                     expovgen.Etapa3();
                     break;
                 case DialogResult.Continue:
-                    OpenFileDialog dialog = new OpenFileDialog() { Title = "Selecione um arquivo de narração", Filter = "Arquivos MP3|*.mp3" };
+                    OpenFileDialog dialog = new() { Title = "Selecione um arquivo de narração", Filter = "Arquivos MP3|*.mp3" };
                     DialogResult dr = DialogResult.None;
                     Invoke(new Action(() =>
                     {
                         dr = dialog.ShowDialog();
                     }));
-                    
+
                     if (dr == DialogResult.OK)
                     {
                         File.Copy(dialog.FileName, "res\\speech.mp3");
                     }
-                    CompleteStep(2);
-                    StartStep(3);
+                    SwitchStep();
                     expovgen.Etapa4();
                     break;
                 case DialogResult.Cancel:
@@ -387,8 +352,7 @@ namespace ExpovgenGUI
             {
                 return;
             }
-            CompleteStep(3);
-            StartStep(4);
+            SwitchStep();
             expovgen.Etapa5();
         }
 
@@ -409,7 +373,7 @@ namespace ExpovgenGUI
         private void Expovgen_Etapa5Completed(object sender, EventArgs e)
         {
             CompleteStep(4);
-            MessageBox.Show("Vídeo gerado com sucesso!","Sucesso",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Vídeo gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Invoke(new Action(() =>
             {
                 cancelBtn.Text = "Fechar";
@@ -422,21 +386,54 @@ namespace ExpovgenGUI
 
         #endregion
 
-        Thread vidGenThread;
-        bool shouldCancel = false;
+        private Thread vidGenThread;
+        private bool shouldCancel = false;
 
         private void CreatingVideoForm_Load(object sender, EventArgs e)
         {
+            //Switch to details view if requested
             if (Settings.WindowStyle == WindowStyle.Detailed)
             {
                 SwitchToDetailsView();
             }
-            vidGenThread = new Thread(StartProcess);
-            vidGenThread.Name = "Expovgen Video Generator";
+            
+            //Create video generator thread
+            vidGenThread = new Thread(StartProcess)
+            {
+                Name = "Expovgen Video Generator"
+            };
             vidGenThread.Start();
         }
 
-        private void asCancel_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Provides an interface for handling logs written by Expovgen logger
+        /// </summary>
+        private void Logger_TextWritten(object source, ExpovgenLogs.TextWrittenEventArgs e)
+        {
+            listBox1.Invoke(new Action(() =>
+            {
+                if (currentStep == 4)
+                {
+                    try
+                    {
+                        string[] progfind = e.WrittenText.Substring(10).Trim().Split('%');
+                        int val = Convert.ToInt32(progfind[0]);
+                        pbrs[4].Style = ProgressBarStyle.Continuous;
+                        pbrs[4].Value = val;
+                        unifiedProgressBar.Style = ProgressBarStyle.Continuous;
+                        unifiedProgressBar.Value = val;
+
+                    }
+                    catch { }
+                }
+                listBox1.Items.Add(e.WrittenText);
+            }));
+            File.AppendAllLines("res\\logs.txt", new string[] { e.WrittenText });
+        }
+
+        #region Cancel/Exit button
+
+        private void asCancel_Click(object? sender, EventArgs e)
         {
             if (MessageBox.Show("Tem certeza de que deseja cancelar?", "Confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
@@ -444,10 +441,12 @@ namespace ExpovgenGUI
             }
         }
 
-        private void asExit_Click(object sender, EventArgs e)
+        private void asExit_Click(object? sender, EventArgs e)
         {
             Close();
         }
+
+        #endregion
 
         private void showMoreButton_Click(object sender, EventArgs e)
         {

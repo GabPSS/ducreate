@@ -25,10 +25,15 @@ with open('res\\cc.txt',mode="r",encoding="utf-8") as cc_texts_file:
     cc_texts = cc_texts_file.readlines()
 
 
-# Create image clips and add them respectively
-counter = 0
+# Create image clips and add them respectively ------------------------------
+
+# counter = Gets incremented each time a fragment is iterated through
+#           At the end of the process, it will correspond to the timestamp of
+#           the end of the video's slides
+counter = 0 
 for x in split_syncmap:
     data = x.split()
+    # clipduration = The interval of an aligned fragment, corresponding to a slide in the final video
     clipduration = float(data[3]) - float(data[2])
     counter += clipduration
     imgclip = ImageClip("res\\imgs\\" + data[0] + ".jpg",duration=clipduration)
@@ -38,6 +43,14 @@ for x in split_syncmap:
 # Create speech clip
 speech_aud = AudioFileClip("res\\speech.mp3")
 speech_aud = speech_aud.subclip(0,counter);
+
+# Create background music clip
+music_aud = 0
+if sys.argv[3] == "True":
+    music_aud = AudioFileClip("res\\music.mp3")
+    music_aud = music_aud.volumex(0.2)
+    if counter < music_aud.duration:
+        music_aud = music_aud.subclip(0,counter)
 
 # Creates caption clips and adds them
 counter2 = 0
@@ -65,9 +78,14 @@ for x in cc_durations:
     counter3 += 1
     startat = endat
 
+# Joins final audio
+final_aud = speech_aud
+if music_aud != 0:
+    final_aud = CompositeAudioClip([speech_aud,music_aud]);
+
 # Join everything together
 finalvid = concatenate_videoclips(vid_divisions);
-finalvid = finalvid.set_audio(speech_aud);
+finalvid = finalvid.set_audio(final_aud);
 finalvid.write_videofile('finalvidtest.mp4', fps=30)
 
 

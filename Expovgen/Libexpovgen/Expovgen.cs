@@ -16,17 +16,9 @@ namespace Expovgen
 
         #region Public API properties
         public ExpovgenLogs Logger { get; set; } = new();
-
-        //TODO: Replace all these variables with one settings variable
-        public (int Width, int Height) VideoDimensions { get; set; } = (1366, 768);
-        public string PythonPath;
+        public ExpovgenGenerationSettings Settings { get; }
 
         //Settings for etapas
-        public Etapa1Behaviors Etapa1Behavior { get; set; }
-        public Etapa2Behaviors Etapa2Behavior { get; set; }
-        public Etapa3Behaviors Etapa3Behavior { get; set; }
-        public Services ImgFetchService { get; set; }
-        public IServicePreferences? ImgFetchServicePreferences { get; set; }
         #endregion
 
         #region Public constructor
@@ -34,14 +26,8 @@ namespace Expovgen
         public Expovgen(ExpovgenGenerationSettings settings)
         {
             Dispose();
-            Etapa1Behavior = settings.Etapa1Behaviors;
-            Etapa2Behavior = settings.Etapa2Behaviors;
-            Etapa3Behavior = settings.Etapa3Behaviors;
-            VideoDimensions = settings.videoDimensions;
-            ImgFetchService = settings.ImgFetchService;
-            ImgFetchServicePreferences = settings.ImgFetchServicePreferences;
-            PythonPath = settings.PythonPath;
-            PyEnvs_Paths[1] = PythonPath == "" ? @"\Python37-32\python.exe" : PythonPath;
+            Settings = settings;
+            PyEnvs_Paths[1] = settings.PythonPath == "" ? @"\Python37-32\python.exe" : settings.PythonPath;
         }
 
         public static void Dispose()
@@ -120,12 +106,12 @@ namespace Expovgen
         public void Etapa1(string filePath = "res\\text.txt")
         {
             //Cancelar em caso de ForceManual
-            if (Etapa1Behavior == Etapa1Behaviors.ForceManual)
+            if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceManual)
             {
                 OnEtapa1Failed(true, Array.Empty<string>());
                 return;
             }
-            if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph)
+            if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph)
             {
                 OverrideEtapa1();
                 return;
@@ -158,7 +144,7 @@ namespace Expovgen
             langapi.MakeCaptions();
 
             //Retornar adequadamente
-            if (Etapa1Behavior == Etapa1Behaviors.AutoManual)
+            if (Settings.Etapa1Behaviors == Etapa1Behaviors.AutoManual)
             {
                 OnEtapa1Failed(true, langapi.Keywords);
             }
@@ -174,7 +160,7 @@ namespace Expovgen
             File.Copy("res\\text.txt", "res\\split.txt");
             File.Copy("res\\text.txt", "res\\keywords.txt");
             string[] outputLines = File.ReadAllLines("res\\text.txt");
-            LangAPI1 langAPI = new LangAPI1(outputLines);
+            LangAPI1 langAPI = new(outputLines);
             langAPI.MakeCaptions();
             Logger.WriteLine("Override completo");
             OnEtapa1Complete(outputLines);
@@ -191,8 +177,7 @@ namespace Expovgen
             {
                 string[] doc = File.ReadAllLines(filePath);
                 File.WriteAllLines("res\\keywords.txt", inputKeywords);
-                LangAPI1 langAPI = new LangAPI1(doc);
-                langAPI.Keywords = inputKeywords;
+                LangAPI1 langAPI = new(doc) { Keywords = inputKeywords };
                 langAPI.SplitPhrases();
                 langAPI.MakeCaptions();
                 Logger.WriteLine("Override completo");
@@ -242,7 +227,7 @@ namespace Expovgen
             Logger.WriteLine("--- RECURSO 2/5: Pesquisa de imagens ---");
             try
             {
-                if (Etapa1Behavior == Etapa1Behaviors.ForceOneByParagraph || Etapa2Behavior == Etapa2Behaviors.ForceManual)
+                if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph || Settings.Etapa2Behaviors == Etapa2Behaviors.ForceManual)
                 {
                     OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, true);
                     return;
@@ -250,11 +235,11 @@ namespace Expovgen
 
                 //Etapa 2: Busca de imagens para cada palavra-chave
 
-                ImgFetch2 fetcher = new(Logger, VideoDimensions)
+                ImgFetch2 fetcher = new(Logger, Settings.VideoDimensions)
                 {
-                    Service = ImgFetchService,
+                    Service = Settings.ImgFetchService,
                     RequestQueries = keywords,
-                    ServicePreferences = ImgFetchServicePreferences                    
+                    ServicePreferences = Settings.ImgFetchServicePreferences
                 };
 
                 try
@@ -264,7 +249,7 @@ namespace Expovgen
 
                     Logger.WriteLine(images.Count + " imagens baixadas da internet.");
 
-                    if (Etapa2Behavior == Etapa2Behaviors.AutoManual)
+                    if (Settings.Etapa2Behaviors == Etapa2Behaviors.AutoManual)
                     {
                         OnEtapa2Done(images, keywords, false, true);
                         return;
@@ -287,7 +272,7 @@ namespace Expovgen
             if (images.Count > 0)
             {
                 for (int x = 0; x < images.Count; x++)
-                {
+                {                     
                     try
                     {
                         images[x].Save(@"res\imgs\" + x.ToString("000") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -295,7 +280,7 @@ namespace Expovgen
                     catch
                     {
                         TotallySuccessful = false;
-                    }
+                    }  
                 }
             }
             return TotallySuccessful;
@@ -337,7 +322,7 @@ namespace Expovgen
         {
             try
             {
-                if (Etapa3Behavior == Etapa3Behaviors.ForceManual)
+                if (Settings.Etapa3Behaviors == Etapa3Behaviors.ForceManual)
                 {
                     OnEtapa3Failed(true);
                     return;
@@ -415,12 +400,12 @@ namespace Expovgen
 
         protected virtual void OnEtapa5Completed()
         {
-            Etapa5Completed(this, new EventArgs());
+            Etapa5Completed?.Invoke(this, new EventArgs());
         }
 
         protected virtual void OnEtapa5Failed()
         {
-            Etapa5Failed(this, new EventArgs());
+            Etapa5Failed?.Invoke(this, new EventArgs());
         }
 
         #endregion
@@ -429,7 +414,24 @@ namespace Expovgen
             try
             {
                 Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
-                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, VideoDimensions.Width + " " + VideoDimensions.Height);
+                bool AddMusic = false;
+                //Prepare Etapa 5
+                if (Settings.BackgroundMusicPath is not null)
+                {
+                    try
+                    {
+                        File.Copy(Settings.BackgroundMusicPath, "res\\music.mp3");
+                        AddMusic = true;
+                    }
+                    catch
+                    {
+                        Logger.WriteLine("Failed to copy background music, skipping");
+                    }
+                }
+
+
+
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoDimensions.width + " " + Settings.VideoDimensions.height + " " + AddMusic.ToString());
                 if (r == 0)
                 {
                     OnEtapa5Completed();
@@ -467,7 +469,7 @@ namespace Expovgen
             python_inst
         }
 
-        private string[] PyEnvs_Paths =
+        private readonly string[] PyEnvs_Paths =
         {
             @"audworks\Audioworks.exe",
             "(python.exe path, see constructor)", //TODO: Replace this path with setting
@@ -494,28 +496,35 @@ namespace Expovgen
                 RedirectStandardInput = true,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            if (pyenv == PyEnvs.python_inst && PythonPath == "") //TODO: Test this out
+            if (pyenv == PyEnvs.python_inst && Settings.PythonPath == "") //TODO: Test this out
             {
                 processst.FileName = processst.EnvironmentVariables["SystemDrive"] + processst.FileName;
             }
             processst.EnvironmentVariables.Add("IMAGEMAGICK_BINARY", @"C:\Program Files\ImageMagick-7.1.0-Q16-HDRI\magick.exe");
             processst.EnvironmentVariables.Add("PYTHONIOENCODING", "UTF-8");
 
-            Process process = Process.Start(processst);
-            process.OutputDataReceived += WritePythonDataToLog;
-            process.ErrorDataReceived += WritePythonDataToLog;
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-            process.CancelErrorRead();
-            if (process.ExitCode != 0)
+            Process? process = Process.Start(processst);
+            if (process != null)
             {
-                Logger.WriteLine("Python step " + pytask.ToString() + " failed");
+                process.OutputDataReceived += WritePythonDataToLog;
+                process.ErrorDataReceived += WritePythonDataToLog;
+                process.BeginErrorReadLine();
+                process.WaitForExit();
+                process.CancelErrorRead();
+                if (process.ExitCode != 0)
+                {
+                    Logger.WriteLine("Python step " + pytask.ToString() + " failed");
+                }
+                else
+                {
+                    Logger.WriteLine("Process completed");
+                }
+                return process.ExitCode;
             }
             else
             {
-                Logger.WriteLine("Process completed");
+                return -1;
             }
-            return process.ExitCode;
         }
 
         private void WritePythonDataToLog(object sender, DataReceivedEventArgs e)
@@ -534,26 +543,6 @@ namespace Expovgen
 
     }
 
-    internal class ExpovgenProject
-    {
-        //TODO: Make it save previous keywords used
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string? FilePath { get; set; }
-        public string[] Document;
-
-        public ExpovgenProject()
-        {
-            Document = Array.Empty<string>();
-        }
-
-        public ExpovgenProject(string filePath)
-        {
-            //TODO: Load attributes from an unidentified file type
-            throw new NotImplementedException();
-        }
-    }
-
     /// <summary>
     /// Holds definitions for Expovgen video/podcast generation
     /// </summary>
@@ -563,18 +552,18 @@ namespace Expovgen
         public WindowStyle WindowStyle { get; set; } = WindowStyle.Simple;
 
         // Background work definitions
-        public string? PythonPath { get; set; }
+        public string PythonPath { get; set; } = "";
 
         // Definitions for step customization
         public Etapa1Behaviors Etapa1Behaviors { get; set; } = Etapa1Behaviors.Auto;
         public Etapa2Behaviors Etapa2Behaviors { get; set; } = Etapa2Behaviors.Auto;
         public Etapa3Behaviors Etapa3Behaviors { get; set; } = Etapa3Behaviors.Auto;
-        
+
         //Content generation type
         public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
 
         // Definitions for rendering videos
-        public (int width, int height) videoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable in stitchtest2
+        public (int width, int height) VideoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable in stitchtest2
         public Services ImgFetchService { get; set; } = Services.google;
         public IServicePreferences? ImgFetchServicePreferences { get; set; }
         public string? ExportPath { get; set; }
@@ -603,7 +592,7 @@ namespace Expovgen
             //BEGIN: Conditions for validity ----------------
 
             if (ExportPath is null)
-                 msgs.Add("Favor adicione um caminho de destino do vídeo");
+                msgs.Add("Favor adicione um caminho de destino do vídeo");
 
             //END: Conditions for validity ------------------
 
@@ -618,7 +607,7 @@ namespace Expovgen
     /// </summary>
     public class ExpovgenLogs
     {
-        public List<string> Log = new List<string>();
+        public List<string> Log = new();
 
 
         public class TextWrittenEventArgs : EventArgs
@@ -627,14 +616,11 @@ namespace Expovgen
         }
 
         public delegate void TextWrittenEventHandler(object source, TextWrittenEventArgs e);
-        public event TextWrittenEventHandler TextWritten;
+        public event TextWrittenEventHandler? TextWritten;
 
         protected virtual void OnTextWritten(string text)
         {
-            if (TextWritten != null)
-            {
-                TextWritten(this, new TextWrittenEventArgs() { WrittenText = text });
-            }
+            TextWritten?.Invoke(this, new TextWrittenEventArgs() { WrittenText = text });
         }
 
         public void WriteLine(string text)

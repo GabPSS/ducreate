@@ -53,7 +53,7 @@ namespace Expovgen.ImgFetch
         public (int Width,int Height) ImageDimensions { get; set; }
 
         // Private properties for use only within the API
-        private HttpClient webClient { get; set; } = new HttpClient();
+        private HttpClient HttpFetchingClient { get; set; } = new HttpClient();
         //private (int width, int height) VideoDimensions { get; set; } = (1366, 768);
 
         #endregion
@@ -98,10 +98,15 @@ namespace Expovgen.ImgFetch
         /// </summary>
         public Image?[] RequestImages()
         {
+            //Pre-process checks
+            if (RequestQueries is null)
+            {
+                return Array.Empty<Image?>();
+            }
+
             //Variable definitions & attributions
             Results = new(); //Reset resultURLs
             List<string> requestURLs = new(); //URLs to feed into the Service's API.
-            List<(string query, Stream downloadedImage)>? imageFiles = new(); //Corresponds to downloaded image file streams
 
             //Check service preferences & obtain requestURLs based on service preferences, if specified
             if (ServicePreferences is not null)
@@ -235,7 +240,7 @@ namespace Expovgen.ImgFetch
             }
 
             //Creating a bitmap, the corresponding Graphics, and drawing the image
-            Bitmap @base = new Bitmap(tgtBaseWidth, tgtBaseHeight);
+            Bitmap @base = new(tgtBaseWidth, tgtBaseHeight);
             Graphics gfx = Graphics.FromImage(@base);
             gfx.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             gfx.FillRectangle(backgroundFill, 0, 0, tgtBaseWidth, tgtBaseHeight);
@@ -255,9 +260,11 @@ namespace Expovgen.ImgFetch
         private void GetSearchResultsRequest(string requestUrl, string query, Services service)
         {
             //Declare HTTPClient
-            HttpRequestMessage request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(requestUrl);
+            HttpRequestMessage request = new()
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(requestUrl)
+            };
 
             //Add service-specific request headers
             if (service == Services.pexels)
@@ -272,7 +279,7 @@ namespace Expovgen.ImgFetch
 
             //Send request
             Logs.WriteLine("Sending request...");
-            HttpResponseMessage result = webClient.Send(request);
+            HttpResponseMessage result = HttpFetchingClient.Send(request);
             if (result.IsSuccessStatusCode)
             {
                 Logs.WriteLine("Parsing response...");
@@ -305,10 +312,12 @@ namespace Expovgen.ImgFetch
             try
             {
                 Logs.WriteLine("Starting download for " + url);
-                HttpRequestMessage request = new HttpRequestMessage();
-                request.RequestUri = new Uri(url);
-                request.Method = HttpMethod.Get;
-                HttpResponseMessage returned = webClient.Send(request);
+                HttpRequestMessage request = new()
+                {
+                    RequestUri = new Uri(url),
+                    Method = HttpMethod.Get
+                };
+                HttpResponseMessage returned = HttpFetchingClient.Send(request);
                 Logs.WriteLine("Download of url " + url + " complete");
                 return returned.Content.ReadAsStream();
             }
@@ -337,8 +346,8 @@ namespace Expovgen.ImgFetch
 
             public List<string> ParseJSONResponse(HttpResponseMessage result, Services service)
             {
-                List<string> returning = new List<string>();
-                JsonNode obj = null;
+                List<string> returning = new();
+                JsonNode obj;
                 try
                 {
                     obj = JsonObject.Parse(result.Content.ReadAsStream()).AsObject();
