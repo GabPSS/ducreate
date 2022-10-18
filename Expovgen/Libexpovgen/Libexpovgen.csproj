@@ -386,7 +386,7 @@
     <None Update="audworks\_uuid.pyd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="stitchtest2.py">
+    <None Update="moviestitch.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

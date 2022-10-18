@@ -134,5 +134,5 @@ E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\audworks\_queue.pyd
 E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\audworks\_socket.pyd
 E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\audworks\_ssl.pyd
 E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\audworks\_uuid.pyd
-E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\stitchtest2.py
+E:\expovgen\Expovgen\Libexpovgen\bin\Debug\net6.0\moviestitch.py
 E:\expovgen\Expovgen\Libexpovgen\obj\Debug\net6.0\refint\Libexpovgen.dll

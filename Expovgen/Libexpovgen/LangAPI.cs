@@ -35,7 +35,7 @@ namespace Expovgen.LangAPI
             }
             byte[] contentBytes = Encoding.UTF8.GetBytes(content.ToString());
             request.Content = new ByteArrayContent(contentBytes);
-            HttpResponseMessage response = client.Send(request); //TODO: What if there is no internet connection?
+            HttpResponseMessage response = client.Send(request); 
             if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
             {
                 throw new QuotaExceededException();

@@ -16,7 +16,10 @@ namespace Expovgen
 
         #region Public API properties
         public ExpovgenLogs Logger { get; set; } = new();
+
+        //TODO: Replace all these variables with one settings variable
         public (int Width, int Height) VideoDimensions { get; set; } = (1366, 768);
+        public string PythonPath;
 
         //Settings for etapas
         public Etapa1Behaviors Etapa1Behavior { get; set; }
@@ -37,6 +40,8 @@ namespace Expovgen
             VideoDimensions = settings.videoDimensions;
             ImgFetchService = settings.ImgFetchService;
             ImgFetchServicePreferences = settings.ImgFetchServicePreferences;
+            PythonPath = settings.PythonPath;
+            PyEnvs_Paths[1] = PythonPath == "" ? @"\Python37-32\python.exe" : PythonPath;
         }
 
         public static void Dispose()
@@ -424,7 +429,7 @@ namespace Expovgen
             try
             {
                 Logger.WriteLine("--- RECURSO 5/5: Geração do vídeo final ---");
-                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, "");
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, VideoDimensions.Width + " " + VideoDimensions.Height);
                 if (r == 0)
                 {
                     OnEtapa5Completed();
@@ -453,7 +458,7 @@ namespace Expovgen
             "tts",
             "align",
             "-m aeneas.tools.execute_task",
-            "stitchtest2.py"
+            "moviestitch.py"
         };
 
         private enum PyEnvs
@@ -462,10 +467,10 @@ namespace Expovgen
             python_inst
         }
 
-        private static string[] PyEnvs_Paths =
+        private string[] PyEnvs_Paths =
         {
             @"audworks\Audioworks.exe",
-            @"\Python37-32\python.exe", //TODO: Replace this path with setting
+            "(python.exe path, see constructor)", //TODO: Replace this path with setting
         };
 
         /// <summary>
@@ -489,7 +494,7 @@ namespace Expovgen
                 RedirectStandardInput = true,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            if (pyenv == PyEnvs.python_inst)
+            if (pyenv == PyEnvs.python_inst && PythonPath == "") //TODO: Test this out
             {
                 processst.FileName = processst.EnvironmentVariables["SystemDrive"] + processst.FileName;
             }
@@ -521,6 +526,9 @@ namespace Expovgen
         #endregion
     }
 
+    /// <summary>
+    /// An exception thrown when the user cancels the generation process
+    /// </summary>
     public class UserForceCancelException : Exception
     {
 
@@ -551,31 +559,63 @@ namespace Expovgen
     /// </summary>
     public class ExpovgenGenerationSettings
     {
-        /// <summary>
-        /// Behaviors for step 1
-        /// </summary>
+        // Visual generation window definitions
+        public WindowStyle WindowStyle { get; set; } = WindowStyle.Simple;
+
+        // Background work definitions
+        public string? PythonPath { get; set; }
+
+        // Definitions for step customization
         public Etapa1Behaviors Etapa1Behaviors { get; set; } = Etapa1Behaviors.Auto;
-        /// <summary>
-        /// Behaviors for step 2
-        /// </summary>
         public Etapa2Behaviors Etapa2Behaviors { get; set; } = Etapa2Behaviors.Auto;
-        /// <summary>
-        /// Behaviors for step 3
-        /// </summary>
         public Etapa3Behaviors Etapa3Behaviors { get; set; } = Etapa3Behaviors.Auto;
-        /// <summary>
-        /// Behaviors for step 4
-        /// </summary>
+        
+        //Content generation type
         public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
-        /// <summary>
-        /// Width and height of video dimensions
-        /// </summary>
-        public (int width, int height) videoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable
+
+        // Definitions for rendering videos
+        public (int width, int height) videoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable in stitchtest2
         public Services ImgFetchService { get; set; } = Services.google;
         public IServicePreferences? ImgFetchServicePreferences { get; set; }
-        public WindowStyle WindowStyle { get; set; } = WindowStyle.Simple;
+        public string? ExportPath { get; set; }
+
+        // Definitions for automating renderings
+        //public string[] Document { get; set; }
+        //public string[] Keywords { get; set; }
+        //public Image[] Images { get; set; }
+        //public string NarrationPath { get; set; }
+
+        // Definitions for video rendering customization
+        // TODO: Update stitchtest2 in order to make these possible
+        public string? BackgroundMusicPath { get; set; }
+        public string? TitleCard { get; set; }
+        public string[]? Credits { get; set; }
+        // TODO: (IDEA) - Intro video, Outro video, font size changing?
+
+        /// <summary>
+        /// Check if all settings are valid for video generation
+        /// </summary>
+        /// <returns>True if settings are valid, otherwise false</returns>
+        public List<string>? CheckValid()
+        {
+            List<string>? msgs = new();
+
+            //BEGIN: Conditions for validity ----------------
+
+            if (ExportPath is null)
+                 msgs.Add("Favor adicione um caminho de destino do vídeo");
+
+            //END: Conditions for validity ------------------
+
+            if (msgs.Count == 0)
+                msgs = null;
+            return msgs;
+        }
     }
 
+    /// <summary>
+    /// A class that handles logging in Expovgen
+    /// </summary>
     public class ExpovgenLogs
     {
         public List<string> Log = new List<string>();
