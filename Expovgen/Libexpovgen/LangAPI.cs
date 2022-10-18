@@ -52,21 +52,28 @@ namespace Expovgen.LangAPI
             List<string> keywords = new List<string>();
             if (obj is not null)
             {
-                int count = 0;
-                while (true)
+                if ((string)obj["result"] is not null)
                 {
-                    try
+                    int count = 0;
+                    while (true)
                     {
-                        string keyword = (string)obj["result"][count]["text"];
-                        keywords.Add(keyword is not null ? keyword : "(null)");
-                        count++;
+                        try
+                        {
+                            string keyword = (string)obj["result"][count]["text"];
+                            keywords.Add(keyword is not null ? keyword : "(null)");
+                            count++;
+                        }
+                        catch
+                        {
+                            break;
+                        }
                     }
-                    catch
-                    {
-                        break;
-                    }
+                    Keywords = keywords.ToArray();
                 }
-                Keywords = keywords.ToArray();
+                else
+                {
+                    Keywords = null;
+                }
             }
             else
             {
