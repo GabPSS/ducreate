@@ -1,3 +1,0 @@
-f000001 0.000 1.600 "Bom dia!"
-f000002 1.600 3.360 "Este é um teste do novo"
-f000003 3.360 4.680 "Expovgen."

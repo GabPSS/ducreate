@@ -1,0 +1,7 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/Expovgen/ExpovgenGUI/bin/Debug/net6.0-windows
+/Expovgen/Libexpovgen/bin/Debug/net6.0-windows
+/Expovgen/.vs
