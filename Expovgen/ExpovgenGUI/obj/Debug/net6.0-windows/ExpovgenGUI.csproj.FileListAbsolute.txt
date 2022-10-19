@@ -148,3 +148,4 @@ E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Etapa1Over
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.CreatingVideoForm.resources
 E:\expovgen\Expovgen\ExpovgenGUI\bin\Debug\net6.0-windows\moviestitch.py
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\refint\ExpovgenGUI.dll
+E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.SettingsForm.resources

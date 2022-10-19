@@ -36,5 +36,11 @@ namespace ExpovgenGUI
              *   of that
              */
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new(settings);
+            settingsForm.ShowDialog();
+        }
     }
 }

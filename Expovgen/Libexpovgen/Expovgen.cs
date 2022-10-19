@@ -77,8 +77,6 @@ namespace Expovgen
 
         #region Etapa 1
 
-        //Implementation status: Complete
-
         #region Events
 
         public class Etapa1EventArgs : EventArgs
@@ -190,8 +188,6 @@ namespace Expovgen
 
         #region Etapa 2
 
-        //Implementation status: Complete
-
         public class Etapa2EventArgs : EventArgs
         {
             public List<Image?> Images { get; set; }
@@ -289,11 +285,6 @@ namespace Expovgen
         #endregion
 
         #region Etapa 3
-
-        //Implementation status: Started
-        /* Issues:
-         *   - Find out how to detect failure if Etapa 3 python step fails
-         */
 
         #region Etapa 3 Events
 
@@ -425,7 +416,7 @@ namespace Expovgen
                     }
                     catch
                     {
-                        Logger.WriteLine("Failed to copy background music, skipping");
+                        Logger.WriteLine("(!) Erro ao acessar a música de fundo, vídeo resultante não a conterá");
                     }
                 }
 
@@ -472,7 +463,7 @@ namespace Expovgen
         private readonly string[] PyEnvs_Paths =
         {
             @"audworks\Audioworks.exe",
-            "(python.exe path, see constructor)", //TODO: Replace this path with setting
+            "(python.exe path, see constructor)",
         };
 
         /// <summary>
@@ -575,11 +566,13 @@ namespace Expovgen
         //public string NarrationPath { get; set; }
 
         // Definitions for video rendering customization
-        // TODO: Update stitchtest2 in order to make these possible
         public string? BackgroundMusicPath { get; set; }
+
+        // TODO: Update stitchtest2 in order to make these possible
+        public double BackgroundVolume { get; set; } = 0.2;
         public string? TitleCard { get; set; }
         public string[]? Credits { get; set; }
-        // TODO: (IDEA) - Intro video, Outro video, font size changing?
+        // TODO: (IDEA) - Intro video, Outro video, font size + back colors changing?
 
         /// <summary>
         /// Check if all settings are valid for video generation
