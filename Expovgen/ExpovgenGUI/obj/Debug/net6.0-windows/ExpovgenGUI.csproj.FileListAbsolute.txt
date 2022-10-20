@@ -147,5 +147,7 @@ E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Properties
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.Etapa1OverrideForm.resources
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.CreatingVideoForm.resources
 E:\expovgen\Expovgen\ExpovgenGUI\bin\Debug\net6.0-windows\moviestitch.py
-E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\refint\ExpovgenGUI.dll
 E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.SettingsForm.resources
+E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.MainForm.resources
+E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\refint\ExpovgenGUI.dll
+E:\expovgen\Expovgen\ExpovgenGUI\obj\Debug\net6.0-windows\ExpovgenGUI.ExportForm.resources

@@ -205,7 +205,7 @@ namespace Expovgen.ImgFetch
             //Return the downloaded images
             return Images;
 
-            //TODO: (Idea) Make it so the program is able to return the non-downloaded image URLs, so new downloads can be requested
+            //TODO: (IDEA) Make it so the program is able to return the non-downloaded image URLs, so new downloads can be requested
         }
         
         /// <summary>

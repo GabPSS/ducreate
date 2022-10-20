@@ -56,34 +56,22 @@ namespace ExpovgenGUI
                 //podcastOpt.Checked = true;
                 keywordsGbx.Visible = false;
                 imagesGbx.Visible = false;
-                if (tabControl1.TabPages.Contains(tabPage4))
-                {
-                    tabControl1.TabPages.Remove(tabPage4);
-                }
             }
             else if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph)
             {
                 //apresentacaoOpt.Checked = true;
                 keywordsGbx.Visible = false;
                 imagesGbx.Visible = false;
-                if (!tabControl1.TabPages.Contains(tabPage4))
-                {
-                    tabControl1.TabPages.Add(tabPage4);
-                }
             }
             else
             {
                 //videoaulaOpt.Checked = true;
-                if (!tabControl1.TabPages.Contains(tabPage4))
-                {
-                    tabControl1.TabPages.Add(tabPage4);
-                }
             }
 
 
             //TODO: Implement this method
             /* Tasks necessary:
-             *   - Hiding groupboxes and tabpages when project type is audio only
+             *   - Hiding groupboxes when project type is audio only
              *   - Updating controls with respective values
              * 
              */
@@ -137,10 +125,6 @@ namespace ExpovgenGUI
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            volValueLabel.Text = trackBar1.Value + "%";
-            Settings.BackgroundVolume = Convert.ToDouble(trackBar1.Value) / 100;
-        }
+    
     }
 }

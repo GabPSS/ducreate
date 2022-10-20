@@ -420,11 +420,24 @@ namespace Expovgen
                     }
                 }
 
+                // Prepare title card and credits card if present
+                if (Settings.Credits == null)
+                {
+                    Settings.Credits = Array.Empty<string>();
+                }
+                File.WriteAllLines("res\\card_credits.txt", Settings.Credits);
+                if (Settings.TitleCard == null)
+                {
+                    Settings.TitleCard = Array.Empty<string>();
+                }
+                File.WriteAllLines("res\\card_title.txt", Settings.TitleCard);
 
 
-                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoDimensions.width + " " + Settings.VideoDimensions.height + " " + AddMusic.ToString());
+
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoDimensions.width + " " + Settings.VideoDimensions.height + " " + AddMusic.ToString() + " " + Settings.FontSize + " " + (Settings.BackgroundVolume < 0.99 ? "0." + (Settings.BackgroundVolume * 100) : 1));
                 if (r == 0)
                 {
+                    File.Copy("res\\output.mp4", Settings.ExportPath);
                     OnEtapa5Completed();
                 }
                 else
@@ -554,7 +567,7 @@ namespace Expovgen
         public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
 
         // Definitions for rendering videos
-        public (int width, int height) VideoDimensions { get; set; } = (1366, 768); //TODO: Make video dimensions user-editable in stitchtest2
+        public (int width, int height) VideoDimensions { get; set; } = (1366, 768); 
         public Services ImgFetchService { get; set; } = Services.google;
         public IServicePreferences? ImgFetchServicePreferences { get; set; }
         public string? ExportPath { get; set; }
@@ -567,12 +580,14 @@ namespace Expovgen
 
         // Definitions for video rendering customization
         public string? BackgroundMusicPath { get; set; }
-
-        // TODO: Update stitchtest2 in order to make these possible
-        public double BackgroundVolume { get; set; } = 0.2;
-        public string? TitleCard { get; set; }
+        //TODO include these (*) recently added settings to the SettingsForm
+        public double FontSize { get; set; } = 20; //*
+        public string[]? TitleCard { get; set; }
         public string[]? Credits { get; set; }
-        // TODO: (IDEA) - Intro video, Outro video, font size + back colors changing?
+        public double BackgroundVolume { get; set; } = 0.2;
+
+        // TODO: Update stitchtest2 & imgfetch in order to make these possible
+        public bool ShowKeywordOnImage { get; set; } = false; //*
 
         /// <summary>
         /// Check if all settings are valid for video generation

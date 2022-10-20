@@ -48,7 +48,7 @@ speech_aud = speech_aud.subclip(0,counter);
 music_aud = 0
 if sys.argv[3] == "True":
     music_aud = AudioFileClip("res\\music.mp3")
-    music_aud = music_aud.volumex(0.2)
+    music_aud = music_aud.volumex(float(sys.argv[5]))
     if counter < music_aud.duration:
         music_aud = music_aud.subclip(0,counter)
 
@@ -56,7 +56,7 @@ if sys.argv[3] == "True":
 counter2 = 0
 for text in cc_texts:
     cc_data = cc_map[counter2].split()
-    cc_clip = TextClip(text,fontsize=20,color='white',bg_color='black')
+    cc_clip = TextClip(text,fontsize=float(sys.argv[4]),color='white',bg_color='black')
     cc_clip = cc_clip.set_position('bottom')
     cc_duration = float(cc_data[2]) - float(cc_data[1])
     cc_clip = cc_clip.set_duration(cc_duration)
@@ -78,15 +78,45 @@ for x in cc_durations:
     counter3 += 1
     startat = endat
 
-# Joins final audio
+# Joins final audio # TODO: Move this over to the last part, with all clips.
 final_aud = speech_aud
 if music_aud != 0:
     final_aud = CompositeAudioClip([speech_aud,music_aud]);
 
+# Generate end (credits) clip
+creditsTxt = "";
+ending_card_clip = 0;
+
+with open('res\\card_credits.txt',mode="r",encoding="utf-8") as cc_map_file:
+    creditsTxt = cc_map_file.read()
+
+if creditsTxt != "":
+    ending_card_clip = TextClip(creditsTxt, fontsize=40,color='white',bg_color='black',size=vid_divisions[0].size)
+    ending_card_clip = ending_card_clip.set_position('center')
+    ending_card_clip = ending_card_clip.set_duration(5)
+
+# Gererate title clip
+titleTxt = "";
+title_card_clip = 0;
+
+with open('res\\card_title.txt',mode="r",encoding="utf-8") as cc_map_file:
+    titleTxt = cc_map_file.read()
+
+if titleTxt != "":
+    title_card_clip = TextClip(titleTxt, fontsize=60,color='white',bg_color='black',size=vid_divisions[0].size)
+    title_card_clip = title_card_clip.set_position('center')
+    title_card_clip = title_card_clip.set_duration(3)
+
 # Join everything together
 finalvid = concatenate_videoclips(vid_divisions);
 finalvid = finalvid.set_audio(final_aud);
-finalvid.write_videofile('finalvidtest.mp4', fps=30)
+if ending_card_clip != 0:
+    finalvid = concatenate_videoclips([finalvid,ending_card_clip]);
+if title_card_clip != 0:
+    finalvid = concatenate_videoclips([title_card_clip,finalvid]);
+finalvid.write_videofile('res\\output.mp4', fps=30)
+
+
 
 
 ## --- EXTRA BITS OF CODE ---
