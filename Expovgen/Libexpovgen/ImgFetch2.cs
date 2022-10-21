@@ -9,7 +9,7 @@ using Expovgen;
 
 namespace Expovgen.ImgFetch
 {
-    public enum Services { google, pixabay, pexels, rapidapi }
+    public enum Services { google, pixabay }//, pexels, rapidapi }
     public interface IServicePreferences { }
     
     /// <summary>
@@ -28,18 +28,10 @@ namespace Expovgen.ImgFetch
         /// </summary>
         private static readonly string[] Endpoints = {
             "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
-            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
-            "https://api.pexels.com/v1/search?query={0}",
-            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q={0}&pageNumber=1&pageSize=10&autoCorrect=false"
+            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo"
         };
-
-        /// <summary>
-        /// Auth tokens and services
         /// TODO: Remove them from GH and make them local
-        /// </summary>
-        private static readonly string PexelsAuth = "563492ad6f917000010000012c20d17ed9954a579606dfed33e52735";
-        private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
-        private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
+
         #endregion
 
         #region API Properties
@@ -82,10 +74,7 @@ namespace Expovgen.ImgFetch
         private static string GetURLString(Services service, string query)
         {
             string api = Endpoints[(int)service];
-            if (service == Services.google || service == Services.pixabay || service == Services.pexels || service == Services.rapidapi)
-            {
-                api = string.Format(api, query);
-            }
+            api = string.Format(api, query);
             return api;
         }
 
@@ -266,17 +255,6 @@ namespace Expovgen.ImgFetch
                 RequestUri = new Uri(requestUrl)
             };
 
-            //Add service-specific request headers
-            if (service == Services.pexels)
-            {
-                request.Headers.Add("Authorization", PexelsAuth);
-            }
-            if (service == Services.rapidapi)
-            {
-                request.Headers.Add("X-RapidAPI-Key", RapidAPIAuth);
-                request.Headers.Add("X-RapidAPI-Host", RapidAPISearchService1);
-            }
-
             //Send request
             Logs.WriteLine("Sending request...");
             HttpResponseMessage result = HttpFetchingClient.Send(request);
@@ -365,12 +343,6 @@ namespace Expovgen.ImgFetch
                     case Services.pixabay:
                         Parse_Pixabay(returning, obj);
                         break;
-                    case Services.pexels:
-                        Parse_Pexels(returning, obj);
-                        break;
-                    case Services.rapidapi:
-                        Parse_RapidAPI(returning, obj);
-                        break;
                 }
                 return returning;
             }
@@ -432,54 +404,6 @@ namespace Expovgen.ImgFetch
                 }
             }
 
-            /// <summary>
-            /// Method for JSON-parsing Google CSE response
-            /// </summary>
-            public void Parse_Pexels(List<string> returning, JsonNode obj)
-            {
-                try
-                {
-                    int i = 0;
-                    while (true)
-                    {
-                        Logs.WriteLine("Parsing URL " + i + "...");
-                        string url;
-                        url = (string)obj["photos"][i]["src"]["original"];
-                        returning.Add(url);
-                        Logs.WriteLine(url);
-                        i++;
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-            /// <summary>
-            /// Method for JSON-parsing RapidAPI response
-            /// </summary>
-            /// <param name="returning"></param>
-            /// <param name="obj"></param>
-            public void Parse_RapidAPI(List<string> returning, JsonNode obj)
-            {
-                try
-                {
-                    int i = 0;
-                    while (true)
-                    {
-                        Logs.WriteLine("Parsing URL " + i + "...");
-                        string url;
-                        url = (string)obj["value"][i]["url"];
-                        returning.Add(url);
-                        Logs.WriteLine(url);
-                        i++;
-                    }
-                }
-                catch
-                {
-
-                }
-            }
         }
 
         #endregion
