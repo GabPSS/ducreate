@@ -9,17 +9,10 @@ using Expovgen;
 
 namespace Expovgen.ImgFetch
 {
-    public enum Services { google, pixabay }//, pexels, rapidapi }
+    public enum Services { pixabay, rapidapi }
     public interface IServicePreferences { }
     
-    /// <summary>
-    /// Defines custom preferences for the Google CSE service
-    /// </summary>
-    public class GooglePreferences : IServicePreferences
-    {
-        public bool UseCCLicense { get; set; }
-        public GooglePreferences() { }
-    }
+    
     public class ImgFetch2
     {
         #region Static API strings
@@ -27,11 +20,18 @@ namespace Expovgen.ImgFetch
         /// API endpoints list
         /// </summary>
         private static readonly string[] Endpoints = {
-            "https://www.googleapis.com/customsearch/v1?q={0}&num=10&searchType=image&key=AIzaSyCszddNdBvhdD0NQPWN-D7sFBHIm0dVNBc&cx=9104bba6a696b497a",
-            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo"
+            
+            "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
+            
+            "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q={0}&pageNumber=1&pageSize=10&autoCorrect=false"
         };
-        /// TODO: Remove them from GH and make them local
 
+        /// <summary>
+        /// Auth tokens and services
+        /// TODO: Remove them from GH and make them local
+        /// </summary>
+        private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
+        private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
         #endregion
 
         #region API Properties
@@ -74,7 +74,9 @@ namespace Expovgen.ImgFetch
         private static string GetURLString(Services service, string query)
         {
             string api = Endpoints[(int)service];
+            
             api = string.Format(api, query);
+            
             return api;
         }
 
@@ -98,30 +100,16 @@ namespace Expovgen.ImgFetch
             List<string> requestURLs = new(); //URLs to feed into the Service's API.
 
             //Check service preferences & obtain requestURLs based on service preferences, if specified
-            if (ServicePreferences is not null)
+            //if (ServicePreferences is not null)
             {
-                if (Service == Services.google && ServicePreferences.GetType() == typeof(GooglePreferences))
-                {
-                    Logs.WriteLine("Setting request preferences...");
-                    GooglePreferences? gpref = ServicePreferences as GooglePreferences;
-                    if (gpref is not null) //By consequence, it's never going to be, but the check is done anyway just in case
-                    {
-                        foreach (string query in RequestQueries)
-                        {
-                            string api = GetURLString(Service, query);
-                            if (gpref.UseCCLicense)
-                            {
-                                api += "&rights=(cc_publicdomain%7Ccc_attribute%7Ccc_sharealike%7Ccc_nonderived)";
-                            }
-                            requestURLs.Add(api);
-                        }
-                    }
-                }
+                //if (Service == Services.google && ServicePreferences.GetType() == typeof(GooglePreferences))
+                //{
+                
 
                 //^^^ NOTE: Add any other service preferences here ^^^
 
             }
-            else
+            //else
             {
                 //Define variables manually
                 requestURLs.AddRange(GetRequestStrings(Service, RequestQueries));
@@ -255,6 +243,13 @@ namespace Expovgen.ImgFetch
                 RequestUri = new Uri(requestUrl)
             };
 
+            //Add service-specific request headers
+            if (service == Services.rapidapi)
+            {
+                request.Headers.Add("X-RapidAPI-Key", RapidAPIAuth);
+                request.Headers.Add("X-RapidAPI-Host", RapidAPISearchService1);
+            }
+
             //Send request
             Logs.WriteLine("Sending request...");
             HttpResponseMessage result = HttpFetchingClient.Send(request);
@@ -337,47 +332,14 @@ namespace Expovgen.ImgFetch
 
                 switch (service)
                 {
-                    case Services.google:
-                        Parse_GoogleCSE(returning, obj);
-                        break;
                     case Services.pixabay:
                         Parse_Pixabay(returning, obj);
                         break;
+                    case Services.rapidapi:
+                        Parse_RapidAPI(returning, obj);
+                        break;
                 }
                 return returning;
-            }
-
-            /// <summary>
-            /// Method for JSON-parsing Google CSE response
-            /// </summary>
-            public void Parse_GoogleCSE(List<string> returning, JsonNode obj)
-            {
-                if (obj is not null)
-                {
-                    if (obj["items"] is not null)
-                    {
-                        int i = 0;
-                        while (i <= 10)
-                        {
-                            try
-                            {
-                                Logs.WriteLine("Parsing URL " + i + "...");
-                                string url;
-                                url = (string)obj["items"][i]["link"];
-                                returning.Add(url);
-                                Logs.WriteLine(url);
-                            }
-                            catch
-                            {
-
-                            }
-                            finally
-                            {
-                                i++;
-                            }
-                        }
-                    }
-                }
             }
 
             /// <summary>
@@ -404,6 +366,31 @@ namespace Expovgen.ImgFetch
                 }
             }
 
+            /// <summary>
+            /// Method for JSON-parsing RapidAPI response
+            /// </summary>
+            /// <param name="returning"></param>
+            /// <param name="obj"></param>
+            public void Parse_RapidAPI(List<string> returning, JsonNode obj)
+            {
+                try
+                {
+                    int i = 0;
+                    while (true)
+                    {
+                        Logs.WriteLine("Parsing URL " + i + "...");
+                        string url;
+                        url = (string)obj["value"][i]["url"];
+                        returning.Add(url);
+                        Logs.WriteLine(url);
+                        i++;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         #endregion
