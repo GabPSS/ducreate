@@ -51,7 +51,7 @@ namespace ExpovgenGUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new MainForm(settings).Show();
+            new MainForm(null).Show();
         }
     }
 }

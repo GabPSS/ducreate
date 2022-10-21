@@ -56,10 +56,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.titlecardGbx = new System.Windows.Forms.GroupBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.titleCardTxt = new System.Windows.Forms.TextBox();
             this.creditcardGbx = new System.Windows.Forms.GroupBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.creditsCardTxt = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -169,8 +169,8 @@
             this.captionsGbx.Controls.Add(this.label15);
             this.captionsGbx.Controls.Add(this.label11);
             this.captionsGbx.Controls.Add(this.fonteNum);
-            this.captionsGbx.Location = new System.Drawing.Point(218, 10);
-            this.captionsGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.captionsGbx.Location = new System.Drawing.Point(211, 10);
+            this.captionsGbx.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.captionsGbx.Name = "captionsGbx";
             this.captionsGbx.Size = new System.Drawing.Size(196, 80);
             this.captionsGbx.TabIndex = 5;
@@ -240,7 +240,7 @@
             this.backmusicGbx.Controls.Add(this.musFundoBuscarbtn);
             this.backmusicGbx.Controls.Add(this.txtMusFundoPath);
             this.backmusicGbx.Location = new System.Drawing.Point(10, 100);
-            this.backmusicGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.backmusicGbx.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.backmusicGbx.Name = "backmusicGbx";
             this.backmusicGbx.Size = new System.Drawing.Size(397, 116);
             this.backmusicGbx.TabIndex = 2;
@@ -350,6 +350,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "&Buscar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -378,8 +379,8 @@
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.08612F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.91388F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.dimensionsGbx, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.captionsGbx, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.backmusicGbx, 0, 1);
@@ -392,15 +393,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(434, 373);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(417, 373);
             this.tableLayoutPanel1.TabIndex = 11;
+            this.tableLayoutPanel1.Visible = false;
             // 
             // titlecardGbx
             // 
             this.titlecardGbx.Controls.Add(this.pictureBox5);
-            this.titlecardGbx.Controls.Add(this.textBox3);
+            this.titlecardGbx.Controls.Add(this.titleCardTxt);
             this.titlecardGbx.Location = new System.Drawing.Point(10, 226);
             this.titlecardGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.titlecardGbx.Name = "titlecardGbx";
@@ -419,23 +419,23 @@
             this.pictureBox5.TabIndex = 3;
             this.pictureBox5.TabStop = false;
             // 
-            // textBox3
+            // titleCardTxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(15, 26);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(156, 104);
-            this.textBox3.TabIndex = 1;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-            this.textBox3.Leave += new System.EventHandler(this.textBox3_Leave);
+            this.titleCardTxt.Location = new System.Drawing.Point(15, 26);
+            this.titleCardTxt.Multiline = true;
+            this.titleCardTxt.Name = "titleCardTxt";
+            this.titleCardTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.titleCardTxt.Size = new System.Drawing.Size(156, 104);
+            this.titleCardTxt.TabIndex = 1;
+            this.titleCardTxt.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.titleCardTxt.Leave += new System.EventHandler(this.textBox3_Leave);
             // 
             // creditcardGbx
             // 
             this.creditcardGbx.Controls.Add(this.pictureBox6);
-            this.creditcardGbx.Controls.Add(this.textBox4);
-            this.creditcardGbx.Location = new System.Drawing.Point(218, 226);
-            this.creditcardGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.creditcardGbx.Controls.Add(this.creditsCardTxt);
+            this.creditcardGbx.Location = new System.Drawing.Point(211, 226);
+            this.creditcardGbx.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.creditcardGbx.Name = "creditcardGbx";
             this.creditcardGbx.Size = new System.Drawing.Size(196, 147);
             this.creditcardGbx.TabIndex = 4;
@@ -452,20 +452,21 @@
             this.pictureBox6.TabIndex = 3;
             this.pictureBox6.TabStop = false;
             // 
-            // textBox4
+            // creditsCardTxt
             // 
-            this.textBox4.AcceptsReturn = true;
-            this.textBox4.Location = new System.Drawing.Point(15, 26);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(161, 104);
-            this.textBox4.TabIndex = 2;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            this.textBox4.Leave += new System.EventHandler(this.textBox4_Leave);
+            this.creditsCardTxt.AcceptsReturn = true;
+            this.creditsCardTxt.Location = new System.Drawing.Point(15, 26);
+            this.creditsCardTxt.Multiline = true;
+            this.creditsCardTxt.Name = "creditsCardTxt";
+            this.creditsCardTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.creditsCardTxt.Size = new System.Drawing.Size(161, 104);
+            this.creditsCardTxt.TabIndex = 2;
+            this.creditsCardTxt.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.creditsCardTxt.Leave += new System.EventHandler(this.textBox4_Leave);
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.AutoSize = true;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 2);
@@ -473,13 +474,12 @@
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.MinimumSize = new System.Drawing.Size(440, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(440, 519);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(423, 519);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
             // panel2
@@ -489,7 +489,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 482);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(434, 34);
+            this.panel2.Size = new System.Drawing.Size(417, 45);
             this.panel2.TabIndex = 13;
             // 
             // panel1
@@ -501,8 +501,10 @@
             this.panel1.Controls.Add(this.button3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.MaximumSize = new System.Drawing.Size(417, 94);
+            this.panel1.MinimumSize = new System.Drawing.Size(417, 94);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 94);
+            this.panel1.Size = new System.Drawing.Size(417, 94);
             this.panel1.TabIndex = 13;
             // 
             // button1
@@ -530,14 +532,14 @@
             this.AcceptButton = this.button4;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.button5;
-            this.ClientSize = new System.Drawing.Size(424, 519);
+            this.ClientSize = new System.Drawing.Size(423, 519);
             this.Controls.Add(this.tableLayoutPanel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(440, 40);
             this.Name = "ExportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Exportar";
@@ -570,6 +572,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -598,9 +601,9 @@
         private Button button5;
         private TableLayoutPanel tableLayoutPanel1;
         private GroupBox titlecardGbx;
-        private TextBox textBox3;
+        private TextBox titleCardTxt;
         private GroupBox creditcardGbx;
-        private TextBox textBox4;
+        private TextBox creditsCardTxt;
         private TableLayoutPanel tableLayoutPanel2;
         private Panel panel2;
         private Panel panel1;

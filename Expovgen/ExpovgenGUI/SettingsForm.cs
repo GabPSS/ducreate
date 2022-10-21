@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,18 @@ namespace ExpovgenGUI
         {
             InitializeComponent();
             Settings = settings;
-            SettingsModified = false;
-            if (Settings.GenerationType == GenerationType.AudioOnlyGen)
-            {
-                podcastOpt.Checked = true;
-            }
-            else if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph)
+            //if (Settings.GenerationType == GenerationType.AudioOnlyGen)
+            //{
+            //    podcastOpt.Checked = true;
+            //}
+            /*else */
+            
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph)
             {
                 apresentacaoOpt.Checked = true;
             }
@@ -31,60 +38,67 @@ namespace ExpovgenGUI
             {
                 videoaulaOpt.Checked = true;
             }
-            UpdateControls();
+
+            kw_enableOpt.Checked = Settings.Etapa1Behaviors == Etapa1Behaviors.Auto || Settings.Etapa1Behaviors == Etapa1Behaviors.AutoManual;
+            kw_enableOpt_CheckedChanged(this, new EventArgs());
+            kw_reviseOpt.Checked = Settings.Etapa1Behaviors == Etapa1Behaviors.AutoManual;
+            kw_ShowOnImagesOpt.Checked = Settings.ShowKeywordOnImage;
+
+            img_enableOpt.Checked = Settings.Etapa2Behaviors == Etapa2Behaviors.Auto || Settings.Etapa2Behaviors == Etapa2Behaviors.AutoManual;
+            img_enableOpt_CheckedChanged(this, new EventArgs());
+            img_reviseOpt.Checked = Settings.Etapa2Behaviors == Etapa2Behaviors.AutoManual;
+            imgProviderCombo.SelectedIndex = Settings.ImgFetchService == Expovgen.ImgFetch.Services.google ? 0 : 1;
+            imgs_ccOpt.Checked = Settings.UseCCLicense;
+
+            autoNarrationEnableOpt.Checked = Settings.Etapa3Behaviors == Etapa3Behaviors.Auto;
+
+            windowStyleCombo.SelectedIndex = Settings.WindowStyle == WindowStyle.Simple ? 0 : 1;
         }
 
-        private bool SettingsModified
+        private void SaveSettings()
         {
-            get
+            //Handling Etapa 1
+            if (apresentacaoOpt.Checked)
             {
-                return SettingsModified;
+                Settings.Etapa1Behaviors = Etapa1Behaviors.ForceOneByParagraph;
             }
-            set
+            else if (kw_enableOpt.Checked && !kw_reviseOpt.Checked)
             {
-                applyBtn.Enabled = value;
+                Settings.Etapa1Behaviors = Etapa1Behaviors.Auto;
             }
-        }
-        //TODO: Apply settings, Save settings, return new settings object
-        //TODO: Give all controls helpprovider strings
-
-        private void UpdateControls()
-        {
-            //Load project type
-            if (Settings.GenerationType == GenerationType.AudioOnlyGen)
+            else if (kw_enableOpt.Checked && kw_enableOpt.Checked)
             {
-                //podcastOpt.Checked = true;
-                keywordsGbx.Visible = false;
-                imagesGbx.Visible = false;
-            }
-            else if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceOneByParagraph)
-            {
-                //apresentacaoOpt.Checked = true;
-                keywordsGbx.Visible = false;
-                imagesGbx.Visible = false;
+                Settings.Etapa1Behaviors = Etapa1Behaviors.AutoManual;
             }
             else
             {
-                //videoaulaOpt.Checked = true;
+                Settings.Etapa1Behaviors = Etapa1Behaviors.ForceManual;
             }
 
+            Settings.ShowKeywordOnImage = kw_ShowOnImagesOpt.Checked;
 
-            //TODO: Implement this method
-            /* Tasks necessary:
-             *   - Hiding groupboxes when project type is audio only
-             *   - Updating controls with respective values
-             * 
-             */
-        }
+            //Handling Etapa 2
+            if (img_enableOpt.Checked && !img_reviseOpt.Checked)
+            {
+                Settings.Etapa2Behaviors = Etapa2Behaviors.Auto;
+            }
+            else if (img_enableOpt.Checked && img_reviseOpt.Checked)
+            {
+                Settings.Etapa2Behaviors = Etapa2Behaviors.AutoManual;
+            }
+            else
+            {
+                Settings.Etapa2Behaviors = Etapa2Behaviors.ForceManual;
+            }
 
-        private void RemoveInput()
-        {
-            //TODO: Implement this method
-        }
+            Settings.UseCCLicense = imgs_ccOpt.Checked;
+            Settings.ImgFetchService = imgProviderCombo.SelectedIndex == 0 ? Expovgen.ImgFetch.Services.google : Expovgen.ImgFetch.Services.pixabay;
 
-        private void AddInput()
-        {
-            //TODO: Implement this method along with RemoveInput
+            //Handling Etapa 3
+            Settings.Etapa3Behaviors = autoNarrationEnableOpt.Checked ? Etapa3Behaviors.Auto : Etapa3Behaviors.ForceManual;
+
+            //Handling Other opts
+            Settings.WindowStyle = windowStyleCombo.SelectedIndex == 0 ? WindowStyle.Simple : WindowStyle.Detailed;
         }
 
         private void videoaulaOpt_CheckedChanged(object sender, EventArgs e)
@@ -97,8 +111,8 @@ namespace ExpovgenGUI
                 {
                     Settings.Etapa1Behaviors = Etapa1Behaviors.Auto;
                 }
-                SettingsModified = true;
-                UpdateControls();
+                keywordsGbx.Visible = true;
+                imagesGbx.Visible = true;
             }
         }
 
@@ -109,22 +123,70 @@ namespace ExpovgenGUI
                 label2.Text = "No modo apresentação, vídeos são gerados de forma que cada parágrafo do roteiro corresponde, no vídeo final, a uma imagem a ser enviada manualmente. Assim, é possível ter melhor controle acerca de quando cada imagem é mostrada, ideal para apresentações de slides";
                 Settings.GenerationType = GenerationType.VideoGen;
                 Settings.Etapa1Behaviors = Etapa1Behaviors.ForceOneByParagraph;
-                SettingsModified = true;
-                UpdateControls();
+                LoadSettings();
+                keywordsGbx.Visible = false;
+                imagesGbx.Visible = false;
             }
         }
 
         private void podcastOpt_CheckedChanged(object sender, EventArgs e)
         {
-            if (podcastOpt.Checked)
+            //if (podcastOpt.Checked)
             {
                 label2.Text = "No modo podcast, apenas áudios são gerados pelo programa, através do serviço de Conversão de Texto para Voz (TTS)";
                 Settings.GenerationType = GenerationType.AudioOnlyGen;
-                SettingsModified = true;
-                UpdateControls();
+                LoadSettings();
             }
         }
 
-    
+        private void imgProviderCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label7.Visible = imgProviderCombo.SelectedIndex == 1;
+            pictureBox1.Visible = imgProviderCombo.SelectedIndex == 1;
+            label5.Visible = imgProviderCombo.SelectedIndex == 1;
+            linkLabel1.Visible = imgProviderCombo.SelectedIndex == 1;
+            imgs_ccOpt.Enabled = imgProviderCombo.SelectedIndex == 0;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = "https://pixabay.com/",
+                UseShellExecute = true
+            });
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = "https://pixabay.com/service/license/",
+                UseShellExecute = true
+            });
+        }
+
+        private void kw_enableOpt_CheckedChanged(object sender, EventArgs e)
+        {
+            kw_reviseOpt.Enabled = kw_enableOpt.Checked;
+        }
+
+        private void img_enableOpt_CheckedChanged(object sender, EventArgs e)
+        {
+            imgProviderCombo.Enabled = img_enableOpt.Checked;
+            img_reviseOpt.Enabled = img_enableOpt.Checked;
+            pictureBox1.Enabled = img_enableOpt.Checked;
+            linkLabel1.Enabled = img_enableOpt.Checked;
+            label7.Enabled = img_enableOpt.Checked;
+            label5.Enabled = img_enableOpt.Checked;
+            imgs_ccOpt.Enabled = imgProviderCombo.SelectedIndex == 1 ? false : img_enableOpt.Checked;
+        }
+
+        private void OKBtn_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+            DialogResult = DialogResult.OK;
+            Close();
+        }
     }
 }

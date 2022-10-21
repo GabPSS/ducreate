@@ -254,7 +254,7 @@ namespace ExpovgenGUI
                 );
 
 
-            Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, Settings.VideoDimensions);
+            Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, (Settings.VideoWidth,Settings.VideoHeight));
             DialogResult result = DialogResult.None;
             this.Invoke(new Action(() =>
             {

@@ -57,9 +57,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="projtypeGbx.HelpString" xml:space="preserve">
-    <value>O tipo de projeto define qual conteúdo deve ser gerado a partir do roteiro fornescido. Videoaula define vídeos completamente automáticos (de acordo com as preferências do usuário); Apresentação define um vídeo onde cada parágrafo do roteiro é associado a uma imagem; e Podcast gera apenas o áudio de narração do conteúdo</value>
-  </data>
   <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -68,9 +65,6 @@
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>No modo apresentação, vídeos são gerados de forma que cada parágrafo do roteiro corresponde, no vídeo final, a uma imagem a ser enviada manualmente. Assim, é possível ter melhor controle acerca de quando cada imagem é mostrada, ideal para apresentações de slides</value>
-  </data>
-  <data name="podcastOpt.HelpString" xml:space="preserve">
-    <value>O tipo de projeto define qual conteúdo deve ser gerado a partir do roteiro fornescido. Videoaula define vídeos completamente automáticos (de acordo com as preferências do usuário); Apresentação define um vídeo onde cada parágrafo do roteiro é associado a uma imagem; e Podcast gera apenas o áudio de narração do conteúdo</value>
   </data>
   <data name="apresentacaoOpt.HelpString" xml:space="preserve">
     <value>O tipo de projeto define qual conteúdo deve ser gerado a partir do roteiro fornescido. Videoaula define vídeos completamente automáticos (de acordo com as preferências do usuário); Apresentação define um vídeo onde cada parágrafo do roteiro é associado a uma imagem; e Podcast gera apenas o áudio de narração do conteúdo</value>
@@ -81,13 +75,16 @@
   <data name="label1.HelpString" xml:space="preserve">
     <value>O tipo de projeto define qual conteúdo deve ser gerado a partir do roteiro fornescido. Videoaula define vídeos completamente automáticos (de acordo com as preferências do usuário); Apresentação define um vídeo onde cada parágrafo do roteiro é associado a uma imagem; e Podcast gera apenas o áudio de narração do conteúdo</value>
   </data>
-  <data name="checkBox4.HelpString" xml:space="preserve">
+  <data name="projtypeGbx.HelpString" xml:space="preserve">
+    <value>O tipo de projeto define qual conteúdo deve ser gerado a partir do roteiro fornescido. Videoaula define vídeos completamente automáticos (de acordo com as preferências do usuário); Apresentação define um vídeo onde cada parágrafo do roteiro é associado a uma imagem; e Podcast gera apenas o áudio de narração do conteúdo</value>
+  </data>
+  <data name="kw_reviseOpt.HelpString" xml:space="preserve">
     <value>Quando habilitada, esta opção pausa o processo de geração de vídeo para mostrar as palavras-chave extraídas ao usuário. Assim, este pode modificá-las de acordo com a sua preferência. Caso contrário, o processo segue ininterrupto</value>
   </data>
-  <data name="checkBox2.HelpString" xml:space="preserve">
+  <data name="img_reviseOpt.HelpString" xml:space="preserve">
     <value>Se habilitada, esta opção pausa o processo de geração de vídeo para que o usuário verifique as imagens baixadas e substitua-as, se preferir. Caso contrário, prossegue com o processo de geração de vídeo.</value>
   </data>
-  <data name="comboBox1.HelpString" xml:space="preserve">
+  <data name="windowStyleCombo.HelpString" xml:space="preserve">
     <value>Define como a janela de geração de conteúdo é apresentada. Existem duas opções: Resumido cria uma janela simples, sem muitas informações e detalhes, enquanto Detalhado apresenta o passo a passo da geração do conteúdo</value>
   </data>
   <data name="label3.HelpString" xml:space="preserve">

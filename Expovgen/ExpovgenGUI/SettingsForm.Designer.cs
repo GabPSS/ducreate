@@ -34,35 +34,37 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.projtypeGbx = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.podcastOpt = new System.Windows.Forms.RadioButton();
             this.apresentacaoOpt = new System.Windows.Forms.RadioButton();
             this.videoaulaOpt = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.keywordsGbx = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.kw_ShowOnImagesOpt = new System.Windows.Forms.CheckBox();
+            this.kw_reviseOpt = new System.Windows.Forms.CheckBox();
+            this.kw_enableOpt = new System.Windows.Forms.CheckBox();
             this.imagesGbx = new System.Windows.Forms.GroupBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imgs_ccOpt = new System.Windows.Forms.CheckBox();
+            this.imgProviderCombo = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.img_reviseOpt = new System.Windows.Forms.CheckBox();
+            this.img_enableOpt = new System.Windows.Forms.CheckBox();
             this.speechGbx = new System.Windows.Forms.GroupBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.autoNarrationEnableOpt = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.contentwindowGbx = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.windowStyleCombo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pythonGbx = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.applyBtn = new System.Windows.Forms.Button();
             this.OKBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
@@ -74,6 +76,7 @@
             this.flowLayoutPanel3.SuspendLayout();
             this.keywordsGbx.SuspendLayout();
             this.imagesGbx.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.speechGbx.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -115,7 +118,6 @@
             // projtypeGbx
             // 
             this.projtypeGbx.Controls.Add(this.label2);
-            this.projtypeGbx.Controls.Add(this.podcastOpt);
             this.projtypeGbx.Controls.Add(this.apresentacaoOpt);
             this.projtypeGbx.Controls.Add(this.videoaulaOpt);
             this.projtypeGbx.Controls.Add(this.label1);
@@ -140,22 +142,6 @@
             this.label2.Size = new System.Drawing.Size(311, 94);
             this.label2.TabIndex = 2;
             this.label2.Text = resources.GetString("label2.Text");
-            // 
-            // podcastOpt
-            // 
-            this.podcastOpt.AutoSize = true;
-            this.podcastOpt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.helpProvider1.SetHelpKeyword(this.podcastOpt, "Tipo de projeto");
-            this.helpProvider1.SetHelpString(this.podcastOpt, resources.GetString("podcastOpt.HelpString"));
-            this.podcastOpt.Location = new System.Drawing.Point(213, 60);
-            this.podcastOpt.Name = "podcastOpt";
-            this.helpProvider1.SetShowHelp(this.podcastOpt, true);
-            this.podcastOpt.Size = new System.Drawing.Size(68, 19);
-            this.podcastOpt.TabIndex = 1;
-            this.podcastOpt.TabStop = true;
-            this.podcastOpt.Text = "Podcast";
-            this.podcastOpt.UseVisualStyleBackColor = true;
-            this.podcastOpt.CheckedChanged += new System.EventHandler(this.podcastOpt_CheckedChanged);
             // 
             // apresentacaoOpt
             // 
@@ -225,103 +211,142 @@
             // 
             // keywordsGbx
             // 
-            this.keywordsGbx.Controls.Add(this.checkBox4);
-            this.keywordsGbx.Controls.Add(this.checkBox3);
+            this.keywordsGbx.Controls.Add(this.kw_ShowOnImagesOpt);
+            this.keywordsGbx.Controls.Add(this.kw_reviseOpt);
+            this.keywordsGbx.Controls.Add(this.kw_enableOpt);
             this.keywordsGbx.Location = new System.Drawing.Point(10, 10);
             this.keywordsGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.keywordsGbx.Name = "keywordsGbx";
-            this.keywordsGbx.Size = new System.Drawing.Size(349, 81);
+            this.keywordsGbx.Size = new System.Drawing.Size(349, 112);
             this.keywordsGbx.TabIndex = 2;
             this.keywordsGbx.TabStop = false;
             this.keywordsGbx.Text = "Palavras-chave";
             // 
-            // checkBox4
+            // kw_ShowOnImagesOpt
             // 
-            this.checkBox4.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.checkBox4, resources.GetString("checkBox4.HelpString"));
-            this.checkBox4.Location = new System.Drawing.Point(15, 53);
-            this.checkBox4.Name = "checkBox4";
-            this.helpProvider1.SetShowHelp(this.checkBox4, true);
-            this.checkBox4.Size = new System.Drawing.Size(264, 19);
-            this.checkBox4.TabIndex = 1;
-            this.checkBox4.Text = "Revisar palavras-chave antes de gerar o vídeo";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.kw_ShowOnImagesOpt.AutoSize = true;
+            this.kw_ShowOnImagesOpt.Location = new System.Drawing.Point(15, 78);
+            this.kw_ShowOnImagesOpt.Name = "kw_ShowOnImagesOpt";
+            this.kw_ShowOnImagesOpt.Size = new System.Drawing.Size(210, 19);
+            this.kw_ShowOnImagesOpt.TabIndex = 2;
+            this.kw_ShowOnImagesOpt.Text = "Incluir palavras-chave nas imagens";
+            this.kw_ShowOnImagesOpt.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // kw_reviseOpt
             // 
-            this.checkBox3.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.checkBox3, "Habilita o componente LangAPI, que analisa o roteiro e extrai as principais palav" +
+            this.kw_reviseOpt.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.kw_reviseOpt, resources.GetString("kw_reviseOpt.HelpString"));
+            this.kw_reviseOpt.Location = new System.Drawing.Point(15, 53);
+            this.kw_reviseOpt.Name = "kw_reviseOpt";
+            this.helpProvider1.SetShowHelp(this.kw_reviseOpt, true);
+            this.kw_reviseOpt.Size = new System.Drawing.Size(264, 19);
+            this.kw_reviseOpt.TabIndex = 1;
+            this.kw_reviseOpt.Text = "Revisar palavras-chave antes de gerar o vídeo";
+            this.kw_reviseOpt.UseVisualStyleBackColor = true;
+            // 
+            // kw_enableOpt
+            // 
+            this.kw_enableOpt.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.kw_enableOpt, "Habilita o componente LangAPI, que analisa o roteiro e extrai as principais palav" +
         "ras-chave nele. Estas são, então, usadas no fornescimento de imagens para o víde" +
         "o.");
-            this.checkBox3.Location = new System.Drawing.Point(15, 28);
-            this.checkBox3.Name = "checkBox3";
-            this.helpProvider1.SetShowHelp(this.checkBox3, true);
-            this.checkBox3.Size = new System.Drawing.Size(280, 19);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "Habilitar extração de palavras-chave automática";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.kw_enableOpt.Location = new System.Drawing.Point(15, 28);
+            this.kw_enableOpt.Name = "kw_enableOpt";
+            this.helpProvider1.SetShowHelp(this.kw_enableOpt, true);
+            this.kw_enableOpt.Size = new System.Drawing.Size(280, 19);
+            this.kw_enableOpt.TabIndex = 0;
+            this.kw_enableOpt.Text = "Habilitar extração de palavras-chave automática";
+            this.kw_enableOpt.UseVisualStyleBackColor = true;
+            this.kw_enableOpt.CheckedChanged += new System.EventHandler(this.kw_enableOpt_CheckedChanged);
             // 
             // imagesGbx
             // 
-            this.imagesGbx.Controls.Add(this.comboBox3);
             this.imagesGbx.Controls.Add(this.label7);
-            this.imagesGbx.Controls.Add(this.comboBox2);
+            this.imagesGbx.Controls.Add(this.label5);
+            this.imagesGbx.Controls.Add(this.linkLabel1);
+            this.imagesGbx.Controls.Add(this.pictureBox1);
+            this.imagesGbx.Controls.Add(this.imgs_ccOpt);
+            this.imagesGbx.Controls.Add(this.imgProviderCombo);
             this.imagesGbx.Controls.Add(this.label6);
-            this.imagesGbx.Controls.Add(this.checkBox2);
-            this.imagesGbx.Controls.Add(this.checkBox1);
+            this.imagesGbx.Controls.Add(this.img_reviseOpt);
+            this.imagesGbx.Controls.Add(this.img_enableOpt);
             this.helpProvider1.SetHelpString(this.imagesGbx, "Define as configurações de imagens no vídeo final");
-            this.imagesGbx.Location = new System.Drawing.Point(10, 101);
+            this.imagesGbx.Location = new System.Drawing.Point(10, 132);
             this.imagesGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.imagesGbx.Name = "imagesGbx";
             this.helpProvider1.SetShowHelp(this.imagesGbx, true);
-            this.imagesGbx.Size = new System.Drawing.Size(349, 158);
+            this.imagesGbx.Size = new System.Drawing.Size(349, 177);
             this.imagesGbx.TabIndex = 1;
             this.imagesGbx.TabStop = false;
             this.imagesGbx.Text = "Imagens";
             // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.helpProvider1.SetHelpString(this.comboBox3, "Filtra imagens buscadas de forma que sejam protegidas apenas pela licença especif" +
-        "icada");
-            this.comboBox3.Items.AddRange(new object[] {
-            "//Qualquer",
-            "//Apenas CC",
-            "//Licença Pixabay/Pexels/RapidAPI"});
-            this.comboBox3.Location = new System.Drawing.Point(110, 116);
-            this.comboBox3.Name = "comboBox3";
-            this.helpProvider1.SetShowHelp(this.comboBox3, true);
-            this.comboBox3.Size = new System.Drawing.Size(162, 23);
-            this.comboBox3.TabIndex = 5;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.label7, "Filtra imagens buscadas de forma que sejam protegidas apenas pela licença especif" +
-        "icada");
-            this.label7.Location = new System.Drawing.Point(15, 119);
+            this.label7.Location = new System.Drawing.Point(288, 21);
             this.label7.Name = "label7";
-            this.helpProvider1.SetShowHelp(this.label7, true);
-            this.label7.Size = new System.Drawing.Size(89, 15);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Tipo de licença:";
+            this.label7.Size = new System.Drawing.Size(40, 15);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Fonte:";
+            this.label7.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // comboBox2
+            // label5
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.helpProvider1.SetHelpString(this.comboBox2, "Define o serviço de busca de imagens pela internet");
-            this.comboBox2.Items.AddRange(new object[] {
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(275, 104);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 46);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Clique para visitar o Pixabay";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Location = new System.Drawing.Point(12, 137);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(283, 38);
+            this.linkLabel1.TabIndex = 7;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Imagens provenientes do Pixabay são licensiadas pela Licença Pixabay. Clique para" +
+    " conferir os termos";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ExpovgenGUI.Properties.Resources.pixabay_logo_square;
+            this.pictureBox1.Location = new System.Drawing.Point(277, 42);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(62, 61);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // imgs_ccOpt
+            // 
+            this.imgs_ccOpt.AutoSize = true;
+            this.imgs_ccOpt.Location = new System.Drawing.Point(15, 118);
+            this.imgs_ccOpt.Name = "imgs_ccOpt";
+            this.imgs_ccOpt.Size = new System.Drawing.Size(156, 19);
+            this.imgs_ccOpt.TabIndex = 4;
+            this.imgs_ccOpt.Text = "Usar apenas imagens CC";
+            this.imgs_ccOpt.UseVisualStyleBackColor = true;
+            // 
+            // imgProviderCombo
+            // 
+            this.imgProviderCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.imgProviderCombo.FormattingEnabled = true;
+            this.helpProvider1.SetHelpString(this.imgProviderCombo, "Define o serviço de busca de imagens pela internet");
+            this.imgProviderCombo.Items.AddRange(new object[] {
             "Google CSE",
-            "Pixabay",
-            "Pexels",
-            "RapidAPI"});
-            this.comboBox2.Location = new System.Drawing.Point(143, 84);
-            this.comboBox2.Name = "comboBox2";
-            this.helpProvider1.SetShowHelp(this.comboBox2, true);
-            this.comboBox2.Size = new System.Drawing.Size(162, 23);
-            this.comboBox2.TabIndex = 3;
+            "Pixabay"});
+            this.imgProviderCombo.Location = new System.Drawing.Point(143, 84);
+            this.imgProviderCombo.Name = "imgProviderCombo";
+            this.helpProvider1.SetShowHelp(this.imgProviderCombo, true);
+            this.imgProviderCombo.Size = new System.Drawing.Size(102, 23);
+            this.imgProviderCombo.TabIndex = 3;
+            this.imgProviderCombo.SelectedIndexChanged += new System.EventHandler(this.imgProviderCombo_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -334,35 +359,36 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "Provedor de imagens:";
             // 
-            // checkBox2
+            // img_reviseOpt
             // 
-            this.checkBox2.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.checkBox2, resources.GetString("checkBox2.HelpString"));
-            this.checkBox2.Location = new System.Drawing.Point(15, 56);
-            this.checkBox2.Name = "checkBox2";
-            this.helpProvider1.SetShowHelp(this.checkBox2, true);
-            this.checkBox2.Size = new System.Drawing.Size(230, 19);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Revisar imagens antes de gerar o vídeo";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.img_reviseOpt.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.img_reviseOpt, resources.GetString("img_reviseOpt.HelpString"));
+            this.img_reviseOpt.Location = new System.Drawing.Point(15, 56);
+            this.img_reviseOpt.Name = "img_reviseOpt";
+            this.helpProvider1.SetShowHelp(this.img_reviseOpt, true);
+            this.img_reviseOpt.Size = new System.Drawing.Size(230, 19);
+            this.img_reviseOpt.TabIndex = 1;
+            this.img_reviseOpt.Text = "Revisar imagens antes de gerar o vídeo";
+            this.img_reviseOpt.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // img_enableOpt
             // 
-            this.checkBox1.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.checkBox1, "Habilita o componente ImgFetch, que pesquisará e baixará imagens da internet auto" +
+            this.img_enableOpt.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.img_enableOpt, "Habilita o componente ImgFetch, que pesquisará e baixará imagens da internet auto" +
         "maticamente usando provedores de conteúdo");
-            this.checkBox1.Location = new System.Drawing.Point(15, 31);
-            this.checkBox1.Name = "checkBox1";
-            this.helpProvider1.SetShowHelp(this.checkBox1, true);
-            this.checkBox1.Size = new System.Drawing.Size(244, 19);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Habilitar pesquisa de imagens na internet";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.img_enableOpt.Location = new System.Drawing.Point(15, 31);
+            this.img_enableOpt.Name = "img_enableOpt";
+            this.helpProvider1.SetShowHelp(this.img_enableOpt, true);
+            this.img_enableOpt.Size = new System.Drawing.Size(244, 19);
+            this.img_enableOpt.TabIndex = 0;
+            this.img_enableOpt.Text = "Habilitar pesquisa de imagens na internet";
+            this.img_enableOpt.UseVisualStyleBackColor = true;
+            this.img_enableOpt.CheckedChanged += new System.EventHandler(this.img_enableOpt_CheckedChanged);
             // 
             // speechGbx
             // 
-            this.speechGbx.Controls.Add(this.checkBox5);
-            this.speechGbx.Location = new System.Drawing.Point(10, 269);
+            this.speechGbx.Controls.Add(this.autoNarrationEnableOpt);
+            this.speechGbx.Location = new System.Drawing.Point(10, 319);
             this.speechGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.speechGbx.Name = "speechGbx";
             this.speechGbx.Size = new System.Drawing.Size(349, 67);
@@ -370,18 +396,18 @@
             this.speechGbx.TabStop = false;
             this.speechGbx.Text = "Narração";
             // 
-            // checkBox5
+            // autoNarrationEnableOpt
             // 
-            this.checkBox5.AutoSize = true;
-            this.helpProvider1.SetHelpString(this.checkBox5, "Quando habilitada, esta opção habilita o componente Audioworks_TTS, que converte " +
+            this.autoNarrationEnableOpt.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.autoNarrationEnableOpt, "Quando habilitada, esta opção habilita o componente Audioworks_TTS, que converte " +
         "o roteiro em uma narração fada por uma voz artificial");
-            this.checkBox5.Location = new System.Drawing.Point(15, 31);
-            this.checkBox5.Name = "checkBox5";
-            this.helpProvider1.SetShowHelp(this.checkBox5, true);
-            this.checkBox5.Size = new System.Drawing.Size(221, 19);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Text = "Habilitar conversão de texto para voz";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.autoNarrationEnableOpt.Location = new System.Drawing.Point(15, 31);
+            this.autoNarrationEnableOpt.Name = "autoNarrationEnableOpt";
+            this.helpProvider1.SetShowHelp(this.autoNarrationEnableOpt, true);
+            this.autoNarrationEnableOpt.Size = new System.Drawing.Size(221, 19);
+            this.autoNarrationEnableOpt.TabIndex = 0;
+            this.autoNarrationEnableOpt.Text = "Habilitar conversão de texto para voz";
+            this.autoNarrationEnableOpt.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -406,7 +432,7 @@
             // 
             // contentwindowGbx
             // 
-            this.contentwindowGbx.Controls.Add(this.comboBox1);
+            this.contentwindowGbx.Controls.Add(this.windowStyleCombo);
             this.contentwindowGbx.Controls.Add(this.label3);
             this.contentwindowGbx.Location = new System.Drawing.Point(10, 10);
             this.contentwindowGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
@@ -416,20 +442,20 @@
             this.contentwindowGbx.TabStop = false;
             this.contentwindowGbx.Text = "Janela de geração de conteúdo";
             // 
-            // comboBox1
+            // windowStyleCombo
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.helpProvider1.SetHelpKeyword(this.comboBox1, "Estilo da janela de geração de conteúdo");
-            this.helpProvider1.SetHelpString(this.comboBox1, resources.GetString("comboBox1.HelpString"));
-            this.comboBox1.Items.AddRange(new object[] {
+            this.windowStyleCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.windowStyleCombo.FormattingEnabled = true;
+            this.helpProvider1.SetHelpKeyword(this.windowStyleCombo, "Estilo da janela de geração de conteúdo");
+            this.helpProvider1.SetHelpString(this.windowStyleCombo, resources.GetString("windowStyleCombo.HelpString"));
+            this.windowStyleCombo.Items.AddRange(new object[] {
             "Resumido",
             "Detalhado"});
-            this.comboBox1.Location = new System.Drawing.Point(67, 27);
-            this.comboBox1.Name = "comboBox1";
-            this.helpProvider1.SetShowHelp(this.comboBox1, true);
-            this.comboBox1.Size = new System.Drawing.Size(117, 23);
-            this.comboBox1.TabIndex = 1;
+            this.windowStyleCombo.Location = new System.Drawing.Point(67, 27);
+            this.windowStyleCombo.Name = "windowStyleCombo";
+            this.helpProvider1.SetShowHelp(this.windowStyleCombo, true);
+            this.windowStyleCombo.Size = new System.Drawing.Size(117, 23);
+            this.windowStyleCombo.TabIndex = 1;
             // 
             // label3
             // 
@@ -449,6 +475,7 @@
             this.pythonGbx.Controls.Add(this.textBox1);
             this.pythonGbx.Controls.Add(this.label14);
             this.pythonGbx.Controls.Add(this.label4);
+            this.pythonGbx.Enabled = false;
             this.pythonGbx.Location = new System.Drawing.Point(10, 88);
             this.pythonGbx.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
             this.pythonGbx.Name = "pythonGbx";
@@ -493,15 +520,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Caminho do interpretador (python.exe):";
             // 
-            // applyBtn
-            // 
-            this.applyBtn.Location = new System.Drawing.Point(154, 444);
-            this.applyBtn.Name = "applyBtn";
-            this.applyBtn.Size = new System.Drawing.Size(75, 23);
-            this.applyBtn.TabIndex = 1;
-            this.applyBtn.Text = "&Aplicar";
-            this.applyBtn.UseVisualStyleBackColor = true;
-            // 
             // OKBtn
             // 
             this.OKBtn.Location = new System.Drawing.Point(235, 444);
@@ -510,6 +528,7 @@
             this.OKBtn.TabIndex = 2;
             this.OKBtn.Text = "&OK";
             this.OKBtn.UseVisualStyleBackColor = true;
+            this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
             // 
             // CancelBtn
             // 
@@ -529,7 +548,6 @@
             this.ClientSize = new System.Drawing.Size(407, 479);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKBtn);
-            this.Controls.Add(this.applyBtn);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
@@ -548,6 +566,7 @@
             this.keywordsGbx.PerformLayout();
             this.imagesGbx.ResumeLayout(false);
             this.imagesGbx.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.speechGbx.ResumeLayout(false);
             this.speechGbx.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -562,14 +581,12 @@
 
         #endregion
         private TabControl tabControl1;
-        private Button applyBtn;
         private Button OKBtn;
         private Button CancelBtn;
         private TabPage tabPage1;
         private FlowLayoutPanel flowLayoutPanel1;
         private GroupBox projtypeGbx;
         private Label label2;
-        private RadioButton podcastOpt;
         private RadioButton apresentacaoOpt;
         private RadioButton videoaulaOpt;
         private Label label1;
@@ -578,7 +595,7 @@
         private TabPage tabPage3;
         private FlowLayoutPanel flowLayoutPanel2;
         private GroupBox contentwindowGbx;
-        private ComboBox comboBox1;
+        private ComboBox windowStyleCombo;
         private Label label3;
         private GroupBox pythonGbx;
         private Button button1;
@@ -586,17 +603,21 @@
         private Label label4;
         private FlowLayoutPanel flowLayoutPanel3;
         private GroupBox imagesGbx;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox img_reviseOpt;
+        private CheckBox img_enableOpt;
         private GroupBox keywordsGbx;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
-        private ComboBox comboBox3;
-        private Label label7;
-        private ComboBox comboBox2;
+        private CheckBox kw_reviseOpt;
+        private CheckBox kw_enableOpt;
+        private ComboBox imgProviderCombo;
         private Label label6;
         private GroupBox speechGbx;
-        private CheckBox checkBox5;
+        private CheckBox autoNarrationEnableOpt;
         private Label label14;
+        private CheckBox imgs_ccOpt;
+        private CheckBox kw_ShowOnImagesOpt;
+        private Label label7;
+        private Label label5;
+        private LinkLabel linkLabel1;
+        private PictureBox pictureBox1;
     }
 }

@@ -231,11 +231,11 @@ namespace Expovgen
 
                 //Etapa 2: Busca de imagens para cada palavra-chave
 
-                ImgFetch2 fetcher = new(Logger, Settings.VideoDimensions)
+                ImgFetch2 fetcher = new(Logger, (Settings.VideoWidth,Settings.VideoHeight))
                 {
                     Service = Settings.ImgFetchService,
                     RequestQueries = keywords,
-                    ServicePreferences = Settings.ImgFetchServicePreferences
+                    ServicePreferences = Settings.UseCCLicense && Settings.ImgFetchService == Services.google ? new GooglePreferences() { UseCCLicense = true } : null
                 };
 
                 try
@@ -434,7 +434,7 @@ namespace Expovgen
 
 
 
-                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoDimensions.width + " " + Settings.VideoDimensions.height + " " + AddMusic.ToString() + " " + Settings.FontSize + " " + (Settings.BackgroundVolume < 0.99 ? "0." + (Settings.BackgroundVolume * 100) : 1));
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoWidth + " " + Settings.VideoHeight + " " + AddMusic.ToString() + " " + Settings.FontSize + " " + (Settings.BackgroundVolume < 0.99 ? "0." + (Settings.BackgroundVolume * 100) : 1));
                 if (r == 0)
                 {
                     File.Copy("res\\output.mp4", Settings.ExportPath);
@@ -545,69 +545,6 @@ namespace Expovgen
     public class UserForceCancelException : Exception
     {
 
-    }
-
-    /// <summary>
-    /// Holds definitions for Expovgen video/podcast generation
-    /// </summary>
-    public class ExpovgenGenerationSettings
-    {
-        // Visual generation window definitions
-        public WindowStyle WindowStyle { get; set; } = WindowStyle.Simple;
-
-        // Background work definitions
-        public string PythonPath { get; set; } = "";
-
-        // Definitions for step customization
-        public Etapa1Behaviors Etapa1Behaviors { get; set; } = Etapa1Behaviors.Auto;
-        public Etapa2Behaviors Etapa2Behaviors { get; set; } = Etapa2Behaviors.Auto;
-        public Etapa3Behaviors Etapa3Behaviors { get; set; } = Etapa3Behaviors.Auto;
-
-        //Content generation type
-        public GenerationType GenerationType { get; set; } = GenerationType.VideoGen;
-
-        // Definitions for rendering videos
-        public (int width, int height) VideoDimensions { get; set; } = (1366, 768); 
-        public Services ImgFetchService { get; set; } = Services.google;
-        public IServicePreferences? ImgFetchServicePreferences { get; set; }
-        public string? ExportPath { get; set; }
-
-        // Definitions for automating renderings
-        //public string[] Document { get; set; }
-        //public string[] Keywords { get; set; }
-        //public Image[] Images { get; set; }
-        //public string NarrationPath { get; set; }
-
-        // Definitions for video rendering customization
-        public string? BackgroundMusicPath { get; set; }
-        //TODO include these (*) recently added settings to the SettingsForm
-        public double FontSize { get; set; } = 20; //*
-        public string[]? TitleCard { get; set; }
-        public string[]? Credits { get; set; }
-        public double BackgroundVolume { get; set; } = 0.2;
-
-        // TODO: Update stitchtest2 & imgfetch in order to make these possible
-        public bool ShowKeywordOnImage { get; set; } = false; //*
-
-        /// <summary>
-        /// Check if all settings are valid for video generation
-        /// </summary>
-        /// <returns>True if settings are valid, otherwise false</returns>
-        public List<string>? CheckValid()
-        {
-            List<string>? msgs = new();
-
-            //BEGIN: Conditions for validity ----------------
-
-            if (ExportPath is null)
-                msgs.Add("Favor adicione um caminho de destino do vídeo");
-
-            //END: Conditions for validity ------------------
-
-            if (msgs.Count == 0)
-                msgs = null;
-            return msgs;
-        }
     }
 
     /// <summary>

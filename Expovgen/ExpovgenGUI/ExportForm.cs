@@ -18,8 +18,8 @@ namespace ExpovgenGUI
         {
             InitializeComponent();
             Settings = settings;
-            DoCheck(textBox3);
-            DoCheck(textBox4);
+            DoCheck(titleCardTxt);
+            DoCheck(creditsCardTxt);
             LoadSettings();
         }
 
@@ -31,8 +31,8 @@ namespace ExpovgenGUI
 
         private void LoadSettings()
         {
-            larguraNum.Value = Settings.VideoDimensions.width;
-            alturaNum.Value = Settings.VideoDimensions.height;
+            larguraNum.Value = Settings.VideoWidth;
+            alturaNum.Value = Settings.VideoHeight;
             fonteNum.Value = Convert.ToInt32(Settings.FontSize);
             if (Settings.BackgroundMusicPath is not null)
             {
@@ -42,6 +42,8 @@ namespace ExpovgenGUI
             musFundoVolTrackbar.Value = Convert.ToInt32(Settings.BackgroundVolume * 100);
             trackBar1_Scroll(this, new EventArgs());
             filePathToSave.Text = Settings.ExportPath == null ? "(Nenhum caminho selecionado)" : Settings.ExportPath;
+            titleCardTxt.Lines = Settings.TitleCard;
+            creditsCardTxt.Lines = Settings.Credits;
             if (Settings.ExportPath is null)
             {
                 button4.Enabled = false;
@@ -51,11 +53,14 @@ namespace ExpovgenGUI
 
         private bool SaveSettings()
         {
-            Settings.VideoDimensions = (Convert.ToInt32(larguraNum.Value), Convert.ToInt32(alturaNum.Value));
+            Settings.VideoWidth = Convert.ToInt32(larguraNum.Value);
+            Settings.VideoHeight = Convert.ToInt32(alturaNum.Value);
             Settings.FontSize = Convert.ToDouble(fonteNum.Value);
             Settings.BackgroundMusicPath = txtMusFundoPath.Text == "(Nada selecionado)" ? null : txtMusFundoPath.Text;
             Settings.BackgroundVolume = Convert.ToDouble(musFundoVolTrackbar.Value) / 100;
             Settings.ExportPath = filePathToSave.Text == "(Nenhum caminho selecionado)" ? null : filePathToSave.Text;
+            Settings.TitleCard = titleCardTxt.Lines;
+            Settings.Credits = creditsCardTxt.Lines;
             if (Settings.ExportPath == null)
                 return false;
             else
@@ -76,7 +81,7 @@ namespace ExpovgenGUI
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            DoCheck(textBox3);
+            DoCheck(titleCardTxt);
         }
 
         private void DoCheck(Control ctrl)
@@ -90,17 +95,17 @@ namespace ExpovgenGUI
 
         private void textBox3_Leave(object sender, EventArgs e)
         {
-            DoCheck(textBox3);
+            DoCheck(titleCardTxt);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            DoCheck(textBox4);
+            DoCheck(creditsCardTxt);
         }
 
         private void textBox4_Leave(object sender, EventArgs e)
         {
-            DoCheck(textBox4);
+            DoCheck(creditsCardTxt);
         }
 
         private void ExportForm_Load(object sender, EventArgs e)
@@ -110,8 +115,8 @@ namespace ExpovgenGUI
 
         private void ExportForm_Paint(object sender, PaintEventArgs e)
         {
-            DoCheck(textBox4);
-            DoCheck(textBox3);
+            DoCheck(creditsCardTxt);
+            DoCheck(titleCardTxt);
         }
 
         bool mostrarConfig = false;
@@ -120,22 +125,32 @@ namespace ExpovgenGUI
         {
             if (mostrarConfig)
             {
-                OcultarConfig();
+                tableLayoutPanel1.Hide();
+                mostrarConfig = false;
             }
             else
             {
-                MostrarConfig();
+                tableLayoutPanel1.Show();
+                mostrarConfig = true;
             }
         }
 
-        private void OcultarConfig()
+        private void button3_Click(object sender, EventArgs e)
         {
+            SaveFileDialog sfd = new()
+            {
+                Title = "Salvar vídeo em...",
+                Filter = "Arquivos MP4|*.mp4",
+                DefaultExt = "mp4"
+            };
 
-        }
+            DialogResult dr = sfd.ShowDialog();
 
-        private void MostrarConfig()
-        {
-
+            if (dr == DialogResult.OK)
+            {
+                filePathToSave.Text = sfd.FileName;
+                button4.Enabled = true;
+            }
         }
     }
 }
