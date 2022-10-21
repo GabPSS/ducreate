@@ -5,3 +5,6 @@
 /Expovgen/ExpovgenGUI/bin/Debug/net6.0-windows
 /Expovgen/Libexpovgen/bin/Debug/net6.0-windows
 /Expovgen/.vs
+/Expovgen/ExpovgenGUI/bin/Release/net6.0-windows
+/Expovgen/Libexpovgen/bin/Release/net6.0-windows
+/Expovgen/ExpovgenGUI/obj/Release/net6.0-windows

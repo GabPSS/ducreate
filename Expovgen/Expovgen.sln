@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Audioworks", "Audioworks\Audioworks.pyproj", "{4256C467-BF16-4BED-8749-CFDF9CD7D588}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libexpovgen", "Libexpovgen\Libexpovgen.csproj", "{75395987-744A-4CDA-8078-84293752F70A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libexpovgen", "Libexpovgen\Libexpovgen.csproj", "{75395987-744A-4CDA-8078-84293752F70A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpovgenGUI", "ExpovgenGUI\ExpovgenGUI.csproj", "{934F91E4-4A70-4834-9E60-D8B7A4CCC1F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpovgenGUI", "ExpovgenGUI\ExpovgenGUI.csproj", "{934F91E4-4A70-4834-9E60-D8B7A4CCC1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
