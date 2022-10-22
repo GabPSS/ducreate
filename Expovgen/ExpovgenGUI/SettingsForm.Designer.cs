@@ -44,11 +44,11 @@
             this.kw_reviseOpt = new System.Windows.Forms.CheckBox();
             this.kw_enableOpt = new System.Windows.Forms.CheckBox();
             this.imagesGbx = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.imgs_ccOpt = new System.Windows.Forms.CheckBox();
             this.imgProviderCombo = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.img_reviseOpt = new System.Windows.Forms.CheckBox();
@@ -261,11 +261,11 @@
             // 
             // imagesGbx
             // 
+            this.imagesGbx.Controls.Add(this.label8);
             this.imagesGbx.Controls.Add(this.label7);
             this.imagesGbx.Controls.Add(this.label5);
             this.imagesGbx.Controls.Add(this.linkLabel1);
             this.imagesGbx.Controls.Add(this.pictureBox1);
-            this.imagesGbx.Controls.Add(this.imgs_ccOpt);
             this.imagesGbx.Controls.Add(this.imgProviderCombo);
             this.imagesGbx.Controls.Add(this.label6);
             this.imagesGbx.Controls.Add(this.img_reviseOpt);
@@ -279,6 +279,16 @@
             this.imagesGbx.TabIndex = 1;
             this.imagesGbx.TabStop = false;
             this.imagesGbx.Text = "Imagens";
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(16, 113);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(325, 48);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "AVISO: Imagens fornescidas pelo USerach podem não ser necessariamente licenciávei" +
+    "s para uso na criação do vídeo. Use apenas imagens às quais você é licenciado a " +
+    "usar";
             // 
             // label7
             // 
@@ -323,24 +333,14 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // imgs_ccOpt
-            // 
-            this.imgs_ccOpt.AutoSize = true;
-            this.imgs_ccOpt.Location = new System.Drawing.Point(15, 118);
-            this.imgs_ccOpt.Name = "imgs_ccOpt";
-            this.imgs_ccOpt.Size = new System.Drawing.Size(156, 19);
-            this.imgs_ccOpt.TabIndex = 4;
-            this.imgs_ccOpt.Text = "Usar apenas imagens CC";
-            this.imgs_ccOpt.UseVisualStyleBackColor = true;
-            // 
             // imgProviderCombo
             // 
             this.imgProviderCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imgProviderCombo.FormattingEnabled = true;
             this.helpProvider1.SetHelpString(this.imgProviderCombo, "Define o serviço de busca de imagens pela internet");
             this.imgProviderCombo.Items.AddRange(new object[] {
-            "Google CSE",
-            "Pixabay"});
+            "Pixabay",
+            "USearch"});
             this.imgProviderCombo.Location = new System.Drawing.Point(143, 84);
             this.imgProviderCombo.Name = "imgProviderCombo";
             this.helpProvider1.SetShowHelp(this.imgProviderCombo, true);
@@ -613,11 +613,11 @@
         private GroupBox speechGbx;
         private CheckBox autoNarrationEnableOpt;
         private Label label14;
-        private CheckBox imgs_ccOpt;
         private CheckBox kw_ShowOnImagesOpt;
         private Label label7;
         private Label label5;
         private LinkLabel linkLabel1;
         private PictureBox pictureBox1;
+        private Label label8;
     }
 }

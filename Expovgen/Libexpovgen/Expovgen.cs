@@ -235,7 +235,7 @@ namespace Expovgen
                 {
                     Service = Settings.ImgFetchService,
                     RequestQueries = keywords,
-                    ServicePreferences = Settings.UseCCLicense && Settings.ImgFetchService == Services.google ? new GooglePreferences() { UseCCLicense = true } : null
+                    ServicePreferences = null
                 };
 
                 try

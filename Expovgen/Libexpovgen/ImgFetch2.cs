@@ -20,9 +20,8 @@ namespace Expovgen.ImgFetch
         /// API endpoints list
         /// </summary>
         private static readonly string[] Endpoints = {
-            
+
             "https://pixabay.com/api/?key=25898419-03dcbee5c44442ba2477affd7&q={0}&image_type=photo",
-            
             "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q={0}&pageNumber=1&pageSize=10&autoCorrect=false"
         };
 
@@ -30,7 +29,7 @@ namespace Expovgen.ImgFetch
         /// Auth tokens and services
         /// TODO: Remove them from GH and make them local
         /// </summary>
-        private static readonly string RapidAPIAuth = "5e2741e3damsha64243e177061f0p15c2dajsn2195eab6c599";
+        private static readonly string RapidAPIAuth = "75fe67d2d9mshe335b6b1ce66edap1dae17jsn6310432808ab";
         private static readonly string RapidAPISearchService1 = "contextualwebsearch-websearch-v1.p.rapidapi.com";
         #endregion
 

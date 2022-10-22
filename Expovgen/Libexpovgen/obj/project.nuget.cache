@@ -1,14 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "tHv4lkuAKLDA1djT77isdLIs6vhpP9Z+ZFA1sF1+jOShenIAbsknFDSyfJNGIhgV2Vbm/iX96ghAv9oV2Z9SZA==",
+  "dgSpecHash": "5V7Ze5atl7658YB5LnidfLL9BuACv6TRhIRVPsm2xTEzKg0qRzpTAul0sjNZRioC0KpltsqtKebWYLGKshBxmQ==",
   "success": true,
   "projectFilePath": "E:\\expovgen\\Expovgen\\Libexpovgen\\Libexpovgen.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
-    "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\6.0.10\\microsoft.netcore.app.runtime.win-x86.6.0.10.nupkg.sha512",
-    "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\6.0.10\\microsoft.windowsdesktop.app.runtime.win-x86.6.0.10.nupkg.sha512",
-    "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.10\\microsoft.aspnetcore.app.runtime.win-x86.6.0.10.nupkg.sha512"
+    "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

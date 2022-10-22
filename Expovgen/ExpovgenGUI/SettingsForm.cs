@@ -47,8 +47,8 @@ namespace ExpovgenGUI
             img_enableOpt.Checked = Settings.Etapa2Behaviors == Etapa2Behaviors.Auto || Settings.Etapa2Behaviors == Etapa2Behaviors.AutoManual;
             img_enableOpt_CheckedChanged(this, new EventArgs());
             img_reviseOpt.Checked = Settings.Etapa2Behaviors == Etapa2Behaviors.AutoManual;
-            imgProviderCombo.SelectedIndex = Settings.ImgFetchService == Expovgen.ImgFetch.Services.google ? 0 : 1;
-            imgs_ccOpt.Checked = Settings.UseCCLicense;
+            imgProviderCombo.SelectedIndex = Settings.ImgFetchService == Expovgen.ImgFetch.Services.pixabay ? 0 : 1;
+            //imgs_ccOpt.Checked = Settings.UseCCLicense;
 
             autoNarrationEnableOpt.Checked = Settings.Etapa3Behaviors == Etapa3Behaviors.Auto;
 
@@ -91,8 +91,8 @@ namespace ExpovgenGUI
                 Settings.Etapa2Behaviors = Etapa2Behaviors.ForceManual;
             }
 
-            Settings.UseCCLicense = imgs_ccOpt.Checked;
-            Settings.ImgFetchService = imgProviderCombo.SelectedIndex == 0 ? Expovgen.ImgFetch.Services.google : Expovgen.ImgFetch.Services.pixabay;
+            //Settings.UseCCLicense = imgs_ccOpt.Checked;
+            Settings.ImgFetchService = imgProviderCombo.SelectedIndex == 0 ? Expovgen.ImgFetch.Services.pixabay : Expovgen.ImgFetch.Services.rapidapi;
 
             //Handling Etapa 3
             Settings.Etapa3Behaviors = autoNarrationEnableOpt.Checked ? Etapa3Behaviors.Auto : Etapa3Behaviors.ForceManual;
@@ -141,11 +141,11 @@ namespace ExpovgenGUI
 
         private void imgProviderCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label7.Visible = imgProviderCombo.SelectedIndex == 1;
-            pictureBox1.Visible = imgProviderCombo.SelectedIndex == 1;
-            label5.Visible = imgProviderCombo.SelectedIndex == 1;
-            linkLabel1.Visible = imgProviderCombo.SelectedIndex == 1;
-            imgs_ccOpt.Enabled = imgProviderCombo.SelectedIndex == 0;
+            label7.Visible = imgProviderCombo.SelectedIndex == 0;
+            pictureBox1.Visible = imgProviderCombo.SelectedIndex == 0;
+            label5.Visible = imgProviderCombo.SelectedIndex == 0;
+            linkLabel1.Visible = imgProviderCombo.SelectedIndex == 0;
+            label8.Visible = imgProviderCombo.SelectedIndex == 1;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace ExpovgenGUI
             linkLabel1.Enabled = img_enableOpt.Checked;
             label7.Enabled = img_enableOpt.Checked;
             label5.Enabled = img_enableOpt.Checked;
-            imgs_ccOpt.Enabled = imgProviderCombo.SelectedIndex == 1 ? false : img_enableOpt.Checked;
+            //imgs_ccOpt.Enabled = imgProviderCombo.SelectedIndex == 1 ? false : img_enableOpt.Checked;
         }
 
         private void OKBtn_Click(object sender, EventArgs e)

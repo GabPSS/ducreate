@@ -35,7 +35,7 @@ namespace Expovgen
         public string[] Document { get; set; }
         
         // Other Service options
-        public Services ImgFetchService { get; set; } = Services.google;
+        public Services ImgFetchService { get; set; } = Services.pixabay;
         public bool UseCCLicense { get; set; } = false;
 
         // Definitions for video rendering customization
