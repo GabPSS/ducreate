@@ -14,6 +14,7 @@ namespace ExpovgenGUI
     {
         private Image NoImage;
         private (int width, int height) VideoDimensions { get; set; }
+        public bool OverlayKeywordOverImage { get; set; } = false;
 
         public Etapa2OverrideForm(string[] Keywords, List<Image?> Images, (int width, int height) videoDimensions)
         {
@@ -69,7 +70,7 @@ namespace ExpovgenGUI
                     List<Image> resultimages = new();
                     foreach (ImageItem item in listView1.Items)
                     {
-                        Image newItem = Expovgen.ImgFetch.ImgFetch2.ResizeImage(item.ResultingImage, VideoDimensions.width, VideoDimensions.height, Brushes.Black);
+                        Image newItem = Expovgen.ImgFetch.ImgFetch2.ResizeImage(item.ResultingImage, VideoDimensions.width, VideoDimensions.height, Brushes.Black, OverlayKeywordOverImage, item.Text);
                         resultimages.Add(newItem);
                     }
                     Expovgen.Expovgen.SaveImgfetchPictures(resultimages);
@@ -93,7 +94,7 @@ namespace ExpovgenGUI
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "JPG files|*.jpg|PNG files|*.png|All files|*.*",
+                Filter = "Arquivos de imagem suportados|*.jpg;*.png;*.bmp;*.gif|All files|*.*",
                 Title="Select a replacement image",
                 Multiselect=false
             };
@@ -103,7 +104,7 @@ namespace ExpovgenGUI
                 try
                 {
                     Image attempt = Image.FromFile(openFileDialog.FileName);
-                    Image resized = Expovgen.ImgFetch.ImgFetch2.ResizeImage(attempt, imageList1.ImageSize.Width, imageList1.ImageSize.Height, Brushes.Black);
+                    Image resized = Expovgen.ImgFetch.ImgFetch2.ResizeImage(attempt, imageList1.ImageSize.Width, imageList1.ImageSize.Height, Brushes.Black, OverlayKeywordOverImage, listView1.Items[index].Text);
                     item.ResultingImage = attempt;
                     imageList1.Images[index] = resized;
                 }

@@ -91,18 +91,20 @@ namespace Expovgen
 
         protected virtual void OnEtapa1Complete(string[] keywords)
         {
-            Etapa1Complete(this, new Etapa1EventArgs() { Keywords = keywords });
+            Etapa1Complete?.Invoke(this, new Etapa1EventArgs() { Keywords = keywords });
         }
 
         protected virtual void OnEtapa1Failed(bool Intentional, string[] keywords)
         {
-            Etapa1Failed(this, new Etapa1EventArgs() { Keywords = keywords, OverrideIntentionallyRequested = Intentional });
+            Etapa1Failed?.Invoke(this, new Etapa1EventArgs() { Keywords = keywords, OverrideIntentionallyRequested = Intentional });
         }
 
         #endregion
 
         public void Etapa1(string filePath = "res\\text.txt")
         {
+            Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
+
             //Cancelar em caso de ForceManual
             if (Settings.Etapa1Behaviors == Etapa1Behaviors.ForceManual)
             {
@@ -118,14 +120,13 @@ namespace Expovgen
             //Etapa 1: Extração de palavras-chave
             string[] document = File.ReadAllLines(filePath);
             LangAPI1? langapi = new(document);
-            Logger.WriteLine("--- RECURSO 1/5: Extração de palavras-chave ---");
             try
             {
                 langapi.GetKeywords();
             }
             catch (LangAPI1.QuotaExceededException)
             {
-                Logger.WriteLine("Recurso de extração de palavras-chave (LangAPI) temporariamente indisponível, cota limite da API atingida. Se o problema persistir, tente amanhã");
+                Logger.WriteLine("Recurso de extração de palavras-chave temporariamente indisponível, cota limite da API atingida. Se o problema persistir, tente amanhã");
             }
             catch { }
             Logger.WriteLine("Concluído.");
@@ -133,7 +134,7 @@ namespace Expovgen
             if (langapi.Keywords is null)
             {
                 Logger.WriteLine("Erro ao extrair palavras-chave!");
-                OnEtapa1Failed(false, Array.Empty<string>());
+                OnEtapa1Failed(Settings.Etapa1Behaviors == Etapa1Behaviors.AutoManual, Array.Empty<string>());
                 return;
             }
 
@@ -210,11 +211,11 @@ namespace Expovgen
         {
             if (TotallySuccessful)
             {
-                Etapa2Complete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries });
+                Etapa2Complete?.Invoke(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries });
             }
             else
             {
-                Etapa2Incomplete(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries, OverrideRequestedIntentionally = overrideIntentional });
+                Etapa2Incomplete?.Invoke(this, new Etapa2EventArgs() { Images = images, RequestQueries = requestQueries, OverrideRequestedIntentionally = overrideIntentional });
             }
         }
 
@@ -235,7 +236,8 @@ namespace Expovgen
                 {
                     Service = Settings.ImgFetchService,
                     RequestQueries = keywords,
-                    ServicePreferences = null
+                    ServicePreferences = null,
+                    OverlayKeywordOnImage = Settings.ShowKeywordOnImage
                 };
 
                 try
@@ -251,10 +253,12 @@ namespace Expovgen
                         return;
                     }
                     OnEtapa2Done(images, fetcher.RequestQueries, TotallySuccessful, false);
+                    return;
                 }
                 catch
                 {
                     OnEtapa2Done(new Image?[keywords.Length].ToList<Image?>(), keywords, false, false);
+                    return;
                 }
 
             }
@@ -299,12 +303,12 @@ namespace Expovgen
 
         protected virtual void OnEtapa3Completed()
         {
-            Etapa3Completed(this, new Etapa3EventArgs() { OverrideIntentional = false });
+            Etapa3Completed?.Invoke(this, new Etapa3EventArgs() { OverrideIntentional = false });
         }
 
         protected virtual void OnEtapa3Failed(bool Intentional = false)
         {
-            Etapa3Failed(this, new Etapa3EventArgs() { OverrideIntentional = Intentional });
+            Etapa3Failed?.Invoke(this, new Etapa3EventArgs() { OverrideIntentional = Intentional });
         }
 
         #endregion
@@ -343,12 +347,12 @@ namespace Expovgen
 
         protected virtual void OnEtapa4Completed()
         {
-            Etapa4Completed(this, new EventArgs());
+            Etapa4Completed?.Invoke(this, new EventArgs());
         }
 
         protected virtual void OnEtapa4Failed()
         {
-            Etapa4Failed(this, new EventArgs());
+            Etapa4Failed?.Invoke(this, new EventArgs());
         }
 
         #endregion

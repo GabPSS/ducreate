@@ -266,6 +266,7 @@
             this.musFundoLimparBtn.TabIndex = 7;
             this.musFundoLimparBtn.Text = "&Limpar";
             this.musFundoLimparBtn.UseVisualStyleBackColor = true;
+            this.musFundoLimparBtn.Click += new System.EventHandler(this.musFundoLimparBtn_Click);
             // 
             // label12
             // 
@@ -314,6 +315,7 @@
             this.musFundoBuscarbtn.TabIndex = 2;
             this.musFundoBuscarbtn.Text = "&Buscar";
             this.musFundoBuscarbtn.UseVisualStyleBackColor = true;
+            this.musFundoBuscarbtn.Click += new System.EventHandler(this.musFundoBuscarbtn_Click);
             // 
             // txtMusFundoPath
             // 
@@ -421,6 +423,7 @@
             // 
             // titleCardTxt
             // 
+            this.titleCardTxt.AcceptsReturn = true;
             this.titleCardTxt.Location = new System.Drawing.Point(15, 26);
             this.titleCardTxt.Multiline = true;
             this.titleCardTxt.Name = "titleCardTxt";

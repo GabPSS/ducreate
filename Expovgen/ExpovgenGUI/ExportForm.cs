@@ -41,7 +41,7 @@ namespace ExpovgenGUI
             }
             musFundoVolTrackbar.Value = Convert.ToInt32(Settings.BackgroundVolume * 100);
             trackBar1_Scroll(this, new EventArgs());
-            filePathToSave.Text = Settings.ExportPath == null ? "(Nenhum caminho selecionado)" : Settings.ExportPath;
+            filePathToSave.Text = "(Nenhum caminho selecionado)";
             titleCardTxt.Lines = Settings.TitleCard;
             creditsCardTxt.Lines = Settings.Credits;
             if (Settings.ExportPath is null)
@@ -127,11 +127,13 @@ namespace ExpovgenGUI
             {
                 tableLayoutPanel1.Hide();
                 mostrarConfig = false;
+                button1.Text = "Esconder configurações";
             }
             else
             {
                 tableLayoutPanel1.Show();
                 mostrarConfig = true;
+                button1.Text = "Configurações do vídeo";
             }
         }
 
@@ -151,6 +153,27 @@ namespace ExpovgenGUI
                 filePathToSave.Text = sfd.FileName;
                 button4.Enabled = true;
             }
+        }
+
+        private void musFundoBuscarbtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new()
+            {
+                Title = "Selecione uma música de fundo",
+                Filter = "Arquivos MP3|*.mp3"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtMusFundoPath.Text = ofd.FileName;
+                musFundoLimparBtn.Enabled = true;
+            }
+        }
+
+        private void musFundoLimparBtn_Click(object sender, EventArgs e)
+        {
+            txtMusFundoPath.Text = "(Nada selecionado)";
+            musFundoLimparBtn.Enabled = false;
         }
     }
 }

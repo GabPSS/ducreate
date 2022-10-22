@@ -42,6 +42,7 @@ namespace Expovgen.ImgFetch
         public IServicePreferences? ServicePreferences { get; set; }
         public List<(string query, string[] urls)>? Results { get; set; }
         public (int Width,int Height) ImageDimensions { get; set; }
+        public bool OverlayKeywordOnImage { get; set; } = false;
 
         // Private properties for use only within the API
         private HttpClient HttpFetchingClient { get; set; } = new HttpClient();
@@ -146,7 +147,7 @@ namespace Expovgen.ImgFetch
                     try
                     {
                         convertedImage = Image.FromStream(PossibleImageFiles[i]);
-                        convertedImage = ResizeImage(convertedImage, ImageDimensions.Width, ImageDimensions.Height, Brushes.Black);
+                        convertedImage = ResizeImage(convertedImage, ImageDimensions.Width, ImageDimensions.Height, Brushes.Black, OverlayKeywordOnImage, RequestQueries[i]);
                         goto loopend;
                     }
                     catch
@@ -192,7 +193,7 @@ namespace Expovgen.ImgFetch
         /// <param name="backgroundFill"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static Image ResizeImage(Image sourceImage, int tgtBaseWidth, int tgtBaseHeight, Brush backgroundFill)
+        public static Image ResizeImage(Image sourceImage, int tgtBaseWidth, int tgtBaseHeight, Brush backgroundFill, bool showKeyword = false, string? keyword = null)
         {
             //Size of the input image
             int srcWidth = sourceImage.Width;
@@ -221,6 +222,32 @@ namespace Expovgen.ImgFetch
             gfx.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             gfx.FillRectangle(backgroundFill, 0, 0, tgtBaseWidth, tgtBaseHeight);
             gfx.DrawImage(sourceImage, ImgPosX, ImgPosY, ImgWidth, ImgHeight);
+            //Draw keyword text if asked to
+            if (showKeyword)
+            {
+                Random rng = new();
+                SizeF size;
+                float fSize = 128;
+                do
+                {
+                    fSize--;
+                    size = gfx.MeasureString(keyword, new Font("Comic Sans MS", fSize));
+                    if (fSize <= 1)
+                    {
+                        break;
+                    }
+                } while ((size.Width > (tgtBaseWidth * 0.7) || size.Height > (tgtBaseHeight * 0.3)));
+
+                float posx = (float)((tgtBaseWidth - size.Width) * 0.5);
+                float posy = (float)((tgtBaseHeight - size.Height) * 0.75);
+
+                gfx.DrawString(keyword, new Font("Comic Sans MS", fSize), Brushes.Black, posx + 2, posy + 2);
+                gfx.DrawString(keyword, 
+                    new Font("Comic Sans MS", fSize), 
+                    new SolidBrush(Color.FromArgb(rng.Next(200, 230), rng.Next(200, 230), rng.Next(200, 230))),
+                    posx,
+                    posy);
+            }
             gfx.Dispose();
 
             //Returning the bitmap contianing the image

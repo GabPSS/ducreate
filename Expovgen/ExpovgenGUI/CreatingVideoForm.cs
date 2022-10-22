@@ -140,6 +140,12 @@ namespace ExpovgenGUI
 
         private void StartStep(int stepNum)
         {
+            if (stepNum >= pbxs.Count)
+            {
+                shouldCancel = true;
+                Cancel();
+                return;
+            }
             Invoke(new Action(() =>
             {
                 pbxs[stepNum].Image = Properties.Resources.pending_FILL0_wght400_GRAD0_opsz48;
@@ -161,12 +167,15 @@ namespace ExpovgenGUI
             }));
         }
 
+        /// <summary>
+        /// Attempts to cancel the ongoing process
+        /// </summary>
         private void Cancel()
         {
             Invoke(new Action(() =>
             {
                 shouldCancel = true;
-                Expovgen.Expovgen.Dispose();
+                //Expovgen.Expovgen.Dispose();
                 expovgen.Logger.TextWritten -= Logger_TextWritten;
 
                 expovgen.Etapa1Complete -= Expovgen_Etapa1Complete;
@@ -187,7 +196,7 @@ namespace ExpovgenGUI
                 expovgen.Logger.WriteLine("====== OPERAÇÃO CANCELADA PELO USUÁRIO ======");
                 expovgen.Logger.WriteLine("Aguardando finalização dos processos");
 
-                Expovgen.Expovgen.Dispose();
+                //Expovgen.Expovgen.Dispose();
                 Close();
             }));
         }
@@ -246,15 +255,15 @@ namespace ExpovgenGUI
             }
             ShowStepAsErrored(1);
 
-            MessageBox.Show(
-                e.OverrideRequestedIntentionally ? "Etapa 2 concluída, verifique as imagens" : "Etapa 2 falhou! Verifique as imagens",
-                e.OverrideRequestedIntentionally ? "Informação" : "Erro",
-                MessageBoxButtons.OK,
-                e.OverrideRequestedIntentionally ? MessageBoxIcon.Information : MessageBoxIcon.Error
-                );
+            if (!e.OverrideRequestedIntentionally)
+            {
+                MessageBox.Show("Etapa 2 falhou! Verifique as imagens", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-
-            Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, (Settings.VideoWidth,Settings.VideoHeight));
+            Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, (Settings.VideoWidth, Settings.VideoHeight))
+            {
+                OverlayKeywordOverImage = Settings.ShowKeywordOnImage
+            };
             DialogResult result = DialogResult.None;
             this.Invoke(new Action(() =>
             {
@@ -269,6 +278,10 @@ namespace ExpovgenGUI
                     return;
                 }
                 expovgen.Etapa3();
+            }
+            else
+            {
+                Cancel();
             }
         }
 
@@ -302,7 +315,18 @@ namespace ExpovgenGUI
                 return;
             }
             ShowStepAsErrored(2);
-            DialogResult q = MessageBox.Show("A etapa de geração de áudio falhou. Verifique sua conexão com a internet.\n\nDeseja enviar um arquivo de narração local?\n\nAperte CONTINUAR para enviar um arquivo local, TENTAR NOVAMENTE para repetir a etapa, e CANCELAR para cancelar o processo de geração de vídeo", "Erro", MessageBoxButtons.CancelTryContinue, MessageBoxIcon.Error);
+
+            DialogResult q;
+            
+            if (!e.OverrideIntentional)
+            {
+                q = MessageBox.Show("A etapa de geração de áudio falhou. Verifique sua conexão com a internet.\n\nDeseja enviar um arquivo de narração local?\n\nAperte CONTINUAR para enviar um arquivo local, TENTAR NOVAMENTE para repetir a etapa, e CANCELAR para cancelar o processo de geração de vídeo", "Erro", MessageBoxButtons.CancelTryContinue, MessageBoxIcon.Error);
+            }
+            else
+            {
+                q = DialogResult.Continue;
+            }
+            
             switch (q)
             {
                 case DialogResult.TryAgain:
@@ -380,6 +404,8 @@ namespace ExpovgenGUI
                 cancelBtn.Click -= asCancel_Click;
                 cancelBtn.Click += asExit_Click;
             }));
+            string dir = Settings.ExportPath.Substring(0, (Settings.ExportPath.Length - Settings.ExportPath.Split("\\").Last().Length) - 1);
+            System.Diagnostics.Process.Start("explorer", dir);
         }
 
         #endregion
