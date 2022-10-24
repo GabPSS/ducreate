@@ -301,7 +301,38 @@ namespace ExpovgenGUI
 
         private void sobreOProgramaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //TODO: Make about screen with credits
+            new SobreForm().ShowDialog();
+        }
 
+        private void toolStripButton8_Click(object sender, EventArgs e)
+        {
+            textBox1.Cut();
+        }
+
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            textBox1.Copy();
+        }
+
+        private void toolStripButton10_Click(object sender, EventArgs e)
+        {
+            textBox1.Paste();
+        }
+
+        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Cut();
+        }
+
+        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Copy();
+        }
+
+        private void colarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Paste();
         }
     }
 
