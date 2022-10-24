@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Expovgen</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">Expovgen</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Página Inicial <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/GabPSS/expovgen/releases/">Downloads</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-dark" id="destaque" style="background-image: url(background.png)">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 font-weight-normal">Expovgen</h1>
+          <p class="lead font-weight-normal">Projeto gerador de vídeos para a Expotec 2022</p>
+          <a class="btn btn-primary" href="https://github.com/GabPSS/expovgen/releases/">Baixe agora!</a>
+        </div>
+      </div>
+
+      <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">
+              Gere vídeos automaticamente, sem sair de casa
+            </h1>
+            <p class="lead text-muted">
+              Crie vídeos explicativos com imagens e legendas facilmente e sem gastar uma fortuna!
+            </p>
+        </div>
+      </section>
+
+      <div class="container">
+        <h1>Sobre o Expovgen</h1>
+        <p>O Expovgen é um programa de computador que tem o objetivo de gerar vídeos automáticos usando apenas textos fornecidos pelo usuário, buscando os recursos necessários automaticamente na internet para isto.</p>
+        <p>O projeto tem base no 4° Objetivo de Desenvolvimento Sustentável da ONU, Educação de Qualidade, se baseando em três objetivos principais:</p>
+        <ol>
+          <li>
+            Educação nas escolas: Por sua capacidade de gerar vídeos educativos sem esforço adicional, o Expovgen auxilia professores e alunos no processo de aprendizagem. Em casos de ausência, um professor pode, por exemplo, elaborar uma videoaula com o conteúdo que seria ministrado, ou então elaborar vídeos explicativos para detalhar sua explicação.
+          </li>
+          <li>
+            Alfabetização/Contar histórias: Assim como criar vídeos explicativos, o Expovgen pode também apoiar crianças no processo de alfabetização, gerando vídeos contando histórias destacando termos importantes para aqueles que estão começando a aprender a ler e escrever
+          </li>
+          <li>
+            Entretenimento, Curiosidades e outros: Como um gerador de vídeo, o Expovgen não necessariamente pode ser usado apenas nos processos educativos, mas pode ser usado para criar qualquer tipo de conteúdo. Basta adicionar o seu roteiro no programa, e este fará o resto!
+          </li>
+        </ol>
+        <hr>
+        <h1>Funcionamento</h1>
+        <p>O Expovgen funciona através de um algoritmo que obtêm os recursos necessários para elaborar o vídeo, automaticamente e/ou com intervenção do usuário, e monta o vídeo através de componentes de processamento de linguagem e áudio. Para isso, faz uso de tecnologias C# (WinForms, .NET), Python (através de bibliotecas moviepy, gTTS, aeneas, entre outras) e do programa ImageMagick (para a geração de textos, parte do moviepy).
+Para gerar um vídeo a partir de um texto dado pelo usuário, o Expovgen segue os seguintes passos:</p>
+
+          <ol>
+            <li>
+              Analisar o vídeo e extrair as principais palavras-chave através de APIs de NLP
+            </li>
+            <li>
+              Usar essas palavras-chave para pesquisar por imagens na internet, fazendo download das principais
+            </li>
+            <li>
+              Converter o texto em uma narração
+            </li>
+            <li>
+              Alinhar o áudio da narração com o texto digitado, a fim de obter os tempos das legendas e imagen
+            </li>
+            <li>
+              Unir todos os recursos gerados anteriormente no vídeo final
+            </li>
+          </ol>
+
+        <h1>Desenvolvedores</h1>
+
+        <p><i>Projeto desenvolvido para EXPOTEC 2022 - Escola Fortec Praia Grande. Desenvolvido por:</i></p>
+        <ol>
+          <li>
+            Maria Luiza Vieira
+          </li>
+          <li>
+            Grazielly Gomes Matos
+          </li>
+          <li>
+            Nicolas da Silva Rodrigues
+          </li>
+          <li>
+            Gabriel Pilotto Silva
+          </li>
+          <li>
+            Victor Hugo Galeno
+          </li>
+        </ol>
+
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2022 Grupo Expoven 2022</p>
+      </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
