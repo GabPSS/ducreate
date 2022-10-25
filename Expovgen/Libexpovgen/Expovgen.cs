@@ -438,7 +438,7 @@ namespace Expovgen
 
 
 
-                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoWidth + " " + Settings.VideoHeight + " " + AddMusic.ToString() + " " + Settings.FontSize + " " + (Settings.BackgroundVolume < 0.99 ? "0." + (Settings.BackgroundVolume * 100) : 1));
+                int r = RunPY(PyTasks.Moviepy_Script, PyEnvs.python_inst, Settings.VideoWidth + " " + Settings.VideoHeight + " " + AddMusic.ToString() + " " + Settings.FontSize + " " + (Settings.BackgroundVolume < 0.99 ? "0." + Math.Round(Settings.BackgroundVolume * 100) : 1));
                 if (r == 0)
                 {
                     File.Copy("res\\output.mp4", Settings.ExportPath);

@@ -64,7 +64,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = Ducreate.Properties.Resources.info_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox1.Image = global::Ducreate.Properties.Resources.info_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
@@ -108,7 +108,7 @@
             this.MaximizeBox = false;
             this.Name = "Etapa2OverrideForm";
             this.ShowIcon = false;
-            this.Text = "Fornescimento de imagens";
+            this.Text = "Fornecimento de imagens";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

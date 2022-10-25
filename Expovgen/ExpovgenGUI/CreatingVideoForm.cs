@@ -5,7 +5,7 @@ namespace ExpovgenGUI
     public partial class CreatingVideoForm : Form
     {
         private string[] Document { get; set; }
-        private readonly string[] titles = { "Extração de palavras-chave", "Pesquisa de imagens", "Geração da narração", "Alinhamento forçado", "Renderização (pode levar um tempo)" };
+        private readonly string[] titles = { "Extração de palavras-chave", "Pesquisa de imagens", "Geração da narração", "Alinhamento", "Renderização (pode levar um tempo)" };
         private readonly List<PictureBox> pbxs = new();
         private readonly List<Label> lbls = new();
         private readonly List<ProgressBar> pbrs = new();
@@ -257,7 +257,7 @@ namespace ExpovgenGUI
 
             if (!e.OverrideRequestedIntentionally)
             {
-                MessageBox.Show("Etapa 2 falhou! Verifique as imagens", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Algumas imagens não puderam ser baixadas. Clique OK para fornecer estas manualmente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, (Settings.VideoWidth, Settings.VideoHeight))
