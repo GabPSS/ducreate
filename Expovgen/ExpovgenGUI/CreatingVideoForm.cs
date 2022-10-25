@@ -23,7 +23,7 @@ namespace ExpovgenGUI
                 {
                     PictureBox pbx = new()
                     {
-                        Image = Properties.Resources.circle_FILL0_wght400_GRAD0_opsz48,
+                        Image = Ducreate.Properties.Resources.circle_FILL0_wght400_GRAD0_opsz48,
                         SizeMode = PictureBoxSizeMode.StretchImage,
                         Size = new Size(48, 48)
                     };
@@ -130,7 +130,7 @@ namespace ExpovgenGUI
         {
             Invoke(new Action(() =>
             {
-                pbxs[stepNum].Image = Properties.Resources.check_circle_FILL0_wght400_GRAD0_opsz48;
+                pbxs[stepNum].Image = Ducreate.Properties.Resources.check_circle_FILL0_wght400_GRAD0_opsz48;
                 pbrs[stepNum].Value = 100;
                 pbrs[stepNum].Style = ProgressBarStyle.Blocks;
                 unifiedProgressBar.Value = 100;
@@ -148,7 +148,7 @@ namespace ExpovgenGUI
             }
             Invoke(new Action(() =>
             {
-                pbxs[stepNum].Image = Properties.Resources.pending_FILL0_wght400_GRAD0_opsz48;
+                pbxs[stepNum].Image = Ducreate.Properties.Resources.pending_FILL0_wght400_GRAD0_opsz48;
                 pbrs[stepNum].Value = 20;
                 pbrs[stepNum].Style = ProgressBarStyle.Marquee;
                 unifiedProgressBar.Value = 20;
@@ -163,7 +163,7 @@ namespace ExpovgenGUI
         {
             Invoke(new Action(() =>
             {
-                pbxs[stepNum].Image = Properties.Resources.error_circle_rounded_FILL0_wght400_GRAD0_opsz48;
+                pbxs[stepNum].Image = Ducreate.Properties.Resources.error_circle_rounded_FILL0_wght400_GRAD0_opsz48;
             }));
         }
 

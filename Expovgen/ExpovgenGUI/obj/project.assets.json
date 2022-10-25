@@ -146,9 +146,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\ExpovgenGUI.csproj",
-      "projectName": "ExpovgenGUI",
-      "projectPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\ExpovgenGUI.csproj",
+      "projectUniqueName": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\Ducreate.csproj",
+      "projectName": "Ducreate",
+      "projectPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\Ducreate.csproj",
       "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
       "outputPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\obj\\",
       "projectStyle": "PackageReference",

@@ -16,8 +16,7 @@ namespace ExpovgenGUI
         {
             InitializeComponent();
             string nome = Application.ProductName;
-            nome = "Programa Sem Nome";
-            label2.Text = nome;
+            label2.Text = "Sobre o " + nome;
             label3.Text = String.Format(label3.Text, nome);
         }
     }

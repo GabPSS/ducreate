@@ -334,6 +334,25 @@ namespace ExpovgenGUI
         {
             textBox1.Paste();
         }
+
+        private void abrirSiteDoProgramaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = "https://gabpss.github.io/ducreate",
+                UseShellExecute = true
+            });
+        }
+
+        private void propriedadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm sf = new(Settings);
+            DialogResult dr = sf.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                Settings = sf.Settings;
+            }
+        }
     }
 
 }

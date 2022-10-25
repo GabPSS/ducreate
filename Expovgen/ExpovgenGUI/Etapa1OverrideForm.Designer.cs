@@ -89,7 +89,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::ExpovgenGUI.Properties.Resources.info_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox1.Image = global::Ducreate.Properties.Resources.info_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox1.Location = new System.Drawing.Point(16, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);

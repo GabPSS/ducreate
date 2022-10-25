@@ -1,4 +1,6 @@
-﻿namespace ExpovgenGUI
+﻿using Ducreate;
+
+namespace ExpovgenGUI
 {
     partial class ExportForm
     {
@@ -103,7 +105,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::ExpovgenGUI.Properties.Resources.straighten_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox3.Image = Ducreate.Properties.Resources.straighten_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox3.Location = new System.Drawing.Point(8, -4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(28, 26);
@@ -179,7 +181,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::ExpovgenGUI.Properties.Resources.format_size_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox2.Image = Ducreate.Properties.Resources.format_size_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox2.Location = new System.Drawing.Point(10, -5);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(26, 26);
@@ -249,7 +251,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::ExpovgenGUI.Properties.Resources.volume_up_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox4.Image = Ducreate.Properties.Resources.volume_up_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox4.Location = new System.Drawing.Point(8, -4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(28, 26);
@@ -413,7 +415,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = global::ExpovgenGUI.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox5.Image = Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox5.Location = new System.Drawing.Point(9, -5);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(28, 26);
@@ -447,7 +449,7 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = global::ExpovgenGUI.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox6.Image = Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox6.Location = new System.Drawing.Point(9, -5);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(28, 26);
@@ -522,7 +524,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::ExpovgenGUI.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox1.Image = Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox1.Location = new System.Drawing.Point(12, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);

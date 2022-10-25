@@ -99,73 +99,74 @@
             // 
             // novoToolStripMenuItem
             // 
-            this.novoToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.note_add_FILL0_wght400_GRAD0_opsz48;
+            this.novoToolStripMenuItem.Image = global::Ducreate.Properties.Resources.note_add_FILL0_wght400_GRAD0_opsz48;
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
             this.novoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.novoToolStripMenuItem.Text = "Novo";
             this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
-            this.abrirToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.folder_open_FILL0_wght400_GRAD0_opsz48;
+            this.abrirToolStripMenuItem.Image = global::Ducreate.Properties.Resources.folder_open_FILL0_wght400_GRAD0_opsz48;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.abrirToolStripMenuItem.Text = "Abrir...";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // salvarToolStripMenuItem
             // 
-            this.salvarToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
+            this.salvarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
             this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
             this.salvarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.salvarToolStripMenuItem.Text = "Salvar";
             this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
             // 
             // salvarComoToolStripMenuItem
             // 
-            this.salvarComoToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.save_as_FILL0_wght400_GRAD0_opsz48;
+            this.salvarComoToolStripMenuItem.Image = global::Ducreate.Properties.Resources.save_as_FILL0_wght400_GRAD0_opsz48;
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
             this.salvarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.salvarComoToolStripMenuItem.Text = "Salvar como...";
             this.salvarComoToolStripMenuItem.Click += new System.EventHandler(this.salvarComoToolStripMenuItem_Click);
             // 
             // exportarToolStripMenuItem
             // 
-            this.exportarToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.send_FILL0_wght400_GRAD0_opsz48;
+            this.exportarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.send_FILL0_wght400_GRAD0_opsz48;
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
             this.exportarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.exportarToolStripMenuItem.Text = "Exportar vídeo...";
             this.exportarToolStripMenuItem.Click += new System.EventHandler(this.exportarToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
             // 
             // propriedadesToolStripMenuItem
             // 
-            this.propriedadesToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.settings_FILL0_wght400_GRAD0_opsz48;
+            this.propriedadesToolStripMenuItem.Image = global::Ducreate.Properties.Resources.settings_FILL0_wght400_GRAD0_opsz48;
             this.propriedadesToolStripMenuItem.Name = "propriedadesToolStripMenuItem";
-            this.propriedadesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.propriedadesToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.propriedadesToolStripMenuItem.Text = "Propriedades";
+            this.propriedadesToolStripMenuItem.Click += new System.EventHandler(this.propriedadesToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
             // 
             // sairToolStripMenuItem
             // 
-            this.sairToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.close_FILL0_wght400_GRAD0_opsz48__1_;
+            this.sairToolStripMenuItem.Image = global::Ducreate.Properties.Resources.close_FILL0_wght400_GRAD0_opsz48__1_;
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             this.sairToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -184,51 +185,51 @@
             // 
             // desfazerToolStripMenuItem
             // 
-            this.desfazerToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.undo_FILL0_wght400_GRAD0_opsz48;
+            this.desfazerToolStripMenuItem.Image = global::Ducreate.Properties.Resources.undo_FILL0_wght400_GRAD0_opsz48;
             this.desfazerToolStripMenuItem.Name = "desfazerToolStripMenuItem";
             this.desfazerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.desfazerToolStripMenuItem.Size = new System.Drawing.Size(190, 32);
+            this.desfazerToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.desfazerToolStripMenuItem.Text = "Desfazer";
             this.desfazerToolStripMenuItem.Click += new System.EventHandler(this.desfazerToolStripMenuItem_Click);
             // 
             // refazerToolStripMenuItem
             // 
-            this.refazerToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.redo_FILL0_wght400_GRAD0_opsz48;
+            this.refazerToolStripMenuItem.Image = global::Ducreate.Properties.Resources.redo_FILL0_wght400_GRAD0_opsz48;
             this.refazerToolStripMenuItem.Name = "refazerToolStripMenuItem";
             this.refazerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.refazerToolStripMenuItem.Size = new System.Drawing.Size(190, 32);
+            this.refazerToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.refazerToolStripMenuItem.Text = "Refazer";
             this.refazerToolStripMenuItem.Click += new System.EventHandler(this.refazerToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(156, 6);
             // 
             // cortarToolStripMenuItem
             // 
-            this.cortarToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.cut_FILL0_wght400_GRAD0_opsz48;
+            this.cortarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.cut_FILL0_wght400_GRAD0_opsz48;
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(190, 32);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
             // copiarToolStripMenuItem
             // 
-            this.copiarToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.content_copy_FILL0_wght400_GRAD0_opsz48;
+            this.copiarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.content_copy_FILL0_wght400_GRAD0_opsz48;
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(190, 32);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
             // 
             // colarToolStripMenuItem
             // 
-            this.colarToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.content_paste_FILL0_wght400_GRAD0_opsz48;
+            this.colarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.content_paste_FILL0_wght400_GRAD0_opsz48;
             this.colarToolStripMenuItem.Name = "colarToolStripMenuItem";
             this.colarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.colarToolStripMenuItem.Size = new System.Drawing.Size(190, 32);
+            this.colarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.colarToolStripMenuItem.Text = "Colar";
             this.colarToolStripMenuItem.Click += new System.EventHandler(this.colarToolStripMenuItem_Click);
             // 
@@ -243,19 +244,20 @@
             // 
             // sobreOProgramaToolStripMenuItem
             // 
-            this.sobreOProgramaToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.help_FILL0_wght400_GRAD0_opsz48;
+            this.sobreOProgramaToolStripMenuItem.Image = global::Ducreate.Properties.Resources.help_FILL0_wght400_GRAD0_opsz48;
             this.sobreOProgramaToolStripMenuItem.Name = "sobreOProgramaToolStripMenuItem";
             this.sobreOProgramaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.sobreOProgramaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.sobreOProgramaToolStripMenuItem.Size = new System.Drawing.Size(207, 32);
             this.sobreOProgramaToolStripMenuItem.Text = "Sobre o programa...";
             this.sobreOProgramaToolStripMenuItem.Click += new System.EventHandler(this.sobreOProgramaToolStripMenuItem_Click);
             // 
             // abrirSiteDoProgramaToolStripMenuItem
             // 
-            this.abrirSiteDoProgramaToolStripMenuItem.Image = global::ExpovgenGUI.Properties.Resources.support_FILL0_wght400_GRAD0_opsz48;
+            this.abrirSiteDoProgramaToolStripMenuItem.Image = global::Ducreate.Properties.Resources.support_FILL0_wght400_GRAD0_opsz48;
             this.abrirSiteDoProgramaToolStripMenuItem.Name = "abrirSiteDoProgramaToolStripMenuItem";
-            this.abrirSiteDoProgramaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.abrirSiteDoProgramaToolStripMenuItem.Size = new System.Drawing.Size(207, 32);
             this.abrirSiteDoProgramaToolStripMenuItem.Text = "Abrir site do programa";
+            this.abrirSiteDoProgramaToolStripMenuItem.Click += new System.EventHandler(this.abrirSiteDoProgramaToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -283,7 +285,7 @@
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::ExpovgenGUI.Properties.Resources.note_add_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton1.Image = global::Ducreate.Properties.Resources.note_add_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(36, 36);
@@ -293,7 +295,7 @@
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::ExpovgenGUI.Properties.Resources.folder_open_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton2.Image = global::Ducreate.Properties.Resources.folder_open_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(36, 36);
@@ -303,7 +305,7 @@
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::ExpovgenGUI.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton3.Image = global::Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(36, 36);
@@ -318,7 +320,7 @@
             // toolStripButton6
             // 
             this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = global::ExpovgenGUI.Properties.Resources.undo_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton6.Image = global::Ducreate.Properties.Resources.undo_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
             this.toolStripButton6.Size = new System.Drawing.Size(36, 36);
@@ -328,7 +330,7 @@
             // toolStripButton7
             // 
             this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::ExpovgenGUI.Properties.Resources.redo_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton7.Image = global::Ducreate.Properties.Resources.redo_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
             this.toolStripButton7.Size = new System.Drawing.Size(36, 36);
@@ -342,7 +344,7 @@
             // toolStripButton8
             // 
             this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton8.Image = global::ExpovgenGUI.Properties.Resources.cut_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton8.Image = global::Ducreate.Properties.Resources.cut_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(36, 36);
@@ -352,7 +354,7 @@
             // toolStripButton9
             // 
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton9.Image = global::ExpovgenGUI.Properties.Resources.content_copy_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton9.Image = global::Ducreate.Properties.Resources.content_copy_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
             this.toolStripButton9.Size = new System.Drawing.Size(36, 36);
@@ -362,7 +364,7 @@
             // toolStripButton10
             // 
             this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = global::ExpovgenGUI.Properties.Resources.content_paste_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton10.Image = global::Ducreate.Properties.Resources.content_paste_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton10.Name = "toolStripButton10";
             this.toolStripButton10.Size = new System.Drawing.Size(36, 36);
@@ -373,7 +375,7 @@
             // 
             this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton5.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripButton5.Image = global::ExpovgenGUI.Properties.Resources.send_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton5.Image = global::Ducreate.Properties.Resources.send_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(87, 36);
@@ -384,7 +386,7 @@
             // 
             this.toolStripButton4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::ExpovgenGUI.Properties.Resources.settings_FILL0_wght400_GRAD0_opsz48;
+            this.toolStripButton4.Image = global::Ducreate.Properties.Resources.settings_FILL0_wght400_GRAD0_opsz48;
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(36, 36);

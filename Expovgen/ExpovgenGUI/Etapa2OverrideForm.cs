@@ -22,7 +22,7 @@ namespace ExpovgenGUI
             VideoDimensions = videoDimensions;
             imageList1.ImageSize = new Size(120, 120 * VideoDimensions.height / VideoDimensions.width);
 
-            NoImage = Expovgen.ImgFetch.ImgFetch2.ResizeImage(Properties.Resources.photoless, imageList1.ImageSize.Width, imageList1.ImageSize.Height, Brushes.LightGray);
+            NoImage = Expovgen.ImgFetch.ImgFetch2.ResizeImage(Ducreate.Properties.Resources.photoless, imageList1.ImageSize.Width, imageList1.ImageSize.Height, Brushes.LightGray);
             listView1.MultiSelect = false;
             listView1.Activation = ItemActivation.TwoClick;
             listView1.ItemActivate += ReplaceImage;

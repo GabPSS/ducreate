@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5rI/7N5hUJgzOlRn4PKLxr0nlkPX4W7SpdOdJO2SxAM8XRpx0WYtz00xtvfKQwOh1o21xaW2vXEnXNxs9IooTQ==",
+  "dgSpecHash": "y7L7W8Ry6mXKJXKnEEZCRU/Fpityh31OZKtcYRRCo6ZrBYe0cKjjiwTaCWkCrMHXxBXfU9FnsjTkshzGdVaauA==",
   "success": true,
-  "projectFilePath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\ExpovgenGUI.csproj",
+  "projectFilePath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\Ducreate.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"

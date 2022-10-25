@@ -324,7 +324,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::ExpovgenGUI.Properties.Resources.pixabay_logo_square;
+            this.pictureBox1.Image = Ducreate.Properties.Resources.pixabay_logo_square;
             this.pictureBox1.Location = new System.Drawing.Point(277, 42);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(62, 61);
