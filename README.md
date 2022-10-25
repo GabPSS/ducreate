@@ -1,4 +1,4 @@
-# expovgen
+# Ducreate
 *Projeto Gerador de Videoaulas para EXPOTEC 2022.*
 
 O Expovgen é um programa de computador que tem o objetivo de gerar vídeos automáticos usando apenas textos fornecidos pelo usuário, buscando os recursos necessários automaticamente na internet para isto. 
