@@ -241,7 +241,7 @@ namespace Expovgen.LangAPI
             {
                 for (int i1 = 0; i1 < Keywords.Length; i1++)
                 {
-                    if (doc[i].Contains(Keywords[i1]))
+                    if (doc[i].Contains(Keywords[i1].Trim()))
                     {
                         doc[i] = i1.ToString("000") + " " + doc[i];
                         break;
