@@ -186,11 +186,11 @@
     "C:\\Users\\katia_amogmah\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "0.1.1",
     "restore": {
-      "projectUniqueName": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\ExpovgenGUI.csproj",
-      "projectName": "ExpovgenGUI",
-      "projectPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\ExpovgenGUI.csproj",
+      "projectUniqueName": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\Ducreate.csproj",
+      "projectName": "Ducreate",
+      "projectPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\Ducreate.csproj",
       "packagesPath": "C:\\Users\\katia_amogmah\\.nuget\\packages\\",
       "outputPath": "E:\\expovgen\\Expovgen\\ExpovgenGUI\\obj\\publish\\win-x86\\",
       "projectStyle": "PackageReference",
