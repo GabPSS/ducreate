@@ -257,7 +257,7 @@ namespace ExpovgenGUI
 
             if (!e.OverrideRequestedIntentionally)
             {
-                MessageBox.Show("Algumas imagens não puderam ser baixadas. Clique OK para fornecer estas manualmente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Algumas imagens não puderam ser baixadas. Clique OK para fornecer estas manualmente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             Etapa2OverrideForm overrideForm = new(e.RequestQueries, e.Images, (Settings.VideoWidth, Settings.VideoHeight))

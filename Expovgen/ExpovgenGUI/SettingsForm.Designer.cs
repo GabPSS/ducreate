@@ -324,7 +324,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = Ducreate.Properties.Resources.pixabay_logo_square;
+            this.pictureBox1.Image = global::Ducreate.Properties.Resources.pixabay_logo_square;
             this.pictureBox1.Location = new System.Drawing.Point(277, 42);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(62, 61);
@@ -551,9 +551,11 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
             this.Text = "Propriedades";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

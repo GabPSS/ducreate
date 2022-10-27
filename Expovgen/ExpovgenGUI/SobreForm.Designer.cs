@@ -100,11 +100,12 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.BackColor = System.Drawing.Color.Lime;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(39, 26);
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(138)))), ((int)(((byte)(232)))));
+            this.pictureBox2.Image = global::Ducreate.Properties.Resources.EXPOTEClogo;
+            this.pictureBox2.Location = new System.Drawing.Point(18, 29);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(72, 72);
+            this.pictureBox2.Size = new System.Drawing.Size(116, 116);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
@@ -112,6 +113,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox1.Image = global::Ducreate.Properties.Resources.back;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(152, 463);
@@ -221,9 +223,9 @@
             this.label6.Location = new System.Drawing.Point(5, 266);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 21);
+            this.label6.Size = new System.Drawing.Size(110, 21);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Com apoio de:";
+            this.label6.Text = "Orientadores:";
             // 
             // label7
             // 

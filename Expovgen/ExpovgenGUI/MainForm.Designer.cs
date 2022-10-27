@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,7 +103,7 @@
             this.novoToolStripMenuItem.Image = global::Ducreate.Properties.Resources.note_add_FILL0_wght400_GRAD0_opsz48;
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
             this.novoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
             // 
@@ -111,7 +112,7 @@
             this.abrirToolStripMenuItem.Image = global::Ducreate.Properties.Resources.folder_open_FILL0_wght400_GRAD0_opsz48;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.abrirToolStripMenuItem.Text = "Abrir...";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -120,7 +121,7 @@
             this.salvarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
             this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
             this.salvarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.salvarToolStripMenuItem.Text = "Salvar";
             this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
             // 
@@ -130,7 +131,7 @@
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
             this.salvarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.salvarComoToolStripMenuItem.Text = "Salvar como...";
             this.salvarComoToolStripMenuItem.Click += new System.EventHandler(this.salvarComoToolStripMenuItem_Click);
             // 
@@ -139,34 +140,34 @@
             this.exportarToolStripMenuItem.Image = global::Ducreate.Properties.Resources.send_FILL0_wght400_GRAD0_opsz48;
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
             this.exportarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.exportarToolStripMenuItem.Text = "Exportar vídeo...";
             this.exportarToolStripMenuItem.Click += new System.EventHandler(this.exportarToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(217, 6);
             // 
             // propriedadesToolStripMenuItem
             // 
             this.propriedadesToolStripMenuItem.Image = global::Ducreate.Properties.Resources.settings_FILL0_wght400_GRAD0_opsz48;
             this.propriedadesToolStripMenuItem.Name = "propriedadesToolStripMenuItem";
-            this.propriedadesToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.propriedadesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.propriedadesToolStripMenuItem.Text = "Propriedades";
             this.propriedadesToolStripMenuItem.Click += new System.EventHandler(this.propriedadesToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(217, 6);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Image = global::Ducreate.Properties.Resources.close_FILL0_wght400_GRAD0_opsz48__1_;
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             this.sairToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(230, 32);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -414,6 +415,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "MainForm";
             this.Text = "MainForm";

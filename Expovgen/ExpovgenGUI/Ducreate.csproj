@@ -8,10 +8,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageLicenseFile>C:\Users\katia_amogmah\OneDrive\Área de Trabalho\license.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>0.1.0</AssemblyVersion>
-    <FileVersion>0.1.0</FileVersion>
-    <Version>0.1.1</Version>
+    <AssemblyVersion>0.2.0</AssemblyVersion>
+    <FileVersion>0.2.0</FileVersion>
+    <Version>0.2.0</Version>
+    <Description>Gerador de videoaulas para a Expotec 2022</Description>
+    <PackageProjectUrl>https://gabpss.github.io/ducreate</PackageProjectUrl>
+    <PackageIcon>EXPOTEClogo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/GabPSS/ducreate</RepositoryUrl>
+    <NeutralLanguage>pt-BR</NeutralLanguage>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\EXPOTEClogo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Libexpovgen\Libexpovgen.csproj" />

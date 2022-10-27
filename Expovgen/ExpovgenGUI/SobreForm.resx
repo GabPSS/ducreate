@@ -57,58 +57,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        0AMey8IEAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="label3.Text" xml:space="preserve">
     <value>O {0} é um gerador de videoaulas automático criado para a Expotec 2022. Tem como objetivo elaborar um vídeo estilo apresentação com base apenas em textos fornescidos pelo usuário, aprimorando a didática de professores e introduzindo uma alternativa no caso de indisponibilidade destes ou da impossibilidade de ministrar as aulas presencialmente (como é, por exemplo, no caso das aulas online ou E.A.D.)</value>
   </data>

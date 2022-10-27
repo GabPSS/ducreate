@@ -30,6 +30,7 @@ namespace ExpovgenGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExportForm));
             this.dimensionsGbx = new System.Windows.Forms.GroupBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -105,7 +106,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = Ducreate.Properties.Resources.straighten_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox3.Image = global::Ducreate.Properties.Resources.straighten_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox3.Location = new System.Drawing.Point(8, -4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(28, 26);
@@ -181,7 +182,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = Ducreate.Properties.Resources.format_size_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox2.Image = global::Ducreate.Properties.Resources.format_size_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox2.Location = new System.Drawing.Point(10, -5);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(26, 26);
@@ -251,7 +252,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = Ducreate.Properties.Resources.volume_up_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox4.Image = global::Ducreate.Properties.Resources.volume_up_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox4.Location = new System.Drawing.Point(8, -4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(28, 26);
@@ -415,7 +416,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox5.Image = global::Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox5.Location = new System.Drawing.Point(9, -5);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(28, 26);
@@ -449,7 +450,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox6.Image = global::Ducreate.Properties.Resources.movie_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox6.Location = new System.Drawing.Point(9, -5);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(28, 26);
@@ -524,7 +525,7 @@ namespace ExpovgenGUI
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
+            this.pictureBox1.Image = global::Ducreate.Properties.Resources.save_FILL0_wght400_GRAD0_opsz48;
             this.pictureBox1.Location = new System.Drawing.Point(12, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
@@ -543,9 +544,11 @@ namespace ExpovgenGUI
             this.ClientSize = new System.Drawing.Size(423, 519);
             this.Controls.Add(this.tableLayoutPanel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExportForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Exportar";
             this.Load += new System.EventHandler(this.ExportForm_Load);

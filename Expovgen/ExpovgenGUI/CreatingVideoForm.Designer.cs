@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreatingVideoForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.detailsViewTLP = new System.Windows.Forms.TableLayoutPanel();
@@ -191,6 +192,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.simpleViewTLP);
             this.Controls.Add(this.detailsViewTLP);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CreatingVideoForm";
