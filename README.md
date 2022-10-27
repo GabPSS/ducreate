@@ -20,3 +20,7 @@ Desenvolvido por:
 - Nicolas da Silva Rodrigues
 - Gabriel Pilotto Silva
 - Victor Hugo Galeno
+
+## Informações legais e Direitos Autorais
+
+Vide os arquivos copying.rtf e license.rtf
