@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Ducreate"
-#define MyAppVersion "0.1.1"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "Grupo Ducreate 2022"
 #define MyAppURL "https://gabpss.github.io/ducreate"
 #define MyAppExeName "Ducreate.exe"
@@ -32,6 +32,8 @@ OutputDir=bin\
 OutputBaseFilename=Ducreate_Setup_{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
+SetupIconFile=E:\expovgen\ducreate.ico
+DisableWelcomePage=no
 
 [Languages]
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
