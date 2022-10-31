@@ -41,36 +41,37 @@
             // textInput
             // 
             this.textInput.AcceptsReturn = true;
-            this.textInput.Location = new System.Drawing.Point(12, 68);
+            this.textInput.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.textInput.Location = new System.Drawing.Point(12, 89);
             this.textInput.MaxLength = 65536;
             this.textInput.Multiline = true;
             this.textInput.Name = "textInput";
             this.textInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textInput.Size = new System.Drawing.Size(383, 276);
+            this.textInput.Size = new System.Drawing.Size(383, 270);
             this.textInput.TabIndex = 0;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 22);
+            this.label1.Location = new System.Drawing.Point(67, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(321, 15);
+            this.label1.Size = new System.Drawing.Size(328, 45);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Preencha o campo abaixo com as palavras-chave desejadas";
+            this.label1.Text = "Preencha o campo abaixo com as palavras-chave mais importantes que serão converti" +
+    "das em imagens no vídeo final";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(67, 37);
+            this.label2.Location = new System.Drawing.Point(67, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(310, 15);
+            this.label2.Size = new System.Drawing.Size(314, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "IMPORTANTE: Insira uma frase/palavra-chave por linha";
+            this.label2.Text = "IMPORTANTE: Insira uma frase/palavra-chave por linha!";
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(239, 350);
+            this.btnOK.Location = new System.Drawing.Point(239, 365);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 3;
@@ -80,7 +81,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(320, 350);
+            this.btnCancelar.Location = new System.Drawing.Point(320, 365);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
@@ -104,7 +105,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(407, 385);
+            this.ClientSize = new System.Drawing.Size(407, 400);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnOK);

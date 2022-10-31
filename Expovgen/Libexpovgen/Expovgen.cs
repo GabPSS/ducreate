@@ -517,8 +517,10 @@ namespace Expovgen
                 process.OutputDataReceived += WritePythonDataToLog;
                 process.ErrorDataReceived += WritePythonDataToLog;
                 process.BeginErrorReadLine();
+                process.BeginOutputReadLine();
                 process.WaitForExit();
                 process.CancelErrorRead();
+                process.CancelOutputRead();
                 if (process.ExitCode != 0)
                 {
                     Logger.WriteLine("Python step " + pytask.ToString() + " failed");

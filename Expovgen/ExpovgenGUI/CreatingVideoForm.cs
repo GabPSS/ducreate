@@ -454,7 +454,10 @@ namespace ExpovgenGUI
                 }
                 listBox1.Items.Add(e.WrittenText);
             }));
-            File.AppendAllLines("res\\logs.txt", new string[] { e.WrittenText });
+            try
+            {
+                File.AppendAllLines("res\\logs.txt", new string[] { e.WrittenText });
+            } catch { }
         }
 
         #region Cancel/Exit button
