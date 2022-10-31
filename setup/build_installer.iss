@@ -24,7 +24,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={userappdata}\{#MyAppName}
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=..\license.rtf
+;LicenseFile=..\license.rtf
 InfoBeforeFile=..\copying.rtf
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
@@ -32,7 +32,8 @@ OutputDir=bin\
 OutputBaseFilename=Ducreate_Setup_{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=E:\expovgen\ducreate.ico
+SetupIconFile=ducreate.ico
+;WizardImageFile=ducreate.png
 DisableWelcomePage=no
 
 [Languages]

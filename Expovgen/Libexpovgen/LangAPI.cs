@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json.Nodes;
 
 namespace Expovgen.LangAPI
@@ -23,11 +23,13 @@ namespace Expovgen.LangAPI
         /// <exception cref="QuotaExceededException"></exception>
         public void GetKeywords()
         {
+            //Make request
             HttpRequestMessage request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri(URL);
             request.Headers.Add("apikey",secret);
             
+            //Create document and add as content
             StringBuilder content = new StringBuilder();
             foreach (string line in Document)
             {
@@ -35,12 +37,17 @@ namespace Expovgen.LangAPI
             }
             byte[] contentBytes = Encoding.UTF8.GetBytes(content.ToString());
             request.Content = new ByteArrayContent(contentBytes);
+
+            //Send and treat response
             HttpResponseMessage response = client.Send(request); 
             if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
             {
                 throw new QuotaExceededException();
             }
+
+            //Parse JSON
             JsonNode? obj = null;
+            List<string> keywords = new List<string>();
             try
             {
                 obj = JsonObject.Parse(response.Content.ReadAsStream());
@@ -49,7 +56,8 @@ namespace Expovgen.LangAPI
             {
                 Keywords = null;
             }
-            List<string> keywords = new List<string>();
+
+            //Extract keywords from JSON object
             if (obj is not null)
             {
                 if (obj["result"] is not null)
@@ -60,7 +68,7 @@ namespace Expovgen.LangAPI
                         try
                         {
                             string keyword = (string)obj["result"][count]["text"];
-                            keywords.Add(keyword is not null ? keyword : "(null)");
+                            keywords.Add(keyword is not null ? keyword : "");
                             count++;
                         }
                         catch
@@ -68,11 +76,25 @@ namespace Expovgen.LangAPI
                             break;
                         }
                     }
-                    Keywords = keywords.ToArray();
+
+                    List<string>? keywordsFinal = TreatKeywords(keywords.ToArray(), CondenseDocument(Document))?.ToList();
+                    if (keywordsFinal == null)
+                    {
+                        Keywords = null;
+                        keywordsFinal = new List<string>();
+                    }
+                    else
+                    {
+                        Keywords = keywordsFinal.ToArray();
+                    }
+
+
+                    Keywords = keywordsFinal.ToArray();
                 }
                 else
                 {
                     Keywords = null;
+                    
                 }
             }
             else
@@ -83,39 +105,91 @@ namespace Expovgen.LangAPI
             File.WriteAllLines(KeywordsFileTargetPath, keywords);
         }
 
+        /// <summary>
+        /// Brings document into a single line
+        /// </summary>
+        public string CondenseDocument(string[] document)
+        {
+            string singleLineDocument = "";
+
+            //Joins document together in one single line
+            for (int i = 0; i < document.Length; i++)
+            {
+
+                string toAdd = document[i].Trim();
+                if (toAdd == "")
+                {
+                    continue;
+                }
+                if (!toAdd.TrimEnd().EndsWith(".") && !(toAdd.TrimEnd().EndsWith('!') || toAdd.TrimEnd().EndsWith('?') || toAdd.TrimEnd().EndsWith(':') || toAdd.TrimEnd().EndsWith(';')))
+                {
+                    toAdd += ". ";
+                }
+                singleLineDocument += toAdd;
+            }
+
+            //returns it
+            return singleLineDocument;
+        }
+
+        /// <summary>
+        /// Treats an array of keywords based on a single line document string.
+        /// </summary>
+        /// <param name="keywords">the initial keyword array</param>
+        /// <param name="singleLineDocument">a condensed document</param>
+        public static string[]? TreatKeywords(string[] keywords, string singleLineDocument)
+        {
+            List<string> treatedKeywords = new();
+            for (int i = 0; i < keywords.Length; i++)
+            {
+                string kw = keywords[i].Trim().ToLower();
+                if (kw != "" && //Is not just whitespace or empty
+                    !treatedKeywords.Contains(kw) && //Isn't repeated
+                    singleLineDocument.Contains(kw) ) //Is contained within document
+                {
+                    treatedKeywords.Add(kw); //Add it to treatedKeywords
+                }
+            }
+            if (treatedKeywords.Count > 0)
+                return treatedKeywords.ToArray();
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Creates document res\split.txt containing phrases divided by keyword (for showing image)
+        /// </summary>
         public void SplitPhrases()
         {
             if (Keywords is not null)
             {
-                string splitDocument = "";
+                string singleLineDocument = CondenseDocument(Document);
 
-                for (int i = 0; i < Document.Length; i++)
-                {
-                    string toAdd = Document[i].TrimStart();
-                    if (!toAdd.TrimEnd().EndsWith(".") && !(toAdd.TrimEnd().EndsWith('!') || toAdd.TrimEnd().EndsWith('?') || toAdd.TrimEnd().EndsWith(':') || toAdd.TrimEnd().EndsWith(';')))
-                    {
-                        toAdd += ". ";
-                    }
-                    splitDocument += toAdd;
-                }
-
+                //Creates new list of lookup indices
                 List<int> lookupIndexes = new();
 
+                //Creates an alternative document, used only for keyword lookup
+                string lowerCaseSingleLineDocument = singleLineDocument.ToLower();
+                
+                //Iterates each keyword to find indexes for it, then add them to lookupIndexes
                 foreach (string keyword in Keywords)
                 {
+                    //Creates new list of keyword indexes for $keyword
                     List<int> singleKeywordIndexes = new();
-
                     int x = 0;
                     do
                     {
-                        x = splitDocument.IndexOf(keyword, x);
+                        //Looks for the first index after x (NOTE: This is where keywords should be treated before comparison!)
+                        x = lowerCaseSingleLineDocument.IndexOf(keyword.Trim().ToLower(), x);
                         if (x != -1)
                         {
+                            //If it found any, add to singleKeywordIndexes, then repeat
                             singleKeywordIndexes.Add(x);
                             x++;
                         }
                     } while (x != -1);
 
+                    //Adds all indices for $keyword in lookupIndexes
                     lookupIndexes.AddRange(singleKeywordIndexes);
                 }
                 
@@ -124,49 +198,59 @@ namespace Expovgen.LangAPI
                 int counter = 0;
                 foreach (int match in lookupIndexes)
                 {
-                    splitDocument = splitDocument.Insert(match + counter, "�");
+                    singleLineDocument = singleLineDocument.Insert(match + counter, "☼");
                     counter++;
                 }
 
-                List<string> brokenDocument = splitDocument.Split("�").ToList();
+                //Splits the singleLineDocument into a string list by the ☼ character
+                List<string> splitDocument = singleLineDocument.Split("☼").ToList();
 
-                for (int i = 0; i < brokenDocument.Count; i++)
+                //Line treating so each one contains a single keyword
+                for (int i = 0; i < splitDocument.Count; i++)
                 {
-                    bool contains = false;
+                    bool containsAKeyword = false;
+
+                    //Check if the line contains any keywords
                     foreach (string keyword in Keywords)
                     {
-                        bool doesContain = brokenDocument[i].Contains(keyword);
-                        if (doesContain)
+                        bool containsThisKeyword = splitDocument[i].Contains(keyword.Trim());
+                        if (containsThisKeyword)
                         {
-                            contains = doesContain;
+                            containsAKeyword = containsThisKeyword;
                             break;
                         }
                     }
 
-                    if (!contains && i != brokenDocument.Count - 1)
+                    //If it doesn't contain any keyword and it's not the last line, join it with tne next line
+                    if (!containsAKeyword && i != splitDocument.Count - 1)
                     {
-                        brokenDocument[i + 1] = (brokenDocument[i].TrimEnd() + " " + brokenDocument[i + 1].TrimStart()).Trim();
-                        brokenDocument[i] = "";
+                        splitDocument[i + 1] = (splitDocument[i].TrimEnd() + " " + splitDocument[i + 1].TrimStart()).Trim();
+                        splitDocument[i] = "";
                     }
                 }
 
-                for (int i = 0; i < brokenDocument.Count; i++)
+                //Go through each line to remove empty lines
+                for (int i = 0; i < splitDocument.Count; i++)
                 {
-                    if (brokenDocument[i].Trim() == "")
+                    if (splitDocument[i].Trim() == "")
                     {
-                        brokenDocument.RemoveAt(i);
+                        splitDocument.RemoveAt(i);
                         i--;
                         continue;
                     }
-
-                    brokenDocument[i] = brokenDocument[i].Trim();
+                    splitDocument[i] = splitDocument[i].Trim();
                 }
 
-                Document = brokenDocument.ToArray();
-                File.WriteAllLines(@"res\split.txt",brokenDocument);
+                //Save to file and to document array
+                Document = splitDocument.ToArray();
+                File.WriteAllLines(@"res\split.txt",splitDocument);
             }
 
         }
+
+        /// <summary>
+        /// Makes res\cc.txt file
+        /// </summary>
         public void MakeCaptions()
         {
             List<string> phrases = new();
@@ -231,6 +315,11 @@ namespace Expovgen.LangAPI
             File.WriteAllLines(@"res\cc.txt", phrases);
         }
 
+        /// <summary>
+        /// Adds identifier IDs to the start of the aligned res\splitcc.txt file
+        /// </summary>
+        /// <param name="keywordsFilePath">the res\keywords.txt file</param>
+        /// <param name="filePath">the res\splitcc.txt file</param>
         public static void PrepareAlignmentAgainstKeywords(string keywordsFilePath, string filePath)
         {
             string[] doc = File.ReadAllLines(filePath);
@@ -247,6 +336,7 @@ namespace Expovgen.LangAPI
                         break;
                     }
                 }
+                doc[i] = "000 " + doc[i];
             }
 
             File.WriteAllLines(filePath, doc);
