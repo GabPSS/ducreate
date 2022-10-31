@@ -131,7 +131,7 @@ namespace Expovgen
             catch { }
             Logger.WriteLine("Concluído.");
 
-            if (langapi.Keywords is null)
+            if (langapi.Keywords is null || langapi.Keywords?.Length == 0)
             {
                 Logger.WriteLine("Erro ao extrair palavras-chave!");
                 OnEtapa1Failed(Settings.Etapa1Behaviors == Etapa1Behaviors.AutoManual, Array.Empty<string>());
